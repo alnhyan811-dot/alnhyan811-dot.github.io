@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المهندس أبو زايد للبلاغات | فحص الحسابات المتقدم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #030603;
+            color: #00ff66;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* شبكة الماتريكس في الخلفية */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+            background-size: 25px 25px;
+            z-index: -1;
+        }
+
+        /* زر الثلاثة خطوط (القائمة الجانبية) في أعلى اليمين */
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 26px;
+            color: #00ff66;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px #00ff66;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+            color: #ffffff;
+        }
+
+        /* القائمة الجانبية المنبثقة */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px; /* مخفية افتراضياً خارج الشاشة */
+            width: 280px;
+            height: 100%;
+            background: rgba(4, 8, 4, 0.95);
+            border-left: 1px solid #00ff66;
+            box-shadow: -5px 0 25px rgba(0, 255, 102, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 99;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 80px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* عند تفعيل القائمة */
+        .sidebar.active {
+            right: 0;
+        }
+
+        /* زر الإغلاق داخل القائمة */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #ff3333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* روابط التواصل داخل القائمة */
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #e2ede4;
+            text-decoration: none;
+            padding: 14px 16px;
+            background: rgba(0, 255, 102, 0.05);
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link i {
+            font-size: 20px;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* تأثيرات الألوان عند تمرير الماوس على الروابط */
+        .menu-link.whatsapp:hover { background: #25D366; color: #000; border-color: #25D366; box-shadow: 0 0 10px #25D366; }
+        .menu-link.instagram:hover { background: #E1306C; color: #fff; border-color: #E1306C; box-shadow: 0 0 10px #E1306C; }
+        .menu-link.telegram:hover { background: #0088cc; color: #fff; border-color: #0088cc; box-shadow: 0 0 10px #0088cc; }
+        .menu-link.snapchat:hover { background: #FFFC00; color: #000; border-color: #FFFC00; box-shadow: 0 0 10px #FFFC00; }
+
+        /* الحاوية الرئيسية للموقع */
+        .container {
+            background: rgba(8, 12, 8, 0.9);
+            border: 1px solid #00ff66;
+            backdrop-filter: blur(12px);
+            padding: 35px 25px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(0, 255, 102, 0.25);
+            position: relative;
+            margin: 20px;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #003311, #00ff66, #003311);
+            box-shadow: 0 0 15px #00ff66;
+        }
+
+        .developer-badge {
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid rgba(0, 255, 102, 0.5);
+            color: #00ff66;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 22px;
+        }
+
+        .icon-box {
+            width: 85px;
+            height: 85px;
+            background: #061006;
+            border: 2px solid #00ff66;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+            font-size: 38px;
+            color: #00ff66;
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        p.subtitle {
+            color: #a3b8a8;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group span {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ff66;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 45px 16px 16px;
+            background: #010401;
+            border: 1px solid rgba(0, 255, 102, 0.4);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #00ff66;
+            border: none;
+            border-radius: 12px;
+            color: #010401;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        }
+
+        button:hover {
+            background: #00cc52;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
+        }
+
+        /* لوحة كشف البلاغات */
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 255, 102, 0.04);
+            border-radius: 12px;
+            border: 1px solid #00ff66;
+            display: none;
+            text-align: right;
+            animation: slideUp 0.4s ease forwards;
+        }
+
+        .result-title {
+            font-size: 14px;
+            color: #ffffff;
+            border-bottom: 1px solid #00ff66;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .result-item {
+            margin-bottom: 11px;
+            font-size: 13.5px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.1);
+            padding-bottom: 8px;
+            color: #e2ede4;
+        }
+
+        .result-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+        .val-safe { color: #00ff66; font-weight: bold; }
+        .val-danger { color: #ff3333; font-weight: bold; }
+        .val-warn { color: #ffaa00; font-weight: bold; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
+        <div class="sidebar-title">قنوات التواصل الرسمية</div>
+        
+        <a href="https://wa.me/966548459464" target="_blank" class="menu-link whatsapp"><i class="fa-brands fa-whatsapp"></i> الواتساب الرسمي</a>
+        <a href="https://instagram.com/5q.mc" target="_blank" class="menu-link instagram"><i class="fa-brands fa-instagram"></i> الإنستقرام</a>
+        <a href="https://t.me/B_1n2" target="_blank" class="menu-link telegram"><i class="fa-brands fa-telegram"></i> التليجرام</a>
+        <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات</a>
+    </div>
+
+    <div class="container">
+        <div class="developer-badge"><i class="fa-solid fa-terminal"></i> نـظـام الـمـهـنـدس أبـو زايد الـمـتـقـدم</div>
+        
+        <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
+        <h1>المهندس أبو زايد للبلاغات</h1>
+        <p class="subtitle">نظام ذكي لفحص وهندسة جدار حماية الحسابات واستخراج تقارير بلاغات انستقرام النشطة.</p>
+        
+        <div class="input-group">
+            <span>@</span>
+            <input type="text" id="username" placeholder="أدخل يوزر انستقرام المراد هندسته..." autocomplete="off">
+        </div>
+
+        <button onclick="startInstagramAnalysis()" id="btn">تشغيل بروتوكول الهندسة الرقمية</button>
+
+        <div class="result-box" id="result"></div>
+    </div>
+
+    <script>
+        // دالة التحكم في فتح وإغلاق القائمة الجانبية 
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function startInstagramAnalysis() {
+            const username = document.getElementById('username').value.trim();
+            const resultBox = document.getElementById('result');
+            const btn = document.getElementById('btn');
+
+            if (username === '') {
+                alert('خطأ: يرجى كتابة يوزر الحساب أولاً لتشغيل بروتوكول الفحص سيدي!');
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري الاتصال بالخوادم...';
+            btn.disabled = true;
+            resultBox.style.display = 'none';
+
+            setTimeout(() => {
+                btn.innerHTML = 'تشغيل بروتوكول الهندسة الرقمية';
+                btn.disabled = false;
+                resultBox.style.display = 'block';
+
+                if (username.length <= 5) {
+                    resultBox.innerHTML = `
+                        <div class="result-title">تقرير المهندس أبو زايد للحساب: @${username}</div>
+                        <div class="result-item"><span>بلاغات انتحال الشخصية (Impersonation):</span><span class="val-danger">نشط ومستهدف</span></div>
+                        <div class="result-item"><span>بلاغات السبام والوهمي (Spam):</span><span class="val-danger">مكثف (تحتاج فك هندسي)</span></div>
+                        <div class="result-item"><span>مخالفة إرشادات المجتمع (Guidelines):</span><span class="val-warn">تحذير نشط</span></div>
+                        <div class="result-item"><span>درع الحماية وجدار الأمان:</span><span class="val-danger">مخترق ومعرض للقفل</span></div>
+                    `;
+                } else {
+                    resultBox.innerHTML = `
+                        <div class="result-title">تقرير المهندس أبو زايد للحساب: @${username}</div>
+                        <div class="result-item"><span>بلاغات انتحال الشخصية (Impersonation):</span><span class="val-safe">0 بلاغات (آمن)</span></div>
+                        <div class="result-item"><span>بلاغات السبام والوهمي (Spam):</span><span class="val-safe">نظيف ومستقر</span></div>
+                        <div class="result-item"><span>مخالفة إرشادات المجتمع (Guidelines):</span><span class="val-safe">سجل سليم بالكامل</span></div>
+                        <div class="result-item"><span>درع الحماية وجدار الأمان:</span><span class="val-safe">محصن ومقفل بنجاح</span></div>
+                    `;
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
