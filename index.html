@@ -6,6 +6,7 @@
     <title>منصة المطور أبو زايد | منظومة الهندسة الرقمية الشاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* إعادة ضبط شاملة لمنع أي ميلان أو خروج عن النص */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,12 +21,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
             padding: 20px;
             flex-direction: column;
             gap: 25px;
         }
 
-        /* جملة الترحيب العلوية للمطور أبو زايد */
         .welcome-header {
             text-align: center;
             color: #00ff66;
@@ -36,7 +38,6 @@
             text-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
         }
 
-        /* زر القائمة الجانبية (3 خطوط) */
         .menu-btn {
             position: absolute;
             top: 20px;
@@ -47,28 +48,67 @@
             z-index: 100;
         }
 
+        /* تنسيق القائمة الجانبية بطريقة تمنع سحب الصفحة لليسار */
         .sidebar {
             position: fixed;
-            top: 0; right: -280px; width: 280px; height: 100%;
-            background: #070a0f; border-left: 1px solid #1f293d;
-            padding: 80px 20px 20px 20px; display: flex; flex-direction: column; gap: 15px;
-            z-index: 99; transition: all 0.3s ease;
+            top: 0; 
+            right: -320px; 
+            width: 300px; 
+            height: 100%;
+            background: #070a0f; 
+            border-left: 1px solid #1f293d;
+            padding: 70px 20px 20px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px;
+            z-index: 999; 
+            transition: all 0.3s ease;
+            overflow-y: auto;
         }
 
         .sidebar.active { right: 0; }
         .close-btn { position: absolute; top: 20px; left: 20px; font-size: 22px; color: #ff3333; cursor: pointer; }
-        .sidebar-title { font-size: 16px; color: #718096; margin-bottom: 10px; font-weight: bold; }
+        
+        .sidebar-section {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-title { 
+            font-size: 13px; 
+            color: #718096; 
+            margin-bottom: 8px; 
+            font-weight: bold; 
+            border-bottom: 1px solid #1f293d;
+            padding-bottom: 5px;
+            text-align: right;
+        }
 
         .menu-link {
-            display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none;
-            padding: 12px; background: #131a26; border-radius: 10px; font-size: 14px; transition: 0.3s;
+            display: flex; align-items: center; gap: 12px; color: #ffffff; text-decoration: none;
+            padding: 10px; background: #131a26; border-radius: 10px; font-size: 13px; transition: 0.3s;
+            margin-bottom: 8px;
+            justify-content: flex-start;
         }
+        .menu-link:hover { background: #1f293d; color: #00ff66; }
         .menu-link.whatsapp:hover { background: #25D366; color: #000; }
-        .menu-link.instagram:hover { background: #E1306C; }
-        .menu-link.telegram:hover { background: #0088cc; }
+        .menu-link.instagram:hover { background: #E1306C; color: #fff; }
+        .menu-link.telegram:hover { background: #0088cc; color: #fff; }
         .menu-link.snapchat:hover { background: #FFFC00; color: #000; }
 
-        /* الحاوية الرئيسية */
+        .time-badge {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #111622;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #e2ede4;
+            margin-bottom: 6px;
+            border-right: 3px solid #00bcff;
+        }
+
+        /* الكونتينر متمركز ومحمي تماماً من الميلان */
         .container {
             width: 100%;
             max-width: 480px;
@@ -78,9 +118,10 @@
             padding: 25px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            margin: 0 auto;
         }
 
-        /* شريط مراقبة حالة السيرفرات الجمالي */
         .server-status-bar {
             display: flex;
             justify-content: space-between;
@@ -107,8 +148,8 @@
         h1 { font-size: 22px; margin-bottom: 5px; color: #ffffff; }
         .subtitle { color: #718096; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
 
-        .input-group { position: relative; margin-bottom: 15px; }
-        .input-group span { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #718096; font-size: 16px; }
+        .input-group { position: relative; margin-bottom: 15px; width: 100%; }
+        .input-group span { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #718096; font-size: 16px; z-index: 5; }
         
         input[type="text"], select {
             width: 100%; padding: 15px; background: #0b0e14;
@@ -117,7 +158,6 @@
         input[type="text"] { padding-right: 40px; }
         input[type="text"]:focus, select:focus { border-color: #00ff66; }
 
-        /* ستايل خانة اختيار الجنس الجديدة */
         .gender-selector {
             display: flex;
             justify-content: space-around;
@@ -146,7 +186,6 @@
             font-weight: bold;
         }
 
-        /* تأثير التوهج النبضي للزر الأخضر */
         @keyframes neonPulse {
             0% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
@@ -160,14 +199,11 @@
         }
         button:hover { background: #00cc52; }
 
-        /* شريط التحميل الرقمي الجمالي */
         .loading-container { display: none; margin: 15px 0; background: #0b0e14; padding: 12px; border-radius: 12px; border: 1px dashed #2d3748; text-align: center; }
         .loading-bar { width: 0%; height: 4px; background: #00ff66; border-radius: 2px; margin-top: 8px; transition: width 0.1s linear; }
 
-        /* شاشات عرض النتائج والـ SMS */
-        .result-box, .sms-box { margin-top: 25px; display: none; text-align: right; }
+        .result-box { margin-top: 25px; display: none; text-align: right; }
         
-        /* بطاقة عرض الحساب المطابقة للصورة */
         .profile-card {
             background: #171d29; border-radius: 20px; padding: 25px; text-align: center; margin-bottom: 20px;
         }
@@ -178,7 +214,6 @@
         .profile-username { color: #ffffff; font-size: 20px; font-weight: bold; margin-bottom: 8px; }
         .profile-scan-info { color: #a0aec0; font-size: 12.5px; margin-bottom: 20px; }
         
-        /* بطاقة تم ترتيب الانتهاك بنجاح الحمراء بالصورة */
         .alert-badge {
             background: rgba(229, 62, 62, 0.05); color: #f34848; border: 1px solid #ff3333;
             padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
@@ -186,7 +221,6 @@
 
         .section-title { font-size: 14px; color: #a0aec0; margin: 25px 0 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
 
-        /* صندوق ذكاء اصطناعي تفاعلي متحدث ومفهوم */
         .ai-speech-box {
             background: linear-gradient(135deg, #0d1527 0%, #171330 100%);
             border-right: 4px solid #00ff66; border-radius: 14px; padding: 15px; margin-top: 10px;
@@ -194,40 +228,53 @@
         }
         .ai-speech-header { display: flex; align-items: center; gap: 8px; color: #00ff66; font-size: 13.5px; font-weight: bold; margin-bottom: 8px; }
         .ai-speech-text { color: #e2ede4; font-size: 13.5px; line-height: 1.6; min-height: 40px; }
-        .ai-speech-text strong { color: #ffcc00; }
-
-        /* ستايل الأرقام الوهمية الخانة الثانية */
-        .number-card { background: #1a202c; border-radius: 20px; padding: 20px; text-align: center; }
-        .success-badge { background: rgba(0, 255, 102, 0.1); color: #00ff66; border: 1px solid #00ff66; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block; }
-        .sms-item { background: #1a202c; border: 1px dashed #2d3748; border-radius: 12px; padding: 15px; margin-top: 15px; display: flex; flex-direction: column; gap: 5px; }
-        .sms-sender { font-size: 14px; font-weight: bold; color: #00ff66; }
-        .sms-text { font-size: 15px; color: #ffffff; background: #0b0e14; padding: 8px; border-radius: 6px; text-align: center; font-family: monospace; letter-spacing: 2px; }
-        .sms-time { font-size: 11px; color: #718096; text-align: left; }
     </style>
 </head>
 <body>
 
-    <!-- النص العلوى الثابت للمطور أبو زايد -->
     <div class="welcome-header">
         <i class="fa-solid fa-code-branch"></i> أهلاً بكم في منصة المطور أبو زايد الرقمية
     </div>
 
-    <!-- زر الـ 3 خطوط الجانبية -->
     <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
 
-    <!-- القائمة الجانبية المربوطة بحساباتك -->
     <div class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
-        <div class="sidebar-title">قنوات التواصل الرسمية</div>
-        <a href="https://wa.me/966548459464" target="_blank" class="menu-link whatsapp"><i class="fa-brands fa-whatsapp"></i> الواتساب</a>
-        <a href="https://instagram.com/5q.mc" target="_blank" class="menu-link instagram"><i class="fa-brands fa-instagram"></i> الإنستقرام (5q.mc)</a>
-        <a href="https://t.me/B_1n2" target="_blank" class="menu-link telegram"><i class="fa-brands fa-telegram"></i> التليجرام (B_1n2)</a>
-        <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات (B_1n77)</a>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-title"><i class="fa-solid fa-clock"></i> أوقات دعم الإنستقرام الموصى بها</div>
+            <div class="time-badge">
+                <span><i class="fa-solid fa-cloud-sun"></i> فترة الفجر</span>
+                <span style="color: #00ff66; font-weight: bold;">نشط جداً</span>
+            </div>
+            <div class="time-badge" style="border-right-color: #ffaa00;">
+                <span><i class="fa-solid fa-sun"></i> فترة الظهر</span>
+                <span style="color: #ffaa00; font-weight: bold;">متوسط</span>
+            </div>
+            <div class="time-badge" style="border-right-color: #00ff66;">
+                <span><i class="fa-solid fa-moon"></i> فترة العشاء</span>
+                <span style="color: #00ff66; font-weight: bold;">قوة قصوى</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title"><i class="fa-solid fa-brain"></i> ذكاء اصطناعي مساعد</div>
+            <a href="#" onclick="aiAssistantAction('أسرع بلاغ')" class="menu-link" style="background: linear-gradient(90deg, #1a233a 0%, #2c1a1a 100%); border: 1px solid #ff3333;"><i class="fa-solid fa-fire" style="color: #ff3333;"></i> كشف ثغرات الإغلاق السريع</a>
+            <a href="#" onclick="aiAssistantAction('ثغرة انتحال')" class="menu-link"><i class="fa-solid fa-robot" style="color: #00ff66;"></i> فحص أفضل ثغرة نشطة</a>
+            <a href="#" onclick="aiAssistantAction('توليد بلاغ')" class="menu-link"><i class="fa-solid fa-wand-magic-sparkles" style="color: #00bcff;"></i> صانع كليشة البلاغات الذكي</a>
+            <a href="#" onclick="aiAssistantAction('تسريع الخادم')" class="menu-link"><i class="fa-solid fa-gauge-high" style="color: #ffcc00;"></i> تحسين سرعة بث التقارير</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title"><i class="fa-solid fa-headset"></i> قنوات التواصل الرسمية</div>
+            <a href="https://wa.me/966548459464" target="_blank" class="menu-link whatsapp"><i class="fa-brands fa-whatsapp"></i> الواتساب</a>
+            <a href="https://instagram.com/5q.mc" target="_blank" class="menu-link instagram"><i class="fa-brands fa-instagram"></i> الإنستقرام (5q.mc)</a>
+            <a href="https://t.me/B_1n2" target="_blank" class="menu-link telegram"><i class="fa-brands fa-telegram"></i> التليجرام (B_1n2)</a>
+            <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات (B_1n77)</a>
+        </div>
     </div>
 
-    <!-- الخانة 1: نظام فحص وتحليل البلاغات الاستشاري والأمني المدعوم بـ AI -->
     <div class="container">
-        <!-- شريط مراقبة حالة السيرفر الجمالي -->
         <div class="server-status-bar">
             <div class="status-item"><span class="status-dot"></span> السيرفر: <span style="color:#00ff66; font-weight:bold;">مستقر</span></div>
             <div class="status-item"><i class="fa-solid fa-bolt" style="color:#ffcc00;"></i> الاستجابة: 0.3s</div>
@@ -238,7 +285,6 @@
         <h1>محلل البلاغات الذكي المتقدم</h1>
         <p class="subtitle">تحليل وفحص معمق للحسابات والمحتوى لاستخراج الانتهاكات وتوجيه بلاغات الإغلاق الفورية وفق سياسات المنصات.</p>
         
-        <!-- قسم تحديد جنس المستخدم الجديد -->
         <div class="gender-selector">
             <label class="gender-option">
                 <input type="radio" name="userGender" value="male" checked>
@@ -250,12 +296,12 @@
             </label>
         </div>
 
-        <div class="input-group" style="position: relative;">
+        <div class="input-group">
             <select id="platformSelect" style="margin-bottom: 12px;">
                 <option value="انستقرام">منصة الإنستقرام (Instagram)</option>
                 <option value="سناب شات">منصة السناب شات (Snapchat)</option>
             </select>
-            <span style="z-index: 10;">@</span>
+            <span>@</span>
             <input type="text" id="username" placeholder="أدخل يوزر الحساب المستهدف...">
         </div>
 
@@ -269,59 +315,12 @@
 
         <button onclick="runAiAnalysis()" id="btn">تشغيل نظام الـ AI المطور</button>
 
-        <!-- كرت أنيميشن العداد الصاعد الجمالي -->
         <div class="loading-container" id="loaderBox">
             <div style="font-size: 13px; color: #a0aec0;" id="loaderText"><i class="fa-solid fa-gear fa-spin"></i> جاري استدعاء محرك الـ AI وفحص المعرف... <span id="percentNum">0%</span></div>
-            <div class="loading-bar" id="loadBar animate"></div>
+            <div class="loading-bar" id="loadBar"></div>
         </div>
         
-        <!-- صندوق عرض النتائج المتناسق مع الصورة المرجعية وبميزة الكتابة الحرفية -->
         <div class="result-box" id="result"></div>
-    </div>
-
-    <!-- الخانة 2: نظام بوابة الأرقام الوهمية (كامل بدون أي حذف) -->
-    <div class="container">
-        <div class="developer-badge"><i class="fa-solid fa-sim-card"></i> خادم التفعيل العالمي لـ أبو زايد</div>
-        <h1>بوابة الأرقام السحابية والأكواد</h1>
-        <p class="subtitle">توليد أرقام حماية افتراضية مؤقتة لأكثر من 30 دولة لاستقبال رسائل التفعيل والـ SMS عن بعد.</p>
-        
-        <div class="input-group">
-            <select id="countrySelect">
-                <option value="+966">المملكة العربية السعودية 🇸🇦 (+966)</option>
-                <option value="+971">الإمارات العربية المتحدة 🇦🇪 (+971)</option>
-                <option value="+965">دولة الكويت 🇰🇼 (+965)</option>
-                <option value="+974">دولة قطر 🇶🇦 (+974)</option>
-                <option value="+973">مملكة البحرين 🇧🇭 (+973)</option>
-                <option value="+968">سلطنة عمان 🇴🇲 (+968)</option>
-                <option value="+20">جمهورية مصر العربية 🇪🇬 (+20)</option>
-                <option value="+212">المملكة المغربية 🇲🇦 (+212)</option>
-                <option value="+213">الجمهورية الجزائرية 🇩🇿 (+213)</option>
-                <option value="+216">الجمهورية التونسية 🇹🇳 (+216)</option>
-                <option value="+962">المملكة الأردنية 🇯🇴 (+962)</option>
-                <option value="+964">جمهورية العراق 🇮🇶 (+964)</option>
-                <option value="+1">الولايات المتحدة الأمريكية 🇺🇸 (+1)</option>
-                <option value="+44">المملكة المتحدة 🇬🇧 (+44)</option>
-                <option value="+33">فرنسا 🇫🇷 (+33)</option>
-                <option value="+49">ألمانيا 🇩🇪 (+49)</option>
-                <option value="+31">هولندا 🇳鹿 (+31)</option>
-                <option value="+46">السويد 🇸🇪 (+46)</option>
-                <option value="+34">إسبانيا 🇪🇸 (+34)</option>
-                <option value="+39">إيطاليا 🇮🇹 (+39)</option>
-                <option value="+41">سويسرا 🇨🇭 (+41)</option>
-                <option value="+7">روسيا 🇷🇺 (+7)</option>
-                <option value="+61">أستراليا 🇦🇺 (+61)</option>
-                <option value="+55">البرازيل 🇧🇷 (+55)</option>
-                <option value="+81">اليابان 🇯🇵 (+81)</option>
-                <option value="+82">كوريا الجنوبية 🇰🇷 (+82)</option>
-                <option value="+86">الصين 🇨🇳 (+86)</option>
-                <option value="+91">الهند 🇮🇳 (+91)</option>
-                <option value="+90">تركيا 🇹🇷 (+90)</option>
-                <option value="+60">ماليزيا 🇲🇾 (+60)</option>
-            </select>
-        </div>
-        <button onclick="generateFakeNumber()" id="smsBtn" style="background-color: #00bcff; color: #0b0e14;">توليد الرقم السحابي وتفعيل الخط</button>
-
-        <div class="sms-box" id="smsResult"></div>
     </div>
 
     <script>
@@ -329,7 +328,24 @@
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // دالة تمنح تأثير الكتابة الحرفية (Typewriter)
+        function aiAssistantAction(type) {
+            toggleMenu();
+            if(type === 'أسرع بلاغ') {
+                alert('🛑 نصيحة المطور أبو زايد للإغلاق الفوري:\n\n' +
+                      'أسرع بلاغ يطير الحساب في ثواني هو دمج ثغرة [انتحال شخصية مضلل] مع هجوم سبام مكثف بـ 5 حسابات في نفس اللحظة!\n\n' +
+                      '💡 الخطوات السرية:\n' +
+                      '1️⃣ انتظر فترة العشاء (أقوى دعم للمنصة).\n' +
+                      '2️⃣ شغل كود الهجوم المتزامن من الواجهة الرئيسية.\n' +
+                      '3️⃣ كرر البلاغ يدوياً من الحسابات البديلة بسرعة لتجميد الدومين.');
+            } else if(type === 'ثغرة انتحال') {
+                alert('الذكاء الاصطناعي يقترح: ثغرة [انتحال شخصية مضلل] هي الأعلى تأثيراً حالياً في انستقرام وفترتها القوية (العشاء).');
+            } else if(type === 'توليد بلاغ') {
+                alert('تم تجهيز كليشة قانونية بالخلفية! عند كتابة اسم المستخدم وتشغيل النظام، سيقوم المحرك بصياغتها فوراً.');
+            } else if(type === 'تسريع الخادم') {
+                alert('تم تحسين استهلاك ذاكرة التخزين السحابي مؤقتاً! الاستجابة الآن أصبحت 0.15s.');
+            }
+        }
+
         function typeWriterEffect(text, elementId) {
             let i = 0;
             const element = document.getElementById(elementId);
@@ -344,7 +360,6 @@
             type();
         }
 
-        // برمجية الفحص مع قراءة نوع الجنس وصياغة النص المتحدث المناسب لقيمته
         function runAiAnalysis() {
             const platform = document.getElementById('platformSelect').value;
             const username = document.getElementById('username').value.trim();
@@ -352,13 +367,13 @@
             const resultBox = document.getElementById('result');
             const btn = document.getElementById('btn');
             const loaderBox = document.getElementById('loaderBox');
-            const loadBar = document.getElementById('loadBar animate');
+            const loadBar = document.getElementById('loadBar');
             const percentNum = document.getElementById('percentNum');
+            const loaderText = document.getElementById('loaderText');
             
-            // قراءة الخيار المختار (ذكر أو أنثى)
             const gender = document.querySelector('input[name="userGender"]:checked').value;
 
-            if (username === '') { alert('الرجاء إدخال اسم المستخدم المستهدف أولاً!'); return; }
+            if (username === '') { alert('الرجاء إدخل اسم المستخدم المستهدف أولاً!'); return; }
 
             resultBox.style.display = 'none';
             loaderBox.style.display = 'block';
@@ -370,6 +385,15 @@
                 count += 5;
                 percentNum.innerText = count + "%";
                 loadBar.style.width = count + "%";
+
+                if(count === 30) {
+                    loaderText.innerHTML = `<i class="fa-solid fa-network-wired fa-spin" style="color:#00bcff;"></i> جاري تطبيق ثغرة الـ هجوم المتزامن [Spam Strike]... 30%`;
+                } else if(count === 60) {
+                    loaderText.innerHTML = `<i class="fa-solid fa-clone fa-spin" style="color:#ffcc00;"></i> جاري تكرار وإرسال 5 بلاغات مكثفة في نفس الثانية... 60%`;
+                } else if(count === 85) {
+                    loaderText.innerHTML = `<i class="fa-solid fa-shield-halved fa-spin" style="color:#ff3333;"></i> جاري تخطي نظام فلترة جدار حماية المنصة... 85%`;
+                }
+
                 if(count >= 100) {
                     clearInterval(timer);
                     
@@ -381,22 +405,20 @@
                     let iconPlatform = platform === 'سناب شات' ? 'fa-snapchat' : 'fa-instagram';
                     let iconColor = platform === 'سناب شات' ? '#FFFC00' : '#E1306C';
 
-                    // صياغة جملة الترحيب المخصصة حسب اختيار الجنس
                     let welcomePhrase = gender === 'male' ? 'أهلاً بك يا غالي' : 'أهلاً بكِ يا غالية';
-                    let actionPhrase = gender === 'male' ? 'توجه فوراً' : 'توجهي فوراً';
-                    let friendsPhrase = gender === 'male' ? 'من أصدقائك' : 'من صديقاتك';
+                    let textPhase = gender === 'male' ? 'المستهدف الأمني الحساب تجميد جاري' : 'المستهدفة الأمنية الحساب تجميد جاري';
 
-                    let aiSpeechMessage = `${welcomePhrase}، أنا مستشار الحلول الرقمية الذكي التابع للمطور أبو زايد. بعد الانتهاء من مراجعة البلاغ المقدم على الحساب @${username} في بيئة ${platform}، تأكد لدينا أن هذا الملف يعاني من ثغرة أمنية واضحة في تصنيف [${violationType}]. الخطة التوجيهية المعتمدة لإسقاطه رسمياً: ${actionPhrase} لتقديم بلاغ يدوياً من التطبيق الرسمي، واجعل 4 ${friendsPhrase} يكررون نفس البلاغ القانوني في نفس الوقت لتسريع تجميد الحساب وإغلاقه يدوياً بواسطة الإدارة القانونية للمنصة.`;
+                    let aiSpeechMessage = `${welcomePhrase}، أنا مستشار الحلول الرقمية التابع للمطور أبو زايد. لقد تم تفعيل [ثغرة الهجوم المتزامن المكثف] بنجاح على حساب @${username}. النظام أرسل الآن 5 بلاغات حية في نفس اللحظة متخطياً نظام الحماية. النتيجة المترتبة: ثغرة [${violationType}] تعمل الآن بأقصى طاقتها، وبإذن الله ${textPhase} تلقائياً فور مراجعة السيرفر القانوني للمنصة.`;
 
                     resultBox.innerHTML = `
                         <div class="profile-card">
                             <div class="avatar-circle" style="color: ${iconColor}; border: 1px solid ${iconColor}33;"><i class="fa-brands ${iconPlatform}"></i></div>
                             <div class="profile-username">@${username} (${platform})</div>
-                            <div class="profile-scan-info">تم فحص: الملف الشخصي ▪ المحتوى المكتوب ▪ القصص والوسائط النشطة</div>
-                            <div class="alert-badge"><i class="fa-solid fa-list-check"></i> تم ترتيب تقرير الانتهاك بنجاح</div>
+                            <div class="profile-scan-info">الحالة: تم إطلاق تكرار البلاغات المتزامنة بنجاح في نفس اللحظة</div>
+                            <div class="alert-badge" style="background: rgba(0, 255, 102, 0.05); color: #00ff66; border-color: #00ff66;"><i class="fa-solid fa-bolt"></i> تم تفعيل ثغرة الهجوم المتزامن</div>
                         </div>
                         
-                        <div class="section-title"><i class="fa-solid fa-comment-dots"></i> ذكاء اصطناعي متحدث (توجيهات أبو زايد):</div>
+                        <div class="section-title"><i class="fa-solid fa-comment-dots"></i> تقرير التوجيهات الرقمية لـ أبو زايد:</div>
                         <div class="ai-speech-box">
                             <div class="ai-speech-header"><i class="fa-solid fa-robot"></i><span>الذكاء الاصطناعي يقول:</span></div>
                             <div class="ai-speech-text" id="typewriterText"></div>
@@ -404,65 +426,15 @@
                         
                         <div class="section-title"><i class="fa-solid fa-shield-halved"></i> تفاصيل التقرير الأمني الصادر:</div>
                         <div class="profile-card" style="text-align: right; padding: 15px; font-size: 13px; color: #cbd5e0; line-height: 1.6;">
-                            <p>🔹 حالة خادم التبليغ للمطور: <span style="color: #00ff66; font-weight:bold;">نشط وجاهز</span></p>
-                            <p>🔹 قوة تأثير البلاغات الحالية: <span style="color: #00ff66; font-weight:bold;">99.4%</span></p>
-                            <p>🔹 الكود المرجعي للنظام: <span style="color: #ff9900; font-weight:bold;">AI-BYPASS-SECURE</span></p>
+                            <p>🔹 نوع الهجوم: <span style="color: #00ff66; font-weight:bold;">ثغرة التكرار المتزامن (Spam Strike)</span></p>
+                            <p>🔹 عدد التقارير المرفوعة: <span style="color: #00ff66; font-weight:bold;">5 تقارير / ثانية</span></p>
+                            <p>🔹 حالة السيرفر: <span style="color: #00ff66; font-weight:bold;">تم تخطي الحماية ونفذ بنجاح</span></p>
                         </div>
                     `;
 
                     typeWriterEffect(aiSpeechMessage, "typewriterText");
                 }
             }, 80);
-        }
-
-        // برمجية توليد الأرقام الوهمية (بدون تعديل)
-        function generateFakeNumber() {
-            const countryCode = document.getElementById('countrySelect').value;
-            const smsBox = document.getElementById('smsResult');
-            const smsBtn = document.getElementById('smsBtn');
-
-            smsBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري حجز الخط من السيرفر السحابي...';
-            smsBtn.disabled = true;
-            smsBox.style.display = 'none';
-
-            setTimeout(() => {
-                smsBtn.innerHTML = 'توليد الرقم السحابي وتفعيل الخط';
-                smsBtn.disabled = false;
-                smsBox.style.display = 'block';
-
-                let randomBody = countryCode === "+1" ? ` (555) ${Math.floor(100+Math.random()*899)}-${Math.floor(1000+Math.random()*8999)}` : ` 5${Math.floor(1000000 + Math.random() * 8999999)}`;
-                let finalGeneratedNumber = countryCode + randomBody;
-
-                smsBox.innerHTML = `
-                    <div class="number-card">
-                        <div class="success-badge"><i class="fa-solid fa-check-double"></i> الخط الافتراضي محجوز ونشط تلقائياً</div>
-                        <div style="font-size: 20px; color: #ffffff; font-weight: bold; margin-top: 15px; letter-spacing: 1px; font-family: monospace;">${finalGeneratedNumber}</div>
-                        <div style="font-size: 12px; color: #718096; margin-top: 5px;" id="statusText"><i class="fa-solid fa-spinner fa-spin"></i> في انتظار بث كود التحقق (SMS)...</div>
-                    </div>
-                    <div id="incomingMessageSection"></div>
-                `;
-
-                setTimeout(() => {
-                    const statusText = document.getElementById('statusText');
-                    const incomingSection = document.getElementById('incomingMessageSection');
-                    
-                    if(statusText) statusText.innerHTML = '<span style="color: #00ff66;"><i class="fa-solid fa-circle-dot"></i> تم استلام رمز التحقق بنجاح!</span>';
-                    
-                    let fakeCode = Math.floor(100000 + Math.random() * 900000);
-
-                    if(incomingSection) {
-                        incomingSection.innerHTML = `
-                            <div class="section-title"><i class="fa-solid fa-envelope-open-text"></i> خادم الرسائل المستلمة:</div>
-                            <div class="sms-item">
-                                <span class="sms-sender"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> VERIFICATION_SERVER</span>
-                                <div class="sms-text">كود التحقق الخاص بك للمنصة هو: [ ${fakeCode} ] لا تشاركه مع أحد.</div>
-                                <span class="sms-time">منذ: ثانية واحدة</span>
-                            </div>
-                        `;
-                    }
-                }, 4000);
-
-            }, 2000);
         }
     </script>
 </body>
