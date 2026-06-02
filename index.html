@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المهندس أبو زايد للبلاغات | فحص الحسابات المتقدم</title>
+    <title>المطور أبو زايد | منظومة الهندسة الرقمية الشاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,274 +14,150 @@
         }
 
         body {
-            background-color: #030603;
-            color: #00ff66;
+            background-color: #0b0e14;
+            color: #e2ede4;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            padding: 20px;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* شبكة الماتريكس في الخلفية */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
-            background-size: 25px 25px;
-            z-index: -1;
-        }
-
-        /* زر الثلاثة خطوط (القائمة الجانبية) في أعلى اليمين */
+        /* زر القائمة الجانبية */
         .menu-btn {
             position: absolute;
             top: 20px;
             right: 20px;
-            font-size: 26px;
+            font-size: 24px;
             color: #00ff66;
             cursor: pointer;
             z-index: 100;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px #00ff66;
         }
 
-        .menu-btn:hover {
-            transform: scale(1.1);
-            color: #ffffff;
-        }
-
-        /* القائمة الجانبية المنبثقة */
         .sidebar {
             position: fixed;
-            top: 0;
-            right: -280px; /* مخفية افتراضياً خارج الشاشة */
-            width: 280px;
-            height: 100%;
-            background: rgba(4, 8, 4, 0.95);
-            border-left: 1px solid #00ff66;
-            box-shadow: -5px 0 25px rgba(0, 255, 102, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: 99;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 80px 20px 20px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            top: 0; right: -280px; width: 280px; height: 100%;
+            background: #070a0f; border-left: 1px solid #1f293d;
+            padding: 80px 20px 20px 20px; display: flex; flex-direction: column; gap: 15px;
+            z-index: 99; transition: all 0.3s ease;
         }
 
-        /* عند تفعيل القائمة */
-        .sidebar.active {
-            right: 0;
-        }
+        .sidebar.active { right: 0; }
+        .close-btn { position: absolute; top: 20px; left: 20px; font-size: 22px; color: #ff3333; cursor: pointer; }
 
-        /* زر الإغلاق داخل القائمة */
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            color: #ff3333;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-title {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            border-bottom: 1px solid rgba(0, 255, 102, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        /* روابط التواصل داخل القائمة */
         .menu-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #e2ede4;
-            text-decoration: none;
-            padding: 14px 16px;
-            background: rgba(0, 255, 102, 0.05);
-            border: 1px solid rgba(0, 255, 102, 0.2);
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 15px; color: #ffffff; text-decoration: none;
+            padding: 12px; background: #131a26; border-radius: 10px; font-size: 14px; transition: 0.3s;
         }
+        .menu-link.whatsapp:hover { background: #25D366; color: #000; }
+        .menu-link.instagram:hover { background: #E1306C; }
+        .menu-link.telegram:hover { background: #0088cc; }
+        .menu-link.snapchat:hover { background: #FFFC00; color: #000; }
 
-        .menu-link i {
-            font-size: 20px;
-            width: 25px;
-            text-align: center;
-        }
-
-        /* تأثيرات الألوان عند تمرير الماوس على الروابط */
-        .menu-link.whatsapp:hover { background: #25D366; color: #000; border-color: #25D366; box-shadow: 0 0 10px #25D366; }
-        .menu-link.instagram:hover { background: #E1306C; color: #fff; border-color: #E1306C; box-shadow: 0 0 10px #E1306C; }
-        .menu-link.telegram:hover { background: #0088cc; color: #fff; border-color: #0088cc; box-shadow: 0 0 10px #0088cc; }
-        .menu-link.snapchat:hover { background: #FFFC00; color: #000; border-color: #FFFC00; box-shadow: 0 0 10px #FFFC00; }
-
-        /* الحاوية الرئيسية للموقع */
+        /* الحاوية الرئيسية للأنظمة */
         .container {
-            background: rgba(8, 12, 8, 0.9);
-            border: 1px solid #00ff66;
-            backdrop-filter: blur(12px);
-            padding: 35px 25px;
-            border-radius: 20px;
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
+            background: #131822;
+            border: 1px solid #1f293d;
+            border-radius: 24px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 0 35px rgba(0, 255, 102, 0.25);
-            position: relative;
-            margin: 20px;
-        }
-
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 3px;
-            background: linear-gradient(90deg, #003311, #00ff66, #003311);
-            box-shadow: 0 0 15px #00ff66;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .developer-badge {
-            background: rgba(0, 255, 102, 0.08);
-            border: 1px solid rgba(0, 255, 102, 0.5);
+            background: rgba(0, 255, 102, 0.1);
             color: #00ff66;
-            padding: 6px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 22px;
+            margin-bottom: 15px;
         }
 
-        .icon-box {
-            width: 85px;
-            height: 85px;
-            background: #061006;
-            border: 2px solid #00ff66;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
-            font-size: 38px;
-            color: #00ff66;
-        }
+        h1 { font-size: 22px; margin-bottom: 5px; color: #ffffff; }
+        .subtitle { color: #718096; font-size: 13px; margin-bottom: 25px; }
 
-        h1 {
-            font-size: 25px;
-            margin-bottom: 10px;
-            color: #ffffff;
-            font-weight: 800;
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-group span { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #718096; font-size: 16px; }
+        
+        input[type="text"], select {
+            width: 100%; padding: 15px; background: #0b0e14;
+            border: 1px solid #2d3748; border-radius: 14px; color: #ffffff; font-size: 14px; outline: none; text-align: right;
         }
-
-        p.subtitle {
-            color: #a3b8a8;
-            font-size: 14px;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group span {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00ff66;
-            font-weight: bold;
-            font-size: 19px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 16px 45px 16px 16px;
-            background: #010401;
-            border: 1px solid rgba(0, 255, 102, 0.4);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            transition: all 0.3s ease;
-            text-align: right;
-        }
-
-        input[type="text"]:focus {
-            border-color: #00ff66;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
-        }
+        input[type="text"] { padding-right: 40px; }
+        input[type="text"]:focus, select:focus { border-color: #00ff66; }
 
         button {
-            width: 100%;
-            padding: 16px;
-            background: #00ff66;
-            border: none;
-            border-radius: 12px;
-            color: #010401;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+            width: 100%; padding: 15px; background: #00ff66; border: none; border-radius: 14px;
+            color: #0b0e14; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        button:hover { background: #00cc52; }
+
+        /* شاشات عرض النتائج */
+        .result-box, .sms-box { margin-top: 25px; display: none; text-align: right; }
+        
+        .profile-card, .number-card {
+            background: #1a202c; border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .avatar-circle {
+            width: 70px; height: 70px; background: #2d3748; border-radius: 50%; display: flex; 
+            justify-content: center; align-items: center; margin: 0 auto 12px; color: #00ff66; font-weight: bold; font-size: 20px;
+        }
+        .profile-username { color: #ffffff; font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+        .profile-scan-info { color: #a0aec0; font-size: 12px; margin-bottom: 15px; }
+        
+        .alert-badge {
+            background: rgba(229, 62, 62, 0.1); color: #e53e3e; border: 1px solid #e53e3e;
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
+        }
+        .success-badge {
+            background: rgba(0, 255, 102, 0.1); color: #00ff66; border: 1px solid #00ff66;
+            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
         }
 
-        button:hover {
-            background: #00cc52;
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
+        .section-title { font-size: 14px; color: #a0aec0; margin: 20px 0 10px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+
+        .violation-card {
+            background: #1a202c; border-radius: 16px; padding: 18px; margin-bottom: 12px;
+            display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden;
         }
+        .violation-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+        .violation-card.purple::after { background: #9f7aea; }
+        .violation-card.red::after { background: #e53e3e; }
+        .violation-card.orange::after { background: #ed8936; }
+        
+        .v-top { display: flex; justify-content: space-between; align-items: center; }
+        .v-title { font-size: 15px; color: #ffffff; font-weight: bold; }
+        .v-icon { font-size: 18px; }
+        
+        .v-desc { color: #a0aec0; font-size: 12.5px; margin-top: 4px; line-height: 1.4; border-bottom: 1px solid #2d3748; padding-bottom: 8px; }
+        .v-stats { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e0; margin-top: 4px; }
+        .v-stats span strong { color: #00ff66; }
 
-        /* لوحة كشف البلاغات */
-        .result-box {
-            margin-top: 25px;
-            padding: 20px;
-            background: rgba(0, 255, 102, 0.04);
-            border-radius: 12px;
-            border: 1px solid #00ff66;
-            display: none;
-            text-align: right;
-            animation: slideUp 0.4s ease forwards;
+        .ai-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            border: 1px solid #4338ca; border-radius: 16px; padding: 18px; margin-top: 15px; text-align: right;
         }
+        .ai-header { display: flex; align-items: center; gap: 8px; color: #818cf8; font-size: 14px; font-weight: bold; margin-bottom: 10px; }
+        .ai-response { color: #e2ede4; font-size: 13px; line-height: 1.5; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border-right: 2px solid #818cf8; }
 
-        .result-title {
-            font-size: 14px;
-            color: #ffffff;
-            border-bottom: 1px solid #00ff66;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-            font-weight: bold;
-            text-align: center;
+        /* ستايل لوحة الرسائل الواردة */
+        .sms-item {
+            background: #1a202c; border: 1px dashed #2d3748; border-radius: 12px; padding: 15px; margin-top: 15px;
+            display: flex; flex-direction: column; gap: 5px; animation: flash 1s ease-in-out;
         }
+        .sms-sender { font-size: 14px; font-weight: bold; color: #00ff66; }
+        .sms-text { font-size: 15px; color: #ffffff; background: #0b0e14; padding: 8px; border-radius: 6px; text-align: center; font-family: monospace; letter-spacing: 2px; }
+        .sms-time { font-size: 11px; color: #718096; text-align: left; }
 
-        .result-item {
-            margin-bottom: 11px;
-            font-size: 13.5px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(0, 255, 102, 0.1);
-            padding-bottom: 8px;
-            color: #e2ede4;
-        }
-
-        .result-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-        .val-safe { color: #00ff66; font-weight: bold; }
-        .val-danger { color: #ff3333; font-weight: bold; }
-        .val-warn { color: #ffaa00; font-weight: bold; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes flash {
+            0% { background: rgba(0, 255, 102, 0.1); }
+            100% { background: #1a202c; }
         }
     </style>
 </head>
@@ -291,74 +167,147 @@
 
     <div class="sidebar" id="sidebar">
         <div class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></div>
-        <div class="sidebar-title">قنوات التواصل الرسمية</div>
-        
-        <a href="https://wa.me/966548459464" target="_blank" class="menu-link whatsapp"><i class="fa-brands fa-whatsapp"></i> الواتساب الرسمي</a>
+        <div class="sidebar-title">قنوات التواصل</div>
+        <a href="https://wa.me/966548459464" target="_blank" class="menu-link whatsapp"><i class="fa-brands fa-whatsapp"></i> الواتساب</a>
         <a href="https://instagram.com/5q.mc" target="_blank" class="menu-link instagram"><i class="fa-brands fa-instagram"></i> الإنستقرام</a>
         <a href="https://t.me/B_1n2" target="_blank" class="menu-link telegram"><i class="fa-brands fa-telegram"></i> التليجرام</a>
         <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات</a>
     </div>
 
+    <!-- النظام الأول: نظام فحص ومحلل البلاغات الذكي -->
     <div class="container">
-        <div class="developer-badge"><i class="fa-solid fa-terminal"></i> نـظـام الـمـهـنـدس أبـو زايد الـمـتـقـدم</div>
-        
-        <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
-        <h1>المهندس أبو زايد للبلاغات</h1>
-        <p class="subtitle">نظام ذكي لفحص وهندسة جدار حماية الحسابات واستخراج تقارير بلاغات انستقرام النشطة.</p>
+        <div class="developer-badge"><i class="fa-solid fa-robot"></i> نظام المطور أبو زايد المدعوم بـ AI</div>
+        <h1>محلل البلاغات الذكي</h1>
+        <p class="subtitle">فحص معمق للصور، البايو، الستوري، والريلز لاستخراج الانتهاكات وتوجيه بلاغات الإغلاق.</p>
         
         <div class="input-group">
             <span>@</span>
-            <input type="text" id="username" placeholder="أدخل يوزر انستقرام المراد هندسته..." autocomplete="off">
+            <input type="text" id="username" placeholder="أدخل يوزر انستقرام للفحص...">
         </div>
-
-        <button onclick="startInstagramAnalysis()" id="btn">تشغيل بروتوكول الهندسة الرقمية</button>
+        <button onclick="runAiAnalysis()" id="btn">تشغيل محلل الذكاء الاصطناعي</button>
 
         <div class="result-box" id="result"></div>
     </div>
 
+    <!-- النظام الثاني: بوابة الأرقام الوهمية -->
+    <div class="container">
+        <div class="developer-badge"><i class="fa-solid fa-sim-card"></i> خادم التفعيل الافتراضي لـ أبو زايد</div>
+        <h1>بوابة الأرقام الوهمية والأكواد</h1>
+        <p class="subtitle">توليد أرقام حماية افتراضية مؤقتة لاستقبال رسائل تفعيل الحسابات والـ SMS عن بعد.</p>
+        
+        <div class="input-group">
+            <select id="countrySelect">
+                <option value="us">الولايات المتحدة الأمريكية 🇺🇸 (+1)</option>
+                <option value="uk">المملكة المتحدة 🇬🇧 (+44)</option>
+                <option value="sa">المملكة العربية السعودية 🇸🇦 (+966)</option>
+            </select>
+        </div>
+        <button onclick="generateFakeNumber()" id="smsBtn" style="background-color: #00bcff; color: #0b0e14;">توليد الرقم الأمني الافتراضي</button>
+
+        <div class="sms-box" id="smsResult"></div>
+    </div>
+
     <script>
-        // دالة التحكم في فتح وإغلاق القائمة الجانبية 
         function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+            document.getElementById('sidebar').classList.toggle('active');
         }
 
-        function startInstagramAnalysis() {
+        // 1. برمجية كاشف ومحلل البلاغات الترتيبي
+        function runAiAnalysis() {
             const username = document.getElementById('username').value.trim();
             const resultBox = document.getElementById('result');
             const btn = document.getElementById('btn');
 
-            if (username === '') {
-                alert('خطأ: يرجى كتابة يوزر الحساب أولاً لتشغيل بروتوكول الفحص سيدي!');
-                return;
-            }
+            if (username === '') { alert('الرجاء إدخال اسم المستخدم المستهدف أولاً!'); return; }
 
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري الاتصال بالخوادم...';
+            btn.innerHTML = '<i class="fa-solid fa-brain fa-spin"></i> الذكاء الاصطناعي يرتّب تقارير الحساب...';
             btn.disabled = true;
             resultBox.style.display = 'none';
 
             setTimeout(() => {
-                btn.innerHTML = 'تشغيل بروتوكول الهندسة الرقمية';
+                btn.innerHTML = 'تشغيل محلل الذكاء الاصطناعي';
                 btn.disabled = false;
                 resultBox.style.display = 'block';
 
-                if (username.length <= 5) {
-                    resultBox.innerHTML = `
-                        <div class="result-title">تقرير المهندس أبو زايد للحساب: @${username}</div>
-                        <div class="result-item"><span>بلاغات انتحال الشخصية (Impersonation):</span><span class="val-danger">نشط ومستهدف</span></div>
-                        <div class="result-item"><span>بلاغات السبام والوهمي (Spam):</span><span class="val-danger">مكثف (تحتاج فك هندسي)</span></div>
-                        <div class="result-item"><span>مخالفة إرشادات المجتمع (Guidelines):</span><span class="val-warn">تحذير نشط</span></div>
-                        <div class="result-item"><span>درع الحماية وجدار الأمان:</span><span class="val-danger">مخترق ومعرض للقفل</span></div>
-                    `;
-                } else {
-                    resultBox.innerHTML = `
-                        <div class="result-title">تقرير المهندس أبو زايد للحساب: @${username}</div>
-                        <div class="result-item"><span>بلاغات انتحال الشخصية (Impersonation):</span><span class="val-safe">0 بلاغات (آمن)</span></div>
-                        <div class="result-item"><span>بلاغات السبام والوهمي (Spam):</span><span class="val-safe">نظيف ومستقر</span></div>
-                        <div class="result-item"><span>مخالفة إرشادات المجتمع (Guidelines):</span><span class="val-safe">سجل سليم بالكامل</span></div>
-                        <div class="result-item"><span>درع الحماية وجدار الأمان:</span><span class="val-safe">محصن ومقفل بنجاح</span></div>
-                    `;
-                }
+                let initial = username.substring(0, 2).toUpperCase();
+
+                resultBox.innerHTML = `
+                    <div class="profile-card">
+                        <div class="avatar-circle">${initial}</div>
+                        <div class="profile-username">@${username}</div>
+                        <div class="profile-scan-info">تم تحليل: الصورة الشخصية ▪ البايو ▪ الستوري ▪ الريلز</div>
+                        <div class="alert-badge"><i class="fa-solid fa-list-check"></i> تم ترتيب المخالفات والبلاغات</div>
+                    </div>
+                    <div class="section-title"><i class="fa-solid fa-shield-halved"></i> قائمة البلاغات النشطة والمستهدفة:</div>
+                    <div class="violation-card red">
+                        <div class="v-top"><span class="v-title">بلاغ انتحال شخصية (Impersonation)</span><span class="v-icon">👤</span></div>
+                        <div class="v-desc">رصد محاولة تقليد حساب رسمي أو استخدام صور وتفاصيل تعود لجهة أخرى في البايو.</div>
+                        <div class="v-stats"><span>عدد البلاغات المرسلة: <strong>24 مرة</strong></span><span>من خلال: <strong>12 حساب نشط</strong></span></div>
+                    </div>
+                    <div class="violation-card purple">
+                        <div class="v-top"><span class="v-title">بلاغ سبام ونشاط وهمي (Spam)</span><span class="v-icon">💨</span></div>
+                        <div class="v-desc">رصد ممارسات مفرطة في نشر الروابط أو التفاعل الآلي ومخالفة شروط استخدام المنصة.</div>
+                        <div class="v-stats"><span>عدد البلاغات المرسلة: <strong>45 مرة</strong></span><span>من خلال: <strong>18 حساب نشط</strong></span></div>
+                    </div>
+                    <div class="ai-box">
+                        <div class="ai-header"><i class="fa-solid fa-wand-magic-sparkles"></i><span>توصية مستشار الـ AI للمطور أبو زايد:</span></div>
+                        <div class="ai-response">الحساب <strong>@${username}</strong> تحت ضغط تبليغات مكثف يبلغ إجماليه <strong>69 بلاغاً</strong> صادرين من حسابات مختلفة ومخالف لسياسة الانستقرام بوضوح.</div>
+                    </div>
+                `;
+            }, 1800);
+        }
+
+        // 2. برمجية توليد الأرقام الوهمية والأكواد التفاعلية
+        function generateFakeNumber() {
+            const country = document.getElementById('countrySelect').value;
+            const smsBox = document.getElementById('smsResult');
+            const smsBtn = document.getElementById('smsBtn');
+
+            smsBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري حجز وتوليد الخط من السيرفر الأمني...';
+            smsBtn.disabled = true;
+            smsBox.style.display = 'none';
+
+            setTimeout(() => {
+                smsBtn.innerHTML = 'توليد الرقم الأمني الافتراضي';
+                smsBtn.disabled = false;
+                smsBox.style.display = 'block';
+
+                let generatedNumber = "";
+                let randomDigits = Math.floor(10000000 + Math.random() * 90000000);
+                if (country === 'us') generatedNumber = "+1 (5ea) " + randomDigits;
+                else if (country === 'uk') generatedNumber = "+44 7911 " + Math.floor(100000 + Math.random() * 900000);
+                else generatedNumber = "+966 54 " + Math.floor(1000000 + Math.random() * 9000000);
+
+                smsBox.innerHTML = `
+                    <div class="number-card">
+                        <div class="success-badge"><i class="fa-solid fa-check-double"></i> الخط محجوز ونشط الآن</div>
+                        <div style="font-size: 20px; color: #ffffff; font-weight: bold; margin-top: 15px; letter-spacing: 1px;">${generatedNumber}</div>
+                        <div style="font-size: 12px; color: #718096; margin-top: 5px;" id="statusText"><i class="fa-solid fa-spinner fa-spin"></i> في انتظار وصول الرسائل النصية والرموز...</div>
+                    </div>
+                    <div id="incomingMessageSection"></div>
+                `;
+
+                setTimeout(() => {
+                    const statusText = document.getElementById('statusText');
+                    const incomingSection = document.getElementById('incomingMessageSection');
+                    
+                    if(statusText) statusText.innerHTML = '<span style="color: #00ff66;"><i class="fa-solid fa-circle-dot"></i> تم استلام رسالة (1) جديدة بنجاح!</span>';
+                    
+                    let fakeCode = Math.floor(100000 + Math.random() * 900000);
+
+                    if(incomingSection) {
+                        incomingSection.innerHTML = `
+                            <div class="section-title"><i class="fa-solid fa-envelope-open-text"></i> الرسائل الواردة المكتشفة:</div>
+                            <div class="sms-item">
+                                <span class="sms-sender"><i class="fa-brands fa-instagram"></i> INSTAGRAM_SECURITY</span>
+                                <span class="v-level" style="margin-bottom: 5px;">نوع الرسالة: رمز تفعيل ثنائي</span>
+                                <div class="sms-text">كود التحقق الخاص بك هو: [ ${fakeCode} ] لا تشاركه مع أحد.</div>
+                                <span class="sms-time">منذ: ثانية واحدة فقط</span>
+                            </div>
+                        `;
+                    }
+                }, 4000);
+
             }, 2000);
         }
     </script>
