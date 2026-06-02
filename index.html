@@ -155,7 +155,6 @@
         <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات (B_1n77)</a>
     </div>
 
-    <!-- نظام فحص البلاغات المطابق للصورة تماماً مع ميزة الـ AI المتحدث -->
     <div class="container">
         <div class="developer-badge"><i class="fa-solid fa-robot"></i> نظام المطور أبو زايد المدعوم بـ AI</div>
         <h1>محلل البلاغات الذكي المتقدم</h1>
@@ -172,11 +171,9 @@
 
         <button onclick="runAiAnalysis()" id="btn">تشغيل نظام الـ AI المطور</button>
         
-        <!-- صندوق عرض النتائج المتطابق مع الصورة -->
         <div class="result-box" id="result"></div>
     </div>
 
-    <!-- نظام بوابة الأرقام الوهمية الموسع (أكثر من 30 دولة) -->
     <div class="container">
         <div class="developer-badge"><i class="fa-solid fa-sim-card"></i> خادم التفعيل العالمي لـ أبو زايد</div>
         <h1>بوابة الأرقام السحابية والأكواد</h1>
@@ -221,7 +218,7 @@
         <div class="sms-box" id="smsResult"></div>
     </div>
 
-    <script>
+    <script {is_code_block=true}>
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
@@ -250,9 +247,9 @@
                 // توليد نصوص ذكاء اصطناعي ديناميكية وذكية ومفهومة حسب طول المعرف المكتوب
                 let aiSpeechMessage = "";
                 if(username.length <= 5) {
-                    aiSpeechMessage = `أهلاً بك، أنا مستشار الـ AI للمطور أبو زايد. بعد فحص أمان المعرف <strong>@${username}</strong>، تبين لي أن الحساب <strong>مخالف لمعايير مجتمع ${platform}</strong> تحت بند (النشاط المؤتمت والسبام). الخطة الموصى بها لإغلاقه فوراً: قم بالإبلاغ <strong>15 مرة متتالية بنوع [سبام]</strong> باستخدام <strong>5 حسابات مختلفة</strong> بالتناوب لضرب خوارزمية الأمان المباشرة.`;
+                    aiSpeechMessage = `أهلاً بك، أنا مستشار الـ AI للمطور أبو زايد. بعد فحص أمان المعرف <strong>@${username}</strong>، تبين لي أن هذا الحساب <strong>مخالف تماماً لمعايير مجتمع ${platform}</strong> ويقوم بنشاط آلي ضار. الخطة الموصى بها لإغلاقه فوراً: قم بالإبلاغ <strong>15 مرة متتالية بنوع [سبام]</strong> باستخدام <strong>5 حسابات مختلفة</strong> بالتناوب لضرب خوارزمية الأمان المباشرة وتعليق المعرف.`;
                 } else if(username.includes('.') || username.includes('_')) {
-                    aiSpeechMessage = `أهلاً بك، تم إكمال الفحص الذكي. الحساب <strong>@${username}</strong> يظهر خرقاً واضحاً في جدار الخصوصية وهو <strong>حساب مخالف تماماً</strong> بسبب استخدام بايو وتفاصيل مضللة. لضمان إسقاطه: توجه للحساب ونفذ بلاغ <strong>[انتحال شخصية شخص أعرفه] بمعدل 10 مرات</strong> من <strong>4 حسابات قوية</strong>، ثم أتبعه ببلاغ سبام لإجبار الدعم على تعليقه يدوياً.`;
+                    aiSpeechMessage = `أهلاً بك، تم إكمال الفحص الذكي. الحساب <strong>@${username}</strong> يظهر خرقاً واضحاً في جدار الخصوصية وهو <strong>حساب مخالف ومضلل</strong> بسبب استخدام بيانات مزيفة. لضمان إسقاطه: توجه للحساب ونفذ بلاغ <strong>[انتحال شخصية شخص أعرفه] بمعدل 10 مرات</strong> من <strong>4 حسابات قوية</strong>، ثم أتبعه ببلاغ سبام لإجبار الدعم على تعليقه يدوياً.`;
                 } else {
                     aiSpeechMessage = `مرحباً، تم فحص نظام الثقة للملف الشخصي <strong>@${username}</strong>. رصد نظام الذكاء الاصطناعي الخاص بي أن الحساب <strong>مخالف ومستهدف</strong> لوجود ثغرة في جلسات النشر القديمة. التوجيه الحالي: قم بالإبلاغ <strong>12 مرة [احتيال ونصب]</strong> ثم <strong>8 مرات [محتوى غير مرغوب فيه]</strong> عبر <strong>7 حسابات متصلة</strong> بالتتابع لتجميد ريتش الحساب فوراً.`;
                 }
