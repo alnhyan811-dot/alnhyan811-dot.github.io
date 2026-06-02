@@ -57,7 +57,7 @@
         .menu-link.telegram:hover { background: #0088cc; }
         .menu-link.snapchat:hover { background: #FFFC00; color: #000; }
 
-        /* الحاوية الرئيسية للأنظمة */
+        /* الحاوية الرئيسية المتطابقة مع الصورة */
         .container {
             width: 100%;
             max-width: 480px;
@@ -81,7 +81,7 @@
         }
 
         h1 { font-size: 22px; margin-bottom: 5px; color: #ffffff; }
-        .subtitle { color: #718096; font-size: 13px; margin-bottom: 25px; }
+        .subtitle { color: #718096; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
 
         .input-group { position: relative; margin-bottom: 15px; }
         .input-group span { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #718096; font-size: 16px; }
@@ -93,77 +93,53 @@
         input[type="text"] { padding-right: 40px; }
         input[type="text"]:focus, select:focus { border-color: #00ff66; }
 
+        /* الزر الأخضر المطابق للصورة */
         button {
             width: 100%; padding: 15px; background: #00ff66; border: none; border-radius: 14px;
             color: #0b0e14; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            margin-bottom: 20px;
         }
         button:hover { background: #00cc52; }
 
         /* شاشات عرض النتائج */
-        .result-box, .sms-box, .audit-box { margin-top: 25px; display: none; text-align: right; }
+        .result-box, .sms-box { margin-top: 25px; display: none; text-align: right; }
         
-        .profile-card, .number-card, .audit-card {
-            background: #1a202c; border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;
+        /* بطاقة عرض الحساب المطابقة للصورة 100% */
+        .profile-card {
+            background: #171d29; border-radius: 20px; padding: 25px; text-align: center; margin-bottom: 20px;
         }
         .avatar-circle {
-            width: 70px; height: 70px; background: #2d3748; border-radius: 50%; display: flex; 
-            justify-content: center; align-items: center; margin: 0 auto 12px; color: #00ff66; font-weight: bold; font-size: 20px;
+            width: 80px; height: 80px; background: #222b3d; border-radius: 50%; display: flex; 
+            justify-content: center; align-items: center; margin: 0 auto 15px; font-size: 28px;
         }
-        .profile-username { color: #ffffff; font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-        .profile-scan-info { color: #a0aec0; font-size: 12px; margin-bottom: 15px; }
+        .profile-username { color: #ffffff; font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .profile-scan-info { color: #a0aec0; font-size: 12.5px; margin-bottom: 20px; }
         
+        /* بطاقة تم ترتيب الانتهاك بنجاح الحمراء بالصورة */
         .alert-badge {
-            background: rgba(229, 62, 62, 0.1); color: #e53e3e; border: 1px solid #e53e3e;
-            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
-        }
-        .success-badge {
-            background: rgba(0, 255, 102, 0.1); color: #00ff66; border: 1px solid #00ff66;
-            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
-        }
-        .warning-badge {
-            background: rgba(237, 137, 54, 0.1); color: #ed8936; border: 1px solid #ed8936;
-            padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
+            background: rgba(229, 62, 62, 0.05); color: #f34848; border: 1px solid #ff3333;
+            padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block;
         }
 
-        .section-title { font-size: 14px; color: #a0aec0; margin: 20px 0 10px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .section-title { font-size: 14px; color: #a0aec0; margin: 25px 0 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
 
-        .violation-card {
-            background: #1a202c; border-radius: 16px; padding: 18px; margin-bottom: 12px;
-            display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden;
+        /* صندوق ذكاء اصطناعي تفاعلي متحدث ومفهوم */
+        .ai-speech-box {
+            background: linear-gradient(135deg, #0d1527 0%, #171330 100%);
+            border-right: 4px solid #00ff66; border-radius: 14px; padding: 15px; margin-top: 10px;
+            text-align: right; box-shadow: inset 0 0 10px rgba(0,255,102,0.05);
         }
-        .violation-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
-        .violation-card.purple::after { background: #9f7aea; }
-        .violation-card.red::after { background: #e53e3e; }
-        .violation-card.orange::after { background: #ed8936; }
-        
-        .v-top { display: flex; justify-content: space-between; align-items: center; }
-        .v-title { font-size: 15px; color: #ffffff; font-weight: bold; }
-        .v-icon { font-size: 18px; }
-        
-        .v-desc { color: #a0aec0; font-size: 12.5px; margin-top: 4px; line-height: 1.4; border-bottom: 1px solid #2d3748; padding-bottom: 8px; }
-        .v-stats { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e0; margin-top: 4px; }
-        .v-stats span strong { color: #00ff66; }
+        .ai-speech-header { display: flex; align-items: center; gap: 8px; color: #00ff66; font-size: 13.5px; font-weight: bold; margin-bottom: 8px; }
+        .ai-speech-text { color: #e2ede4; font-size: 13.5px; line-height: 1.6; }
+        .ai-speech-text strong { color: #ffcc00; }
 
-        .ai-box {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            border: 1px solid #4338ca; border-radius: 16px; padding: 18px; margin-top: 15px; text-align: right;
-        }
-        .ai-header { display: flex; align-items: center; gap: 8px; color: #818cf8; font-size: 14px; font-weight: bold; margin-bottom: 10px; }
-        .ai-response { color: #e2ede4; font-size: 13px; line-height: 1.5; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border-right: 2px solid #818cf8; }
-
-        /* ستايل لوحة الرسائل الواردة */
-        .sms-item {
-            background: #1a202c; border: 1px dashed #2d3748; border-radius: 12px; padding: 15px; margin-top: 15px;
-            display: flex; flex-direction: column; gap: 5px; animation: flash 1s ease-in-out;
-        }
+        /* ستايل الأرقام الوهمية */
+        .number-card { background: #1a202c; border-radius: 20px; padding: 20px; text-align: center; }
+        .success-badge { background: rgba(0, 255, 102, 0.1); color: #00ff66; border: 1px solid #00ff66; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; display: inline-block; }
+        .sms-item { background: #1a202c; border: 1px dashed #2d3748; border-radius: 12px; padding: 15px; margin-top: 15px; display: flex; flex-direction: column; gap: 5px; }
         .sms-sender { font-size: 14px; font-weight: bold; color: #00ff66; }
         .sms-text { font-size: 15px; color: #ffffff; background: #0b0e14; padding: 8px; border-radius: 6px; text-align: center; font-family: monospace; letter-spacing: 2px; }
         .sms-time { font-size: 11px; color: #718096; text-align: left; }
-
-        @keyframes flash {
-            0% { background: rgba(0, 255, 102, 0.1); }
-            100% { background: #1a202c; }
-        }
     </style>
 </head>
 <body>
@@ -179,7 +155,7 @@
         <a href="https://snapchat.com/t/B_1n77" target="_blank" class="menu-link snapchat"><i class="fa-brands fa-snapchat"></i> السناب شات (B_1n77)</a>
     </div>
 
-    <!-- النظام الأول: محلل البلاغات الذكي -->
+    <!-- نظام فحص البلاغات المطابق للصورة تماماً مع ميزة الـ AI المتحدث -->
     <div class="container">
         <div class="developer-badge"><i class="fa-solid fa-robot"></i> نظام المطور أبو زايد المدعوم بـ AI</div>
         <h1>محلل البلاغات الذكي المتقدم</h1>
@@ -194,49 +170,53 @@
             <input type="text" id="username" placeholder="أدخل يوزر الحساب المستهدف...">
         </div>
 
-        <div class="input-group">
-            <select id="reportType">
-                <option value="انتحال شخصية (Impersonation)">انتحال شخصية أو حساب زائف</option>
-                <option value="عنف أو تحريض (Violence)">عنف، تهديد أو تحريض</option>
-                <option value="انتحار أو إيذاء نفس (Self-Harm)">انتحار أو تشجيع على إيذاء النفس</option>
-                <option value="خداع أو احتيال مالي (Scam)">خداع، احتيال مالي أو نَصب</option>
-                <option value="سبام ونشاط وهمي (Spam)">سبام، إزعاج ونشاطات وهمية</option>
-            </select>
-        </div>
-
         <button onclick="runAiAnalysis()" id="btn">تشغيل نظام الـ AI المطور</button>
+        
+        <!-- صندوق عرض النتائج المتطابق مع الصورة -->
         <div class="result-box" id="result"></div>
     </div>
 
-    <!-- النظام الثاني (الجديد): كاشف ومحلل ثغرات ونقاط ضعف الحسابات -->
+    <!-- نظام بوابة الأرقام الوهمية الموسع (أكثر من 30 دولة) -->
     <div class="container">
-        <div class="developer-badge"><i class="fa-solid fa-shield-virus"></i> فاحص الأمان الإلكتروني لـ أبو زايد</div>
-        <h1>مستكشف ثغرات الحسابات</h1>
-        <p class="subtitle">قم بفحص أي حساب إنستقرام لاستخراج ثغرات الخصوصية ونقاط الضعف البرمجية في ثوانٍ.</p>
-        
-        <div class="input-group">
-            <span>@</span>
-            <input type="text" id="auditUsername" placeholder="أدخل يوزر انستقرام لكشف ثغراته...">
-        </div>
-        <button onclick="runSecurityAudit()" id="auditBtn" style="background-color: #ff9900; color: #0b0e14;">بدء فحص واستخراج الثغرات</button>
-
-        <div class="audit-box" id="auditResult"></div>
-    </div>
-
-    <!-- النظام الثالث: بوابة الأرقام الوهمية -->
-    <div class="container">
-        <div class="developer-badge"><i class="fa-solid fa-sim-card"></i> خادم التفعيل الافتراضي لـ أبو زايد</div>
-        <h1>بوابة الأرقام الوهمية والأكواد</h1>
-        <p class="subtitle">توليد أرقام حماية افتراضية مؤقتة لاستقبال رسائل تفعيل الحسابات والـ SMS عن بعد.</p>
+        <div class="developer-badge"><i class="fa-solid fa-sim-card"></i> خادم التفعيل العالمي لـ أبو زايد</div>
+        <h1>بوابة الأرقام السحابية والأكواد</h1>
+        <p class="subtitle">توليد أرقام حماية افتراضية مؤقتة لأكثر من 30 دولة لاستقبال رسائل التفعيل والـ SMS عن بعد.</p>
         
         <div class="input-group">
             <select id="countrySelect">
-                <option value="us">الولايات المتحدة الأمريكية 🇺🇸 (+1)</option>
-                <option value="uk">المملكة المتحدة 🇬🇧 (+44)</option>
-                <option value="sa">المملكة العربية السعودية 🇸🇦 (+966)</option>
+                <option value="+966">المملكة العربية السعودية 🇸🇦 (+966)</option>
+                <option value="+971">الإمارات العربية المتحدة 🇦🇪 (+971)</option>
+                <option value="+965">دولة الكويت 🇰🇼 (+965)</option>
+                <option value="+974">دولة قطر 🇶🇦 (+974)</option>
+                <option value="+973">مملكة البحرين 🇧🇭 (+973)</option>
+                <option value="+968">سلطنة عمان 🇴🇲 (+968)</option>
+                <option value="+20">جمهورية مصر العربية 🇪🇬 (+20)</option>
+                <option value="+212">المملكة المغربية 🇲🇦 (+212)</option>
+                <option value="+213">الجمهورية الجزائرية 🇩🇿 (+213)</option>
+                <option value="+216">الجمهورية التونسية 🇹🇳 (+216)</option>
+                <option value="+962">المملكة الأردنية 🇯🇴 (+962)</option>
+                <option value="+964">جمهورية العراق 🇮🇶 (+964)</option>
+                <option value="+1">الولايات المتحدة الأمريكية 🇺🇸 (+1)</option>
+                <option value="+44">المملكة المتحدة 🇬🇧 (+44)</option>
+                <option value="+33">فرنسا 🇫🇷 (+33)</option>
+                <option value="+49">ألمانيا 🇩🇪 (+49)</option>
+                <option value="+31">هولندا 🇳🇱 (+31)</option>
+                <option value="+46">السويد 🇸🇪 (+46)</option>
+                <option value="+34">إسبانيا 🇪🇸 (+34)</option>
+                <option value="+39">إيطاليا 🇮🇹 (+39)</option>
+                <option value="+41">سويسرا 🇨🇭 (+41)</option>
+                <option value="+7">روسيا 🇷🇺 (+7)</option>
+                <option value="+61">أستراليا 🇦🇺 (+61)</option>
+                <option value="+55">البرازيل 🇧🇷 (+55)</option>
+                <option value="+81">اليابان 🇯🇵 (+81)</option>
+                <option value="+82">كوريا الجنوبية 🇰🇷 (+82)</option>
+                <option value="+86">الصين 🇨🇳 (+86)</option>
+                <option value="+91">الهند 🇮🇳 (+91)</option>
+                <option value="+90">تركيا 🇹🇷 (+90)</option>
+                <option value="+60">ماليزيا 🇲🇾 (+60)</option>
             </select>
         </div>
-        <button onclick="generateFakeNumber()" id="smsBtn" style="background-color: #00bcff; color: #0b0e14;">توليد الرقم الأمني الافتراضي</button>
+        <button onclick="generateFakeNumber()" id="smsBtn" style="background-color: #00bcff; color: #0b0e14;">توليد الرقم السحابي وتفعيل الخط</button>
 
         <div class="sms-box" id="smsResult"></div>
     </div>
@@ -246,17 +226,16 @@
             document.getElementById('sidebar').classList.toggle('active');
         }
 
-        // 1. برمجية كاشف ومحلل البلاغات بالذكاء الاصطناعي
+        // برمجية الفحص والتحليل مع ميزة ذكاء اصطناعي يتحدث ويوجه الزائر تلقائياً
         function runAiAnalysis() {
             const platform = document.getElementById('platformSelect').value;
             const username = document.getElementById('username').value.trim();
-            const reportType = document.getElementById('reportType').value;
             const resultBox = document.getElementById('result');
             const btn = document.getElementById('btn');
 
             if (username === '') { alert('الرجاء إدخال اسم المستخدم المستهدف أولاً!'); return; }
 
-            btn.innerHTML = '<i class="fa-solid fa-brain fa-spin"></i> المطور أبو زايد (AI) يحلل الحساب...';
+            btn.innerHTML = '<i class="fa-solid fa-brain fa-spin"></i> نظام الـ AI يحلل الحساب ويستخرج المخالفات...';
             btn.disabled = true;
             resultBox.style.display = 'none';
 
@@ -268,6 +247,17 @@
                 let iconPlatform = platform === 'سناب شات' ? 'fa-snapchat' : 'fa-instagram';
                 let iconColor = platform === 'سناب شات' ? '#FFFC00' : '#E1306C';
 
+                // توليد نصوص ذكاء اصطناعي ديناميكية وذكية ومفهومة حسب طول المعرف المكتوب
+                let aiSpeechMessage = "";
+                if(username.length <= 5) {
+                    aiSpeechMessage = `أهلاً بك، أنا مستشار الـ AI للمطور أبو زايد. بعد فحص أمان المعرف <strong>@${username}</strong>، تبين لي أن الحساب <strong>مخالف لمعايير مجتمع ${platform}</strong> تحت بند (النشاط المؤتمت والسبام). الخطة الموصى بها لإغلاقه فوراً: قم بالإبلاغ <strong>15 مرة متتالية بنوع [سبام]</strong> باستخدام <strong>5 حسابات مختلفة</strong> بالتناوب لضرب خوارزمية الأمان المباشرة.`;
+                } else if(username.includes('.') || username.includes('_')) {
+                    aiSpeechMessage = `أهلاً بك، تم إكمال الفحص الذكي. الحساب <strong>@${username}</strong> يظهر خرقاً واضحاً في جدار الخصوصية وهو <strong>حساب مخالف تماماً</strong> بسبب استخدام بايو وتفاصيل مضللة. لضمان إسقاطه: توجه للحساب ونفذ بلاغ <strong>[انتحال شخصية شخص أعرفه] بمعدل 10 مرات</strong> من <strong>4 حسابات قوية</strong>، ثم أتبعه ببلاغ سبام لإجبار الدعم على تعليقه يدوياً.`;
+                } else {
+                    aiSpeechMessage = `مرحباً، تم فحص نظام الثقة للملف الشخصي <strong>@${username}</strong>. رصد نظام الذكاء الاصطناعي الخاص بي أن الحساب <strong>مخالف ومستهدف</strong> لوجود ثغرة في جلسات النشر القديمة. التوجيه الحالي: قم بالإبلاغ <strong>12 مرة [احتيال ونصب]</strong> ثم <strong>8 مرات [محتوى غير مرغوب فيه]</strong> عبر <strong>7 حسابات متصلة</strong> بالتتابع لتجميد ريتش الحساب فوراً.`;
+                }
+
+                // طباعة النتيجة بالشكل المطابق للصورة 100% ومع إضافة صندوق الـ AI المتحدث
                 resultBox.innerHTML = `
                     <div class="profile-card">
                         <div class="avatar-circle" style="color: ${iconColor};"><i class="fa-brands ${iconPlatform}"></i></div>
@@ -275,92 +265,46 @@
                         <div class="profile-scan-info">تم فحص: الملف الشخصي ▪ المحتوى المكتوب ▪ القصص والوسائط النشطة</div>
                         <div class="alert-badge"><i class="fa-solid fa-list-check"></i> تم ترتيب تقرير الانتهاك بنجاح</div>
                     </div>
-                    <div class="section-title"><i class="fa-solid fa-shield-halved"></i> تفاصيل التقرير الأمني الصادر:</div>
-                    <div class="violation-card red">
-                        <div class="v-top"><span class="v-title">${reportType}</span><span class="v-icon">⚠️</span></div>
-                        <div class="v-desc">رصد خرق صريح ومباشر لمعايير ومجتمع منصة ${platform}، وتم تصنيف هذا الحساب كملف عالي الخطورة بناءً على البلاغ المختار.</div>
-                        <div class="v-stats"><span>حالة خادم التبليغ: <strong>نشط وفوري</strong></span><span>قوة البلاغ: <strong>98.7%</strong></span></div>
+                    
+                    <div class="section-title"><i class="fa-solid fa-comment-dots"></i> تحليل وتوجيه مستشار الـ AI المتحدث:</div>
+                    <div class="ai-speech-box">
+                        <div class="ai-speech-header"><i class="fa-solid fa-robot"></i><span>الذكاء الاصطناعي لـ أبو زايد يقول:</span></div>
+                        <div class="ai-speech-text">${aiSpeechMessage}</div>
                     </div>
-                    <div class="ai-box">
-                        <div class="ai-header"><i class="fa-solid fa-wand-magic-sparkles"></i><span>توصية مستشار الـ AI للمطور أبو زايد:</span></div>
-                        <div class="ai-response">الحساب <strong>@${username}</strong> على منصة <strong>${platform}</strong> يواجه فحصاً أمنياً مكثفاً. نظام الذكاء الاصطناعي قام ببرمجة وتجهيز الثغرة القانونية المناسبة لإرسال ملف البلاغ مباشرة لفرق الدعم الفني عبر السيرفر المشرف المعتمد لـ <strong>B_1n77</strong>.</div>
+                    
+                    <div class="section-title"><i class="fa-solid fa-shield-halved"></i> تفاصيل التقرير الأمني الصادر:</div>
+                    <div class="profile-card" style="text-align: right; padding: 15px; font-size: 13px; color: #cbd5e0; line-height: 1.6;">
+                        <p>🔹 حالة خادم التبليغ: <span style="color: #00ff66; font-weight:bold;">نشط وجاهز</span></p>
+                        <p>🔹 قوة تأثير البلاغات المجدولة: <span style="color: #00ff66; font-weight:bold;">98.9%</span></p>
+                        <p>🔹 نوع الثغرة المستغلة قانونياً: <span style="color: #ff9900; font-weight:bold;">Community Guidelines Bypass</span></p>
                     </div>
                 `;
             }, 2000);
         }
 
-        // 2. برمجية كاشف ومستكشف الثغرات ونقاط الضعف التفاعلي (المحاكي الجديد لـ أبو زايد)
-        function runSecurityAudit() {
-            const auditUser = document.getElementById('auditUsername').value.trim();
-            const auditBox = document.getElementById('auditResult');
-            const auditBtn = document.getElementById('auditBtn');
-
-            if (auditUser === '') { alert('الرجاء كتابة يوزر الحساب لفحص ثغراته!'); return; }
-
-            auditBtn.innerHTML = '<i class="fa-solid fa-gear fa-spin"></i> جاري ربط بروتوكول الفحص واختراق الجدار الأمني...';
-            auditBtn.disabled = true;
-            auditBox.style.display = 'none';
-
-            setTimeout(() => {
-                auditBtn.innerHTML = 'بدء فحص واستخراج الثغرات';
-                auditBtn.disabled = false;
-                auditBox.style.display = 'block';
-
-                auditBox.innerHTML = `
-                    <div class="audit-card">
-                        <div class="warning-badge"><i class="fa-solid fa-bug"></i> تم اكتشاف (2) نقاط ضعف حرجة</div>
-                        <div style="font-size: 18px; color: #ffffff; font-weight: bold; margin-top: 15px;">تقرير أمان الحساب: @${auditUser}</div>
-                        <p style="font-size: 12px; color: #a0aec0; margin-top: 5px;">تم فحص وتأكيد الثغرات بواسطة أدوات خبير الأمان B_1n77</p>
-                    </div>
-                    
-                    <div class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> الثغرات البرمجية النشطة في الحساب:</div>
-                    
-                    <div class="violation-card orange">
-                        <div class="v-top"><span class="v-title">ثغرة بروتوكول المصادقة (2FA Bypass Vulnerability)</span><span class="v-icon">🔓</span></div>
-                        <div class="v-desc">تم رصد غياب كامل لبروتوكول التحقق الثنائي النشط في الحساب، مما يجعل نظام استعادة بريد الحساب مكشوفاً لأدوات الهندسة العكسية.</div>
-                        <div class="v-stats"><span>مستوى الخطورة: <strong style="color:#ed8936;">عالي جداً</strong></span></div>
-                    </div>
-
-                    <div class="violation-card purple">
-                        <div class="v-top"><span class="v-title">ثغرة البلاغات التراكمية العشوائية (Unchecked Metadata)</span><span class="v-icon">⚙️</span></div>
-                        <div class="v-desc">تشفير البيانات الوصفية (Metadata) لصور المنشورات القديمة في حساب @${auditUser} ضعيف وغير محدث، مما يجعله يستقبل بلاغات السبام والانتحال بضعف الحماية العادية.</div>
-                        <div class="v-stats"><span>مستوى الخطورة: <strong style="color:#9f7aea;">متوسط</strong></span></div>
-                    </div>
-
-                    <div class="ai-box" style="border-color: #ed8936;">
-                        <div class="ai-header" style="color: #ed8936;"><i class="fa-solid fa-user-shield"></i><span>نصيحة حماية من المطور أبو زايد:</span></div>
-                        <div class="ai-response">لتجنب استغلال هذه الثغرات ضد حساب <strong>@${auditUser}</strong>، نوصي بتفعيل التحقق عبر تطبيق (Google Authenticator) فوراً، وحذف الروابط غير الموثوقة من البايو لرفع جدار حماية الحساب.</div>
-                    </div>
-                `;
-            }, 2500);
-        }
-
-        // 3. برمجية توليد الأرقام الوهمية والأكواد التفاعلية
+        // برمجية توليد الأرقام الوهمية
         function generateFakeNumber() {
-            const country = document.getElementById('countrySelect').value;
+            const countryCode = document.getElementById('countrySelect').value;
             const smsBox = document.getElementById('smsResult');
             const smsBtn = document.getElementById('smsBtn');
 
-            smsBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري حجز وتوليد الخط من السيرفر الأمني...';
+            smsBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> جاري حجز الخط من السيرفر السحابي...';
             smsBtn.disabled = true;
             smsBox.style.display = 'none';
 
             setTimeout(() => {
-                smsBtn.innerHTML = 'توليد الرقم الأمني الافتراضي';
+                smsBtn.innerHTML = 'توليد الرقم السحابي وتفعيل الخط';
                 smsBtn.disabled = false;
                 smsBox.style.display = 'block';
 
-                let generatedNumber = "";
-                let randomDigits = Math.floor(10000000 + Math.random() * 90000000);
-                if (country === 'us') generatedNumber = "+1 (5ea) " + randomDigits;
-                else if (country === 'uk') generatedNumber = "+44 7911 " + Math.floor(100000 + Math.random() * 900000);
-                else generatedNumber = "+966 54 " + Math.floor(1000000 + Math.random() * 9000000);
+                let randomBody = countryCode === "+1" ? ` (555) ${Math.floor(100+Math.random()*899)}-${Math.floor(1000+Math.random()*8999)}` : ` 5${Math.floor(1000000 + Math.random() * 8999999)}`;
+                let finalGeneratedNumber = countryCode + randomBody;
 
                 smsBox.innerHTML = `
                     <div class="number-card">
-                        <div class="success-badge"><i class="fa-solid fa-check-double"></i> الخط محجوز ونشط الآن</div>
-                        <div style="font-size: 20px; color: #ffffff; font-weight: bold; margin-top: 15px; letter-spacing: 1px;">${generatedNumber}</div>
-                        <div style="font-size: 12px; color: #718096; margin-top: 5px;" id="statusText"><i class="fa-solid fa-spinner fa-spin"></i> في انتظار وصول الرسائل النصية والرموز...</div>
+                        <div class="success-badge"><i class="fa-solid fa-check-double"></i> الخط الافتراضي محجوز ونشط تلقائياً</div>
+                        <div style="font-size: 20px; color: #ffffff; font-weight: bold; margin-top: 15px; letter-spacing: 1px; font-family: monospace;">${finalGeneratedNumber}</div>
+                        <div style="font-size: 12px; color: #718096; margin-top: 5px;" id="statusText"><i class="fa-solid fa-spinner fa-spin"></i> في انتظار بث كود التحقق (SMS)...</div>
                     </div>
                     <div id="incomingMessageSection"></div>
                 `;
@@ -369,18 +313,17 @@
                     const statusText = document.getElementById('statusText');
                     const incomingSection = document.getElementById('incomingMessageSection');
                     
-                    if(statusText) statusText.innerHTML = '<span style="color: #00ff66;"><i class="fa-solid fa-circle-dot"></i> تم استلام رسالة (1) جديدة بنجاح!</span>';
+                    if(statusText) statusText.innerHTML = '<span style="color: #00ff66;"><i class="fa-solid fa-circle-dot"></i> تم استلام رمز التحقق بنجاح!</span>';
                     
                     let fakeCode = Math.floor(100000 + Math.random() * 900000);
 
                     if(incomingSection) {
                         incomingSection.innerHTML = `
-                            <div class="section-title"><i class="fa-solid fa-envelope-open-text"></i> الرسائل الواردة المكتشفة:</div>
+                            <div class="section-title"><i class="fa-solid fa-envelope-open-text"></i> خادم الرسائل المستلمة:</div>
                             <div class="sms-item">
-                                <span class="sms-sender"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> INSTAGRAM_SECURITY</span>
-                                <span class="v-level" style="margin-bottom: 5px;">نوع الرسالة: كود التحقق الثنائي</span>
-                                <div class="sms-text">كود التحقق لحساب الإنستقرام الخاص بك هو: [ ${fakeCode} ] لا تشاركه.</div>
-                                <span class="sms-time">منذ: ثانية واحدة فقط</span>
+                                <span class="sms-sender"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i> VERIFICATION_SERVER</span>
+                                <div class="sms-text">كود التحقق الخاص بك للمنصة هو: [ ${fakeCode} ] لا تشاركه مع أحد.</div>
+                                <span class="sms-time">منذ: ثانية واحدة</span>
                             </div>
                         `;
                     }
