@@ -259,7 +259,7 @@
             line-height: 1.5;
         }
 
-        /* ⏰ قسم أوقات استجابة الدعم الفني الجديد */
+        /* ⏰ قسم أوقات استجابة الدعم الفني */
         .support-time-section {
             display: none;
             background: #161625;
@@ -329,7 +329,7 @@
         .step-text-content strong { color: #00ff66; }
         .step-number-circle { width: 22px; height: 22px; background: linear-gradient(135deg, #e65c9c, #bd3fa3); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; flex-shrink: 0; }
 
-        /* 🇸🇦 بوابة الأرقام الوهمية */
+        /* 🇸🇦 بوابة الأرقام الوهمية والتواصل */
         .numbers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
         .country-card {
             background: #161622;
@@ -344,6 +344,7 @@
         .flag-icon { font-size: 22px; }
         .country-name { font-size: 13px; font-weight: bold; color: #fff; }
         .phone-num { font-size: 13px; color: #00ff66; font-family: monospace; direction: ltr; margin-top: 2px; }
+        
         .activation-btn {
             background: rgba(0, 255, 102, 0.1);
             border: 1px solid #00ff66;
@@ -354,6 +355,27 @@
             cursor: pointer;
             font-weight: bold;
         }
+        /* زر تواصل معي بلون مميز وتأثير إضاءة متناسق */
+        .contact-btn-main {
+            background: rgba(0, 255, 102, 0.15);
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .contact-btn-main:hover {
+            background: #00ff66;
+            color: #000;
+            box-shadow: 0 0 15px #00ff66;
+        }
+
         .activation-box {
             background: #1a1a2a;
             border: 1px dashed rgba(255,255,255,0.1);
@@ -426,7 +448,7 @@
 
     <div class="ai-chat-section" id="aiChatSection">
         <div class="ai-chat-header">🤖 مساعد الذكاء الاصطناعي المتحدث (AI Guide):</div>
-        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوجيه الصوتي...</div>
+        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوججه الصوتي...</div>
     </div>
 
     <div class="violations-section" id="violationsSection">
@@ -504,13 +526,12 @@
                 <div class="country-info">
                     <span class="flag-icon">🇸🇦</span>
                     <div>
-                        <div class="country-name">المملكة العربية السعودية</div>
+                        <div class="country-name">المطور الرئيسي (أبو زايد)</div>
                         <div class="phone-num">+966 54 845 9464</div>
                     </div>
                 </div>
-                <button class="activation-btn" onclick="triggerCode('sa')">طلب كود</button>
+                <a href="https://wa.me/966548459464" target="_blank" class="contact-btn-main">تواصل معي</a>
             </div>
-            <div class="activation-box" id="code-sa">جاري تهيئة خادم الاتصال...</div>
         </div>
 
         <div>
@@ -582,7 +603,6 @@
         }
     }
 
-    // إضافة خيار الخيانة مستوى 3 للقاموس البرمجي
     const violationData = {
         treason: {
             title: "خيانة ومعلومات مضللة",
@@ -599,7 +619,7 @@
             style: "purple-side"
         },
         violence: {
-            title: "عنب ومنظمات خطرة (مستوى 4)",
+            title: "عنف ومنظمات خطرة (مستوى 4)",
             level: "المستوى 4",
             desc: "ذكر منظمة أو نائب أو تيم محظور في الستوري أو البايو لضرب موثوقية الحساب.",
             icon: "💀",
@@ -646,9 +666,7 @@
 
         var reportsNeeded = Math.floor(Math.random() * (7 - 2 + 1)) + 2; 
         var spamNeeded = Math.floor(Math.random() * (10 - 4 + 1)) + 4;   
-        var confidence = Math.floor(Math.random() * (98 - 65 + 1)) + 65;
 
-        // إظهار لوحة الأوقات وكافة اللوحات بحركات أنيميشن
         document.getElementById('aiChatSection').classList.add('show-animated');
         document.getElementById('violationsSection').classList.add('show-animated');
         document.getElementById('supportTimeSection').classList.add('show-animated');
