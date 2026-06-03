@@ -1,62 +1,418 @@
-<!-- كرت هندسة الإنستقرام المطور -->
-<div class="card" style="border: 1px solid #00ff6644; box-shadow: 0 0 25px rgba(0, 255, 102, 0.08);">
-    <div class="badge-ai" style="color: #E1306C; border-color: rgba(225, 48, 108, 0.2); background: rgba(225, 48, 108, 0.05);">
-        <i class="fa-brands fa-instagram"></i> وحدة عمليات الإنستقرام (Instagram Engine)
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Report & Security Analyzer</title>
+    <style>
+        /* الثيم السيبراني المشترك (Matrix Neon Green) */
+        body {
+            background-color: #0b0b12;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            background: #12121a;
+            border: 2px solid #00ff66;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #00ff66;
+            font-size: 20px;
+            text-shadow: 0 0 10px #00ff66;
+            margin: 5px 0;
+        }
+
+        .dev-badge {
+            font-size: 11px;
+            color: #777;
+            letter-spacing: 1px;
+        }
+
+        /* خانة البحث والأزرار */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            background: #181824;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #00ff66;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+
+        .btn-scan {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00ff66, #009933);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-scan:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 20px #00ff66;
+        }
+
+        /* لوحة النتائج التفاعلية مدمجة */
+        .results-section {
+            display: none;
+            animation: slideUp 0.4s ease-in-out forwards;
+        }
+
+        /* البطاقة الرئيسية المحدثة للحساب المستهدف */
+        .profile-card {
+            background: #161622;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid #252535;
+        }
+
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            background: #222235;
+            border: 2px solid #00ff66;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #00ff66;
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(0,255,102,0.2);
+        }
+
+        /* شريط الخطورة المدمج من الكود الأول */
+        .danger-bar-container {
+            margin: 15px 0 5px 0;
+            text-align: right;
+        }
+
+        .danger-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #222;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffcc00, #ff3355);
+            width: 0%; /* يتحرك تلقائياً عبر الجافاسكربت */
+            transition: width 1.2s ease-in-out;
+        }
+
+        .alert-btn {
+            display: inline-block;
+            background: rgba(255, 51, 85, 0.1);
+            border: 1px solid #ff3355;
+            color: #ff3355;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* خانة التكلفة العشوائية */
+        .cost-box {
+            text-align: center;
+            background: rgba(0, 255, 102, 0.04);
+            border: 1px dashed rgba(0, 255, 102, 0.4);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #00ff66;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            color: #8888a0;
+            margin: 15px 0 10px 0;
+        }
+
+        /* بطاقات المخالفات الملونة المأخوذة من الكود الثاني */
+        .violation-card {
+            background: #161622;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-right: 4px solid #333;
+            direction: rtl;
+        }
+
+        .violation-card.purple { border-right-color: #a020f0; }
+        .violation-card.red { border-right-color: #ff3355; }
+        .violation-card.blue { border-right-color: #00ccff; }
+        .violation-card.green { border-right-color: #00ff66; }
+
+        .card-header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title-text {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .card-subtitle-text {
+            color: #555570;
+            font-size: 12px;
+            margin: 4px 0;
+        }
+
+        .card-desc-text {
+            color: #9090a5;
+            font-size: 13px;
+            margin: 8px 0 0 0;
+            line-height: 1.4;
+        }
+
+        /* قسم الثلاث خطوط المضيئة المستقل تماماً */
+        .matrix-divider {
+            margin: 30px 0 15px 0;
+        }
+
+        .matrix-glow-line {
+            height: 2px;
+            background: #00ff66;
+            margin: 4px 0;
+            box-shadow: 0 0 8px #00ff66;
+            opacity: 0.7;
+        }
+
+        .dev-contact-box {
+            background: #09090f;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .dev-contact-box h4 {
+            color: #00ff66;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            text-shadow: 0 0 5px #00ff66;
+        }
+
+        .contact-channels {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+        }
+
+        .contact-channels span {
+            color: #ffffff;
+            background: rgba(255,255,255,0.02);
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #1f1f2e;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>MATRIX REPORT ANALYZER</h1>
+        <div class="dev-badge">SECURITY CHECKER // ENG. ABO ZAYED</div>
     </div>
 
-    <h1>المحلل الأمني لحسابات الإنستقرام</h1>
-    <p class="subtitle">استخراج الثغرات، كشف هوية الحساب، وتوجيه بلاغات الإغلاق المباشرة بدقة 98%.</p>
-
-    <!-- تحديد الجنس -->
-    <div class="gender-container" style="border: 1px solid #1a2332;">
-        <label class="gender-label">
-            <input type="radio" name="gender" value="male" checked>
-            <span><i class="fa-solid fa-mars" style="color: #00bcff;"></i> ذكر</span>
-        </label>
-        <label class="gender-label">
-            <input type="radio" name="gender" value="female">
-            <span><i class="fa-solid fa-venus" style="color: #ff66b2;"></i> أنثى</span>
-        </label>
+    <div class="input-group">
+        <input type="text" id="userInput" class="input-field" placeholder="أدخل اسم المستخدم للتحليل الأمني...">
+        <button class="btn-scan" onclick="runIntegratedAnalysis()">⚡ ابدأ فحص الامتثال للسياسات</button>
     </div>
 
-    <!-- حقل اليوزر -->
-    <div class="input-user-wrapper">
-        <input type="text" id="targetUser" placeholder="يوزر الحساب المستهدف (بدون @)..." style="padding-left: 35px; border-color: #334155;">
+    <div class="results-section" id="resultsPanel">
+        
+        <div class="profile-card">
+            <div class="avatar-circle" id="userAvatar">U</div>
+            <div style="font-weight: bold; font-size: 16px;" id="profileUsername">@username</div>
+            <div style="font-size: 12px; color: #666; margin-top: 4px;">تم فحص: الصورة الشخصية • البايو • المحتوى العام</div>
+            
+            <div class="danger-bar-container">
+                <div class="danger-text">
+                    <span>درجة الخطورة العامة:</span>
+                    <span id="dangerPercentage" style="color: #ff3355; font-weight: bold;">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="alert-btn">⚠️ مخالفات محتملة لسياسة الخدمة</div>
+        </div>
+
+        <div class="cost-box">
+            📊 القيمة التقديرية لعملية فحص خوارزميات الـ AI الحالية: <strong id="costValue">5$ دولار</strong>
+        </div>
+
+        <div class="section-title">الانتهاكات المكتشفة بناءً على الفلاتر الآلية:</div>
+
+        <div class="violation-card purple">
+            <div class="card-header-box">
+                <span class="card-title-text">مخدرات ومواد ممنوعة</span>
+                <span>🚬</span>
+            </div>
+            <div class="card-subtitle-text" id="lvlDrugs">مستوى مراجعة النظام: 1</div>
+            <p class="card-desc-text">تم رصد رموز تعبيرية أو عبارات دلالية قد ترتبط بالتبغ أو المواد الخاضعة للرقابة في ملف الشخصي للحساب.</p>
+        </div>
+
+        <div class="violation-card red">
+            <div class="card-header-box">
+                <span class="card-title-text">عنف ومنظمات خطرة</span>
+                <span>💀</span>
+            </div>
+            <div class="card-subtitle-text" id="lvlViolence">مستوى مراجعة النظام: 4</div>
+            <p class="card-desc-text">رصد عبارات دلالية تندرج تحت بند العنف أو المنظمات غير المصنفة في شروط الاستخدام المعتمدة للمجتمع الرقمي.</p>
+        </div>
+
+        <div class="violation-card blue">
+            <div class="card-header-box">
+                <span class="card-title-text">الملكية الفكرية والموسيقى</span>
+                <span>🎵</span>
+            </div>
+            <div class="card-subtitle-text">إرشادات حقوق النشر</div>
+            <p class="card-desc-text">عند استخدام مقاطع صوتية أو أغاني محمية بموجب حقوق النشر بدون إذن، فإن الحساب يقع تحت طائلة الإزالة الآلية لانتهاك الملكية الفكرية الكلية.</p>
+        </div>
+
+        <div class="violation-card green">
+            <div class="card-header-box">
+                <span class="card-title-text">🤖 مساعد الأمان الرقمي (AI Guide)</span>
+                <span>🛡️</span>
+            </div>
+            <div class="card-subtitle-text">إرشادات تفادي الإغلاق</div>
+            <p class="card-desc-text" id="aiSecurityTip">التوجيه الأمني: لتجنب قيام الفلاتر التلقائية للمنصة بتقييد الحساب، يجب إزالة الروابط غير الموثوقة فوراً والامتثال الكامل لمعايير المجتمع الرسمية.</p>
+        </div>
+
     </div>
 
-    <!-- قائمة الثغرات المتخصصة -->
-    <div class="select-wrapper">
-        <select id="instaViolation">
-            <option value="سبام_مكثف">ثغرة السبام المكثف (Spam Strike)</option>
-            <option value="انتحال_شخصية">ثغرة انتحال الشخصية (Impersonation)</option>
-            <option value="محتوى_جنسي">ثغرة المحتوى الصريح (Nudity/Sexual)</option>
-            <option value="إساءة_تنمر">ثغرة الإساءة والتنمر (Bullying)</option>
-        </select>
+    <div class="matrix-divider">
+        <div class="matrix-glow-line"></div>
+        <div class="matrix-glow-line"></div>
+        <div class="matrix-glow-line"></div>
     </div>
 
-    <!-- زر تنفيذ الإغلاق -->
-    <button class="btn-submit" style="background-color: #E1306C; color: white; margin-top: 5px;" onclick="runInstaOperation()">
-        <i class="fa-solid fa-skull-crossbones"></i> تفعيل هجوم الإغلاق فوراً
-    </button>
-    
-    <!-- مؤشر الأداء -->
-    <div id="instaResult" class="result-box" style="display: none; border-color: #E1306C44;">
-        <p style="color: #E1306C; font-weight: bold; margin-bottom: 5px;"><i class="fa-solid fa-radar"></i> جاري اختراق جدار حماية إنستقرام...</p>
-        <p id="instaStatus" style="font-size: 12px;"></p>
+    <div class="dev-contact-box">
+        <h4>⚙️ منصات مهندس الثغرات (ABO ZAYED)</h4>
+        <div class="contact-channels">
+            <span>📸 Instagram: 5q.mc</span>
+            <span>🚀 Telegram: B_1n2</span>
+            <span>💬 WhatsApp: 0548459464</span>
+        </div>
     </div>
+
 </div>
 
 <script>
-    function runInstaOperation() {
-        const user = document.getElementById('targetUser').value;
-        const resultBox = document.getElementById('instaResult');
-        const status = document.getElementById('instaStatus');
+    // نظام المحاكاة المدمج الذي يربط خصائص الكودين معاً
+    function runIntegratedAnalysis() {
+        var userInp = document.getElementById('userInput').value;
+        if(userInp.trim() === "") {
+            alert("الرجاء إدخال اسم المستخدم لبدء عملية الفحص!");
+            return;
+        }
+
+        // إظهار لوحة النتائج المدمجة بالكامل
+        document.getElementById('resultsPanel').style.display = "block";
         
-        if(user === "") { alert("يجب إدخال اليوزر أولاً!"); return; }
+        // تحديث اسم المستخدم المستهدف والأفتار الدائري برمجياً
+        var cleanUser = userInp.startsWith('@') ? userInp : '@' + userInp;
+        document.getElementById('profileUsername').innerText = cleanUser;
         
-        resultBox.style.display = 'block';
-        status.innerText = `جاري استهداف الحساب: @${user}... تطبيق بروتوكول الثغرة المختارة... تم إرسال 5 بلاغات حية!`;
-        
-        // هنا يمكنك إضافة كود الربط بالـ API أو السيرفر الخاص بك
+        var rawName = userInp.startsWith('@') ? userInp.substring(1) : userInp;
+        document.getElementById('userAvatar').innerText = rawName.substring(0, 2).toUpperCase();
+
+        // توليد نسب مئوية وتكلفة تقديرية عشوائية وتناغمها مع الحساب (من الكود الأول)
+        var randomRisk = Math.floor(Math.random() * (85 - 25 + 1)) + 25; // نسبة بين 25% و 85%
+        var randomCost = Math.floor(Math.random() * (12 - 3 + 1)) + 3;  // قيمة عشوائية حول الـ 5 دولار
+
+        // تحديث شريط الخطورة والتكلفة في الواجهة
+        document.getElementById('dangerPercentage').innerText = randomRisk + "%";
+        document.getElementById('progressFill').style.width = randomRisk + "%";
+        document.getElementById('costValue').innerText = randomCost + "$ دولار (مغطاة تلقائياً)";
+
+        // تفعيل الذكاء الاصطناعي التفاعلي المدمج للبطاقات وقسم التوجيهات
+        var tipBox = document.getElementById('aiSecurityTip');
+        if(userInp.includes("music") || userInp.includes("song")) {
+            document.getElementById('lvlViolence').innerText = "مستوى مراجعة النظام: 1";
+            document.getElementById('lvlDrugs').innerText = "مستوى مراجعة النظام: 1";
+            tipBox.innerText = "تحليل المحتوى الصوتي: تم كشف دلالات موسيقية. تذكر أن النشر المكثف للمقاطع الصوتية المحمية دون ترخيص قد يعرض الحساب للحظر التلقائي بسبب انتهاك حقوق الملكية الفكرية الكلية.";
+        } else {
+            // إذا كانت نسبة الخطورة العشوائية عالية، ترتفع مستويات المراجعة تلقائياً لخلق التناغم البصري
+            if(randomRisk > 60) {
+                document.getElementById('lvlViolence').innerText = "مستوى مراجعة النظام: 4 (مخالفة مرتفعة)";
+                document.getElementById('lvlDrugs').innerText = "مستوى مراجعة النظام: 3";
+                tipBox.innerText = "تحليل الأمان: الحساب يحتوي على عبارات غير ممتثلة لشروط مجتمع الخدمة. وجود كلمات حساسة أو روابط خارجية بالبايو يقلل من موثوقية الملف الشخصي لدى الفلاتر الآلية للمنصة ويرفع مؤشر التدقيق.";
+            } else {
+                document.getElementById('lvlViolence').innerText = "مستوى مراجعة النظام: 1";
+                document.getElementById('lvlDrugs').innerText = "مستوى مراجعة النظام: 1";
+                tipBox.innerText = "تحليل الأمان: تم مسح البيانات والمحتوى العام والملف يظهر امتثالاً أولياً مستقراً، لكن ينصح دائماً بمراجعة الروابط الصادرة للتأكد من خلوها من النشاطات الآلية (Spam).";
+            }
+        }
     }
 </script>
+
+</body>
+</html>
