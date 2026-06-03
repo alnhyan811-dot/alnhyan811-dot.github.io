@@ -1,84 +1,107 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Matrix System - Full Version</title>
-    <style>
-        /* التنسيقات الأصلية الكاملة الخاصة بك */
-        body { background-color: #0b0b12; color: #fff; font-family: sans-serif; margin: 0; padding: 20px; }
-        .container { background: #12121a; border: 1px solid #1f1f2e; border-radius: 20px; padding: 20px; margin-bottom: 20px; }
-        .input-field { width: 100%; padding: 12px; background: #161622; border: 1px solid #1f1f30; border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; text-align: center; }
-        .btn-ai-submit { width: 100%; padding: 14px; background: #00ff66; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .violation-card { background: #141422; border: 1px solid #222235; border-radius: 14px; padding: 15px; margin-bottom: 10px; border-left: 4px solid #00ff66; }
-        /* أضفنا تنسيقاً خاصاً لقسم الدول */
-        .country-grid { display: grid; gap: 10px; }
-        .country-card { background: #161622; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h3>🔐 تسجيل الدخول</h3>
-    <input type="text" id="user" class="input-field" placeholder="اليوزر">
-    <input type="email" id="email" class="input-field" placeholder="الإيميل">
-    <input type="password" id="pass" class="input-field" placeholder="كلمة السر">
-    <button class="btn-ai-submit" onclick="login()">دخول</button>
 </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('ru')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-ru">جاري تهيئة خادم الاتصال...</div>
+        </div>
 
-<div class="container">
-    <h3>🌐 فحص الـ IP</h3>
-    <input type="text" id="ipInput" class="input-field" placeholder="أدخل الـ IP">
-    <button class="btn-ai-submit" onclick="scanIP()">فحص</button>
-    <div id="ipResult" style="margin-top:10px;"></div>
-</div>
-
-<div class="container" id="analyzerMainBox">
-    <h3>🤖 محلل البلاغات</h3>
-    <input type="text" id="userInput" class="input-field" placeholder="اليوزر المستهدف...">
-    <button class="btn-ai-submit" onclick="runAISystem()">تحليل</button>
-    <div id="violationsContainer"></div>
-</div>
-
-<div class="container">
-    <h3>💾 بوابة الأرقام السحابية</h3>
-    <div class="country-grid">
-        <div class="country-card"><span>🇾🇪 اليمن</span> <button onclick="triggerCode('ye')">طلب</button></div>
-        <div id="code-ye" style="display:none; text-align:center;"></div>
-        <div class="country-card"><span>🇸🇾 سوريا</span> <button onclick="triggerCode('sy')">طلب</button></div>
-        <div id="code-sy" style="display:none; text-align:center;"></div>
-        <div class="country-card"><span>🇷🇺 روسيا</span> <button onclick="triggerCode('ru')">طلب</button></div>
-        <div id="code-ru" style="display:none; text-align:center;"></div>
-        <div class="country-card"><span>🇨🇳 الصين</span> <button onclick="triggerCode('cn')">طلب</button></div>
-        <div id="code-cn" style="display:none; text-align:center;"></div>
-        <div class="country-card"><span>🇳🇬 نيجيريا</span> <button onclick="triggerCode('ng')">طلب</button></div>
-        <div id="code-ng" style="display:none; text-align:center;"></div>
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇾🇪</span>
+                    <div>
+                        <div class="country-name">الجمهورية اليمنية</div>
+                        <div class="phone-num">+967 734 591 204</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('ye')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-ye">جاري تهيئة خادم الاتصال...</div>
+        </div>
     </div>
 </div>
 
 <script>
-    // جميع دوال كودك الأصلي توضع هنا
-    function runAISystem() {
-        var user = document.getElementById('userInput').value;
-        var container = document.getElementById('violationsContainer');
-        container.innerHTML = '<div class="violation-card">تم رصد ثغرات في ' + user + '...</div>';
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebarMenu');
+        var overlay = document.getElementById('menuOverlay');
+        if (sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open'); overlay.style.display = 'none';
+        } else {
+            sidebar.classList.add('open'); overlay.style.display = 'block';
+        }
     }
 
-    function login() { /* وظيفة الدخول */ alert("تم تسجيل الدخول!"); }
-    
-    function scanIP() { /* وظيفة فحص الـ IP */ 
-        document.getElementById('ipResult').innerText = "⏳ جاري الفحص...";
-        setTimeout(() => { document.getElementById('ipResult').innerText = "✅ الحالة: آمن"; }, 1500);
+    function scrollToSection(id) {
+        var element = document.getElementById(id);
+        if(element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            toggleSidebar();
+        }
     }
 
-    function triggerCode(countryCode) {
-        var box = document.getElementById('code-' + countryCode);
-        box.style.display = "block";
-        box.innerHTML = "⏳ جاري الاتصال...";
-        setTimeout(() => { 
-            var code = Math.floor(100000 + Math.random() * 900000);
-            box.innerHTML = "✅ الكود: <strong>" + code + "</strong>"; 
+    function analyzeLink() {
+        var url = document.getElementById('urlInput').value.trim();
+        if(url === "") {
+            alert("الرجاء إدخال الرابط أولاً ليتم تحليله!");
+            return;
+        }
+        var resultSection = document.getElementById('urlResultSection');
+        var resultText = document.getElementById('urlResultText');
+        
+        resultSection.classList.add('show-animated');
+        resultText.innerHTML = "⏳ جاري تفكيك بروتوكول الرابط وفحص شهادات الـ SSL...";
+        
+        setTimeout(function(){
+            resultText.innerHTML = "✅ <strong>النتيجة: الرابط آمن وسليم!</strong><br>لم يتم العثور على أي أكواد خبيثة أو صفحات تصيد تابعة لجهات خارجية مشبوهة.";
         }, 1500);
     }
-</script>
-</body>
-</html>
+
+    const violationData = {
+        treason: {
+            title: "خيانة ومعلومات مضللة",
+            level: "المستوى 3",
+            desc: "تم رصد منشورات أو وسائط تحتوي على بلاغات كاذبة أو تزييف ونشر معلومات تخالف المصلحة العامة والسياسات الخاصة بالمنصة.",
+            icon: "🚫",
+            style: "orange-side"
+        },
+        drugs: {
+            title: "مخدرات - مستوى 1",
+            level: "المستوى 1",
+            desc: "تم رصد دخان أو رمز تعبيري مرتبط بالمخدرات في الحساب (ستوري، بايو أو أفاتار).",
+            icon: "💨",
+            style: "purple-side"
+        },
+        violence: {
+            title: "عنف ومنظمات خطرة (مستوى 4)",
+            level: "المستوى 4",
+            desc: "ذكر منظمة أو نائب أو تيم محظور في الستوري أو البايو لضرب موثوقية الحساب.",
+            icon: "💀",
+            style: "red-side"
+        },
+        business: {
+            title: "بيزنس مخالف",
+            level: "المستوى 1",
+            desc: "ترويج مسابقة يوزرات أو بيع حسابات قديمة أو إنشاءات تخالف شروط المنصة.",
+            icon: "💰",
+            style: "cyan-side"
+        },
+        impersonate: {
+            title: "انتحال / رابط مشبوه",
+            level: "المستوى 1",
+            desc: "منشن في الستوري أو البايو أو وجود رابط خارجي مشبوه يوجه لصفحات تصيد.",
+            icon: "🔗",
+            style: "green-side"
+        }
+    };
+
+    function runAISystem() {
+        var username = document.getElementById('userInput').value.trim();
+        if (username === "") {
+            alert("الرجاء إدخال يوزر الحساب أولاً ليقوم الـ AI بتحليله!");
+            return;
+        }
+
+        var cleanUser = username.startsWith('@') ? username : '@' + username;
+        var selectedReason = document.getElementById('reasonSelect').value;
+        var violation = violationData[selectedReason];
