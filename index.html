@@ -3,326 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Report & AI Cloud System</title>
+    <title>محلل البلاغات الذكي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
         body {
-            background-color: #0b0b12;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0b0f19;
         }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen p-4 text-white">
 
-        .container {
-            width: 100%;
-            max-width: 460px;
-            background: #12121a;
-            border: 1px solid #1f1f2e;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            margin-bottom: 25px;
-            box-sizing: border-box;
-        }
-
-        /* ☰ زر الثلاث خطوط المضيئة ثابت في الأعلى */
-        .menu-btn {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 25px;
-            height: 16px;
-            z-index: 1001;
-        }
-
-        .menu-btn .line {
-            height: 2px;
-            width: 100%;
-            background-color: #00ff66;
-            border-radius: 2px;
-            box-shadow: 0 0 8px #00ff66;
-            transition: 0.3s ease-in-out;
-        }
-
-        /* 📱 القائمة الجانبية لحسابات التواصل الاجتماعي والأقسام الجديدة */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 250px;
-            height: 100%;
-            background: #09090f;
-            border-left: 2px solid #00ff66;
-            box-shadow: -5px 0 25px rgba(0, 255, 102, 0.2);
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .sidebar.open { right: 0; }
-
-        .sidebar h4 {
-            color: #00ff66;
-            margin: 40px 0 10px 0;
-            font-size: 15px;
-            text-shadow: 0 0 5px #00ff66;
-            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
-            padding-bottom: 10px;
-            text-align: center;
-        }
-
-        .contact-channels { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
-        .contact-channels a, .contact-channels button {
-            color: #ffffff;
-            text-decoration: none;
-            background: rgba(255,255,255,0.02);
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #1f1f2e;
-            transition: 0.2s;
-            text-align: center;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .contact-channels a:hover, .contact-channels button:hover {
-            border-color: #00ff66;
-            background: rgba(0, 255, 102, 0.08);
-            color: #00ff66;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 999; display: none;
-        }
-
-        /* شريط حالة السيرفر العلوي */
-        .server-status-bar {
-            display: flex;
-            justify-content: space-between;
-            background: #161622;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 11px;
-            color: #9090a5;
-            margin-bottom: 20px;
-            border: 1px solid #1f1f30;
-            width: calc(100% - 40px);
-        }
-
-        .status-item { display: flex; align-items: center; gap: 4px; }
-        .dot-green { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #00ff66; }
-
-        /* شارات النظام المطور */
-        .system-badge {
-            background: rgba(0, 255, 102, 0.07);
-            border: 1px solid rgba(0, 255, 102, 0.3);
-            color: #00ff66;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin: 10px auto 15px auto;
-        }
-
-        .main-title { font-size: 19px; color: #ffffff; font-weight: bold; margin: 5px 0; text-align: center; }
-        .main-desc { font-size: 12px; color: #68687e; text-align: center; margin-bottom: 20px; line-height: 1.5; }
-
-        /* عناصر التحكم والإدخال الخيار الذكر والأنثى */
-        .gender-selector {
-            display: flex;
-            background: #161622;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 12px;
-            justify-content: space-around;
-            border: 1px solid #1f1f30;
-        }
-        .gender-option { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
-        .gender-option input { accent-color: #00ff66; }
-
-        .select-field, .input-field {
-            width: 100%;
-            padding: 12px;
-            background: #161622;
-            border: 1px solid #1f1f30;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 13px;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-            text-align: right;
-        }
-        .input-field { text-align: center; font-size: 14px; }
-        .input-field:focus, .select-field:focus { border-color: #00ff66; outline: none; }
-
-        /* الزر الأخضر المطور الكبير */
-        .btn-ai-submit {
-            width: 100%;
-            padding: 14px;
-            background: #00ff66;
-            border: none;
-            border-radius: 12px;
-            color: #000000;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
-            transition: 0.3s;
-            margin-top: 5px;
-        }
-        .btn-ai-submit:hover { transform: scale(1.01); box-shadow: 0 0 25px #00ff66; }
-
-        /* 🤖 مساعد الذكاء الاصطناعي التفاعلي المتكلم */
-        .ai-chat-section {
-            background: #141420;
-            border: 1px solid #222235;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-            display: none;
-        }
-        .ai-chat-header { font-size: 13px; color: #00ff66; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid rgba(0,255,102,0.1); padding-bottom: 5px; }
-        .ai-bubble {
-            background: rgba(0, 255, 102, 0.04);
-            border-right: 3px solid #00ff66;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            line-height: 1.5;
-            color: #d0d0e2;
-        }
-
-        /* ⚠️ قسم الانتهاكات المكتشفة التفاعلي */
-        .violations-section {
-            display: none;
-            margin-top: 20px;
-        }
-        .violations-title {
-            font-size: 14px;
-            color: #9090a5;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .violation-card {
-            background: #141422;
-            border: 1px solid #222235;
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 12px;
-            position: relative;
-        }
-        .violation-card.purple-side { border-left: 4px solid #b333ff; }
-        .violation-card.red-side { border-left: 4px solid #ff3355; }
-        .violation-card.cyan-side { border-left: 4px solid #33ccff; }
-        .violation-card.green-side { border-left: 4px solid #00ff66; }
-        .violation-card.yellow-side { border-left: 4px solid #ffcc00; }
-        .violation-card.orange-side { border-left: 4px solid #ff6600; }
-
-        .violation-icon-box {
-            text-align: left;
-            font-size: 24px;
-            margin-bottom: -10px;
-            opacity: 0.8;
-        }
-        .violation-main-name {
-            font-size: 15px;
-            color: #ffffff;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .violation-level {
-            font-size: 12px;
-            color: #85859e;
-            margin-bottom: 8px;
-        }
-        .violation-desc {
-            font-size: 12px;
-            color: #b0b0cc;
-            line-height: 1.5;
-        }
-
-        /* ⏰ قسم أوقات استجابة الدعم الفني */
-        .support-time-section {
-            display: none;
-            background: #161625;
-            border: 1px solid #222238;
-            border-radius: 14px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .support-time-title { font-size: 13px; color: #ffcc00; font-weight: bold; margin-bottom: 10px; text-align: center; }
-        .time-row-grid { display: flex; justify-content: space-between; gap: 8px; }
-        .time-box {
-            flex: 1;
-            background: #1f1f32;
-            border: 1px solid #2d2d48;
-            padding: 10px 5px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .time-box-title { font-size: 12px; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
-        .time-box-status { font-size: 10px; color: #00ff66; font-weight: bold; }
-
-        /* 📋 قسم خطوات البلاغ المقترحة واستهداف الحساب */
-        .report-steps-container { display: none; background: #141420; border: 1px solid #222232; border-radius: 12px; padding: 15px; margin-top: 15px; }
-        .steps-header-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .steps-main-title { font-size: 14px; color: #ffffff; font-weight: bold; }
-        .badge-row { display: flex; gap: 8px; }
-        .step-badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
-        .step-badge.red-badge { background: rgba(255, 51, 85, 0.1); border: 1px solid #ff3355; color: #ff3355; }
-        .step-badge.yellow-badge { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; }
-
-        .step-item-card { background: #1a1a2a; border: 1px solid #28283d; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .step-text-content { font-size: 12px; color: #b0b0cc; text-align: right; flex: 1; }
-        .step-text-content strong { color: #00ff66; }
-        .step-number-circle { width: 22px; height: 22px; background: linear-gradient(135deg, #e65c9c, #bd3fa3); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; flex-shrink: 0; }
-
-        /* 🇸🇦 بوابة الأرقام الوهمية والتواصل */
-        .numbers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .country-card {
-            background: #161622;
-            border: 1px solid #1f1f30;
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .country-info { display: flex; align-items: center; gap: 10px; }
-        .flag-icon { font-size: 22px; }
-        .country-name { font-size: 13px; font-weight: bold; color: #fff; }
-        .phone-num { font-size: 13px; color: #00ff66; font-family: monospace; direction: ltr; margin-top: 2px; }
+    <div class="w-full max-w-md bg-[#111625] rounded-3xl p-6 border border-gray-800 shadow-2xl relative">
         
-        .activation-btn {
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid #00ff66;
-            color: #00ff66;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .contact-btn-main {
-            background: rgba(0, 255, 102,
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-xs text-gray-500 font-mono">an811-dot.github.io</span>
+            <button class="text-[#00e676] text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="flex justify-center mb-6">
+            <div class="bg-[#052e16] text-[#00e676] text-xs font-medium px-4 py-2 rounded-full border border-[#14532d] flex items-center gap-2">
+                <i class="fa-solid fa-robot"></i>
+                <span>نظام المطور أبو زايد المدعوم بـ AI</span>
+            </div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h1 class="text-xl font-bold mb-2">محلل البلاغات الذكي المتقدم</h1>
+            <p class="text-xs text-gray-400 leading-relaxed px-4">
+                تحليل وفحص معمق للحسابات والمحتوى لاستخراج الانتهاكات وتوجيه بلاغات الإغلاق الفورية.
+            </p>
+        </div>
+
+        <div class="space-y-4 mb-5">
+            <div class="relative">
+                <select class="w-full bg-[#0b0f19] border border-gray-800 rounded-xl px-4 py-3.5 text-sm appearance-none focus:outline-none focus:border-gray-700 text-center text-gray-300 cursor-pointer">
+                    <option>منصة الإنستقرام (Instagram)</option>
+                </select>
+                <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-500 text-xs">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+
+            <div class="relative">
+                <input type="text" value="Q5.mc" class="w-full bg-[#0b0f19] border border-gray-800 rounded-xl px-4 py-3.5 text-sm text-center font-mono focus:outline-none focus:border-gray-700 text-white">
+                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-500 font-mono text-sm">
+                    @
+                </div>
+            </div>
+
+            <div class="relative">
+                <select class="w-full bg-[#0b0f19] border border-gray-800 rounded-xl px-4 py-3.5 text-sm appearance-none focus:outline-none focus:border-gray-700 text-center text-gray-300 cursor-pointer">
+                    <option>سبام، إزعاج ونشاطات وهمية</option>
+                </select>
+                <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-500 text-xs">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+
+        <button class="w-full bg-[#00e676] hover:bg-[#00c853] text-black font-bold py-4 rounded-xl mb-6 transition duration-200 text-sm shadow-lg shadow-[#00e676]/10">
+            تشغيل نظام الـ AI المطور
+        </button>
+
+        <div class="bg-[#161c2e] rounded-2xl p-6 border border-gray-800 text-center">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 bg-[#1f293d] rounded-full flex items-center justify-center text-[#e1306c] text-2xl shadow-inner">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold mb-2 font-mono dir-ltr">@Q5.mc <span class="font-sans text-sm font-normal text-gray-400">(انستقرام)</span></h3>
+            
+            <p class="text-[11px] text-gray-400 leading-normal mb-5 px-2">
+                تم فحص: الملف الشخصي ▪ المحتوى المكتوب ▪ القصص والوسائط النشطة
+            </p>
+
+            <div class="flex justify-center">
+                <button class="border border-red-500/40 text-red-400 bg-red-500/5 hover:bg-red-500/10 px-5 py-2 rounded-full text-xs font-medium flex items-center gap-2 transition duration-200">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>تم ترتيب تقرير الانتهاك بنجاح</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center gap-2 mt-5 text-gray-400 text-xs cursor-pointer hover:text-white transition">
+            <span>تفاصيل التقرير الأمني الصادر:</span>
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+    </div>
+
+</body>
+</html>
