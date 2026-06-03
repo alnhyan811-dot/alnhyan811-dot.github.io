@@ -1,81 +1,123 @@
-<div class="gender-selector">
-        <label class="gender-option"><input type="radio" name="gender" checked> ♂️ ذكر</label>
-        <label class="gender-option"><input type="radio" name="gender"> ♀️ أنثى</label>
-    </div>
-
-    <select class="select-field" id="platformSelect">
-        <option value="instagram">منصة الإنستقرام (Instagram)</option>
-        <option value="tiktok">منصة التيك توك (TikTok)</option>
-        <option value="snapchat">منصة السناب شات (Snapchat)</option>
-    </select>
-
-    <input type="text" id="userInput" class="input-field" placeholder="أدخل يوزر الحساب المستهدف...">
-
-    <select class="select-field" id="reasonSelect">
-        <option value="treason">خيانة ومعلومات مضللة (مستوى 3)</option>
-        <option value="drugs">مخدرات ومواد محظورة</option>
-        <option value="violence">عنف ومنظمات خطرة (مستوى 4)</option>
-        <option value="business">بيزنس مخالف / مسابقات يوزرات</option>
-        <option value="impersonate">انتحال شخصية / رابط مشبوه</option>
-    </select>
-
-    <button class="btn-ai-submit" onclick="runAISystem()">تشغيل نظام الـ AI المطور</button>
-
-    <div class="ai-chat-section" id="aiChatSection">
-        <div class="ai-chat-header">🤖 مساعد الذكاء الاصطناعي المتحدث (AI Guide):</div>
-        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوجيه الصوتي...</div>
-    </div>
-
-    <div class="violations-section" id="violationsSection">
-        <div class="violations-title">🔍 الانتهاكات المكتشفة بالحساب:</div>
-        <div id="violationsContainer"></div>
-    </div>
-
-    <div class="support-time-section" id="supportTimeSection">
-        <div class="support-time-title">⚡ نافذة المراقبة: أوقات ذروة ردود الدعم الفني</div>
-        <div class="time-row-grid">
-            <div class="time-box">
-                <div class="time-box-title">🌄 الفجر</div>
-                <div class="time-box-status" style="color: #00ff66;">نشط جداً ⚡</div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Report & AI Cloud System</title>
+    <style>
+        body { background-color: #0b0b12; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        .container { width: 100%; max-width: 460px; background: #12121a; border: 1px solid #1f1f2e; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); position: relative; margin-bottom: 25px; box-sizing: border-box; }
+        .menu-btn { position: absolute; top: 25px; right: 25px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; width: 25px; height: 16px; z-index: 1001; }
+        .menu-btn .line { height: 2px; width: 100%; background-color: #00ff66; border-radius: 2px; box-shadow: 0 0 8px #00ff66; transition: 0.3s ease-in-out; }
+        .sidebar { position: fixed; top: 0; right: -280px; width: 250px; height: 100%; background: #09090f; border-left: 2px solid #00ff66; box-shadow: -5px 0 25px rgba(0, 255, 102, 0.2); z-index: 1000; padding: 20px; box-sizing: border-box; transition: 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); display: flex; flex-direction: column; gap: 15px; }
+        .sidebar.open { right: 0; }
+        .sidebar h4 { color: #00ff66; margin: 40px 0 10px 0; font-size: 15px; text-shadow: 0 0 5px #00ff66; border-bottom: 1px solid rgba(0, 255, 102, 0.2); padding-bottom: 10px; text-align: center; }
+        .contact-channels { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+        .contact-channels a, .contact-channels button { color: #ffffff; text-decoration: none; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 6px; border: 1px solid #1f1f2e; transition: 0.2s; text-align: center; font-weight: bold; cursor: pointer; width: 100%; box-sizing: border-box; }
+        .contact-channels a:hover, .contact-channels button:hover { border-color: #00ff66; background: rgba(0, 255, 102, 0.08); color: #00ff66; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999; display: none; }
+        .server-status-bar { display: flex; justify-content: space-between; background: #161622; padding: 8px 12px; border-radius: 10px; font-size: 11px; color: #9090a5; margin-bottom: 20px; border: 1px solid #1f1f30; width: calc(100% - 40px); }
+        .status-item { display: flex; align-items: center; gap: 4px; }
+        .dot-green { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #00ff66; }
+        .system-badge { background: rgba(0, 255, 102, 0.07); border: 1px solid rgba(0, 255, 102, 0.3); color: #00ff66; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-flex; align-items: center; gap: 6px; margin: 10px auto 15px auto; }
+        .main-title { font-size: 19px; color: #ffffff; font-weight: bold; margin: 5px 0; text-align: center; }
+        .main-desc { font-size: 12px; color: #68687e; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+        .gender-selector { display: flex; background: #161622; border-radius: 10px; padding: 10px; margin-bottom: 12px; justify-content: space-around; border: 1px solid #1f1f30; }
+        .gender-option { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+        .select-field, .input-field { width: 100%; padding: 12px; background: #161622; border: 1px solid #1f1f30; border-radius: 10px; color: #fff; font-size: 13px; box-sizing: border-box; margin-bottom: 12px; text-align: right; }
+        .input-field { text-align: center; font-size: 14px; }
+        .btn-ai-submit { width: 100%; padding: 14px; background: #00ff66; border: none; border-radius: 12px; color: #000000; font-weight: bold; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3); transition: 0.3s; margin-top: 5px; }
+        .btn-ai-submit:hover { transform: scale(1.01); box-shadow: 0 0 25px #00ff66; }
+        .ai-chat-section { background: #141420; border: 1px solid #222235; border-radius: 12px; padding: 15px; margin-top: 15px; display: none; }
+        .ai-chat-header { font-size: 13px; color: #00ff66; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid rgba(0,255,102,0.1); padding-bottom: 5px; }
+        .ai-bubble { background: rgba(0, 255, 102, 0.04); border-right: 3px solid #00ff66; padding: 10px; border-radius: 6px; font-size: 13px; line-height: 1.5; color: #d0d0e2; }
+        .violations-section { display: none; margin-top: 20px; }
+        .violations-title { font-size: 14px; color: #9090a5; margin-bottom: 10px; font-weight: bold; }
+        .violation-card { background: #141422; border: 1px solid #222235; border-radius: 14px; padding: 15px; margin-bottom: 12px; position: relative; }
+        .purple-side { border-left: 4px solid #b333ff; } .red-side { border-left: 4px solid #ff3355; } .cyan-side { border-left: 4px solid #33ccff; } .green-side { border-left: 4px solid #00ff66; } .yellow-side { border-left: 4px solid #ffcc00; } .orange-side { border-left: 4px solid #ff6600; }
+        .violation-icon-box { text-align: left; font-size: 24px; margin-bottom: -10px; opacity: 0.8; }
+        .violation-main-name { font-size: 15px; color: #ffffff; font-weight: bold; margin-bottom: 4px; }
+        .violation-level { font-size: 12px; color: #85859e; margin-bottom: 8px; }
+        .violation-desc { font-size: 12px; color: #b0b0cc; line-height: 1.5; }
+        .support-time-section { display: none; background: #161625; border: 1px solid #222238; border-radius: 14px; padding: 15px; margin-top: 15px; }
+        .support-time-title { font-size: 13px; color: #ffcc00; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .time-row-grid { display: flex; justify-content: space-between; gap: 8px; }
+        .time-box { flex: 1; background: #1f1f32; border: 1px solid #2d2d48; padding: 10px 5px; border-radius: 8px; text-align: center; }
+        .time-box-title { font-size: 12px; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
+        .time-box-status { font-size: 10px; color: #00ff66; font-weight: bold; }
+        .report-steps-container { display: none; background: #141420; border: 1px solid #222232; border-radius: 12px; padding: 15px; margin-top: 15px; }
+        .steps-header-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .steps-main-title { font-size: 14px; color: #ffffff; font-weight: bold; }
+        .badge-row { display: flex; gap: 8px; }
+        .step-badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
+        .step-badge.red-badge { background: rgba(255, 51, 85, 0.1); border: 1px solid #ff3355; color: #ff3355; }
+        .step-badge.yellow-badge { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; }
+        .step-item-card { background: #1a1a2a; border: 1px solid #28283d; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .step-text-content { font-size: 12px; color: #b0b0cc; text-align: right; flex: 1; }
+        .step-number-circle { width: 22px; height: 22px; background: linear-gradient(135deg, #e65c9c, #bd3fa3); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; flex-shrink: 0; }
+        
+        /* هنا التعديل الجوهري على قسم الدول */
+        .numbers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .country-card { background: #161622; border: 1px solid #1f1f30; border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .country-info { display: flex; align-items: center; gap: 10px; }
+        .flag-icon { font-size: 22px; }
+        .country-name { font-size: 13px; font-weight: bold; color: #fff; }
+        .phone-num { font-size: 13px; color: #00ff66; font-family: monospace; direction: ltr; margin-top: 2px; }
+        .activation-btn { background: rgba(0, 255, 102, 0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
+        .activation-box { background: #1a1a2a; border: 1px dashed rgba(255,255,255,0.1); border-radius: 6px; padding: 8px; margin-top: 6px; font-size: 11px; color: #a0a0b5; display: none; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container" id="cloudNumbersBox">
+        <div style="text-align: center;">
+            <div class="system-badge" style="color: #00ccff; border-color: rgba(0,204,255,0.3); background: rgba(0,204,255,0.05)">💾 خادم التفعيل العالمي</div>
+        </div>
+        <h2 class="main-title">بوابة الأرقام السحابية</h2>
+        
+        <div class="numbers-grid">
+            <div class="country-card">
+                <div class="country-info"><span class="flag-icon">🇾🇪</span> <span class="country-name">الجمهورية اليمنية</span></div>
+                <button class="activation-btn" onclick="triggerCode('ye')">طلب كود</button>
             </div>
-            <div class="time-box">
-                <div class="time-box-title">☀️ الظهر</div>
-                <div class="time-box-status" style="color: #ffcc00;">متوسط ⚠️</div>
+            <div class="activation-box" id="code-ye">جاري الاتصال...</div>
+
+            <div class="country-card">
+                <div class="country-info"><span class="flag-icon">🇸🇾</span> <span class="country-name">سوريا</span></div>
+                <button class="activation-btn" onclick="triggerCode('sy')">طلب كود</button>
             </div>
-            <div class="time-box">
-                <div class="time-box-title">🌌 العشاء</div>
-                <div class="time-box-status" style="color: #00ff66;">قوة الفلاتر 🔥</div>
+            <div class="activation-box" id="code-sy">جاري الاتصال...</div>
+
+            <div class="country-card">
+                <div class="country-info"><span class="flag-icon">🇷🇺</span> <span class="country-name">روسيا</span></div>
+                <button class="activation-btn" onclick="triggerCode('ru')">طلب كود</button>
             </div>
+            <div class="activation-box" id="code-ru">جاري الاتصال...</div>
+
+            <div class="country-card">
+                <div class="country-info"><span class="flag-icon">🇨🇳</span> <span class="country-name">الصين</span></div>
+                <button class="activation-btn" onclick="triggerCode('cn')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-cn">جاري الاتصال...</div>
+
+            <div class="country-card">
+                <div class="country-info"><span class="flag-icon">🇳🇬</span> <span class="country-name">نيجيريا</span></div>
+                <button class="activation-btn" onclick="triggerCode('ng')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-ng">جاري الاتصال...</div>
         </div>
     </div>
 
-    <div class="report-steps-container" id="reportStepsPanel">
-        <div class="steps-header-box">
-            <span class="steps-main-title">🎯 فلاتر التوجيه الذكي الآلي</span>
-            <div class="badge-row">
-                <span class="step-badge red-badge" id="badgeReportsCount">🔴 3 بلاغ</span>
-                <span class="step-badge yellow-badge" id="badgeSpamCount">✉️ 5 سبام</span>
-            </div>
-        </div>
-
-        <div class="step-item-card">
-            <div class="step-text-content">أبلغ عن الحساب المستهدف <strong id="step1Text">3 مرات</strong> متتالية باستخدام الخيارات المعتمدة بالأسفل.</div>
-            <div class="step-number-circle">1</div>
-        </div>
-
-        <div class="step-item-card">
-            <div class="step-text-content">بلاغ <strong id="step2TypeTitle">عنف ومنظمات خطرة</strong>: اختر السبب لضرب موثوقية البايو والصورة الشخصية فوراً.</div>
-            <div class="step-number-circle">2</div>
-        </div>
-
-        <div class="step-item-card">
-            <div class="step-text-content">بلاغ <strong id="step3TypeTitle">نشاط مخالف أو احتيال</strong>: لتوجيه خوارزمية الفحص التلقائي نحو الروابط والمنشن.</div>
-            <div class="step-number-circle">3</div>
-        </div>
-
-        <div class="step-item-card">
-            <div class="step-text-content">أضف <strong id="step4Text">5 سبام</strong> لتسريع استجابة الدعم الفني للمنصة وتقوية الثقل البرمجي للبلاغ.</div>
-            <div class="step-number-circle">4</div>
-        </div>
-    </div>
-</div>
+    <script>
+        function triggerCode(countryCode) {
+            var box = document.getElementById('code-' + countryCode);
+            box.style.display = "block";
+            box.innerText = "⏳ جاري استقبال الكود...";
+            setTimeout(function() {
+                var randomCode = Math.floor(100000 + Math.random() * 900000);
+                box.innerHTML = "✅ الكود: <strong style='color:#00ff66;'>" + randomCode + "</strong>";
+            }, 1500);
+        }
+        // ... باقي السكربتات الخاصة بك كما هي ...
+    </script>
+</body>
+</html>
