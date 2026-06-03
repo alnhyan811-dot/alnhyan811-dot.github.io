@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Report & AI Cloud System</title>
+    <title>منصة المطور أبو زايد - محلل البلاغات</title>
     <style>
         body {
             background-color: #0b0b12;
@@ -15,268 +15,266 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 460px;
-            background: #12121a;
-            border: 1px solid #1f1f2e;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            margin-bottom: 25px;
+            max-width: 430px;
+            background: #111118;
+            border: 1px solid #1c1c28;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
             box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
-        /* ☰ زر الثلاث خطوط المضيئة ثابت في الأعلى */
+        /* شارة نظام المطور المدعوم بـ AI */
+        .ai-badge-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .ai-badge {
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            color: #00ff66;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* العناوين الرئيسية */
+        .main-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        .sub-title {
+            font-size: 13px;
+            color: #6c6c8c;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        /* حقول الإدخال والقوائم المنسدلة */
+        .input-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .form-select, .form-input {
+            width: 100%;
+            background: #141420;
+            border: 1px solid #222235;
+            color: #ffffff;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+            text-align: right;
+        }
+        .form-select {
+            appearance: none;
+            cursor: pointer;
+        }
+        .form-select:focus, .form-input:focus {
+            border-color: #00ff66;
+        }
+
+        /* زر التشغيل الأخضر الكبير */
+        .btn-submit {
+            width: 100%;
+            background: #00ff66;
+            color: #000000;
+            border: none;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.2);
+        }
+        .btn-submit:hover {
+            background: #00dd55;
+        }
+
+        /* كرت نتيجة الفحص التلقائي السفلي */
+        .result-card {
+            background: #141420;
+            border: 1px solid #1f1f32;
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .profile-avatar-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .profile-avatar {
+            width: 55px;
+            height: 55px;
+            background: #1c1c2e;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e1306c; /* لون انستقرام */
+        }
+        .profile-avatar svg {
+            width: 26px;
+            height: 26px;
+            fill: #e1306c;
+        }
+        .profile-username {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        .scan-details {
+            font-size: 12px;
+            color: #797995;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* زر حالة الانتهاك المنسق باللون الأحمر */
+        .status-report-btn {
+            background: rgba(255, 51, 51, 0.05);
+            border: 1px solid #ff3333;
+            color: #ff3333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        /* زر القائمة الجانبية للتنقل */
         .menu-btn {
-            position: absolute;
-            top: 25px;
-            right: 25px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 25px;
-            height: 16px;
-            z-index: 1001;
+            width: 22px;
+            height: 14px;
+            margin-bottom: 15px;
+            align-self: flex-start;
         }
-
         .menu-btn .line {
             height: 2px;
             width: 100%;
             background-color: #00ff66;
             border-radius: 2px;
-            box-shadow: 0 0 8px #00ff66;
-            transition: 0.3s ease-in-out;
         }
-
-        /* 📱 القائمة الجانبية لحسابات التواصل الاجتماعي والأقسام */
         .sidebar {
             position: fixed;
-            top: 0;
-            right: -280px;
-            width: 250px;
-            height: 100%;
-            background: #09090f;
-            border-left: 2px solid #00ff66;
-            box-shadow: -5px 0 25px rgba(0, 255, 102, 0.2);
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .sidebar.open { right: 0; }
-
-        .sidebar h4 {
-            color: #00ff66;
-            margin: 40px 0 10px 0;
-            font-size: 15px;
-            text-shadow: 0 0 5px #00ff66;
-            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
-            padding-bottom: 10px;
-            text-align: center;
-        }
-
-        .contact-channels { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
-        .contact-channels a, .contact-channels button {
-            color: #ffffff;
-            text-decoration: none;
-            background: rgba(255,255,255,0.02);
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #1f1f2e;
-            transition: 0.2s;
-            text-align: center;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .contact-channels a:hover, .contact-channels button:hover {
-            border-color: #00ff66;
-            background: rgba(0, 255, 102, 0.08);
-            color: #00ff66;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 999; display: none;
-        }
-
-        /* شريط حالة السيرفر العلوي */
-        .server-status-bar {
-            display: flex;
-            justify-content: space-between;
-            background: #161622;
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 11px;
-            color: #9090a5;
-            margin-bottom: 20px;
-            border: 1px solid #1f1f30;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .status-item { display: flex; align-items: center; gap: 4px; }
-        .dot-green { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #00ff66; }
-
-        /* شارات النظام المطور */
-        .system-badge {
-            background: rgba(0, 255, 102, 0.07);
-            border: 1px solid rgba(0, 255, 102, 0.3);
-            color: #00ff66;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin: 10px auto 15px auto;
-        }
-
-        .main-title { font-size: 19px; color: #ffffff; font-weight: bold; margin: 5px 0; text-align: center; }
-        .main-desc { font-size: 12px; color: #68687e; text-align: center; margin-bottom: 20px; line-height: 1.5; }
-
-        /* خيارات الجنس */
-        .gender-selector {
-            display: flex;
-            background: #161622;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 12px;
-            justify-content: space-around;
-            border: 1px solid #1f1f30;
-        }
-        .gender-option { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
-        .gender-option input { accent-color: #00ff66; }
-
-        .select-field, .input-field {
-            width: 100%;
-            padding: 12px;
-            background: #161622;
-            border: 1px solid #1f1f30;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 13px;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-            text-align: right;
-        }
-        .input-field { text-align: center; font-size: 14px; }
-        .input-field:focus, .select-field:focus { border-color: #00ff66; outline: none; }
-
-        /* الزر المطور الكبير */
-        .btn-ai-submit {
-            width: 100%;
-            padding: 14px;
-            background: #00ff66;
-            border: none;
-            border-radius: 12px;
-            color: #000000;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+            top: 0; right: -280px; width: 240px; height: 100%;
+            background: #09090f; border-left: 2px solid #00ff66;
+            z-index: 1000; padding: 20px; box-sizing: border-box;
             transition: 0.3s;
-            margin-top: 5px;
         }
-        .btn-ai-submit:hover { transform: scale(1.01); box-shadow: 0 0 25px #00ff66; }
+        .sidebar.open { right: 0; }
+        .sidebar h4 { color: #00ff66; text-align: center; margin-top: 30px; border-bottom: 1px solid rgba(0,255,102,0.2); padding-bottom: 8px; }
+        .sidebar a { display: block; color: #fff; text-decoration: none; background: #141420; padding: 12px; margin-bottom: 10px; border-radius: 8px; text-align: center; border: 1px solid #1f1f32; font-size: 13px; font-weight: bold; }
+        .sidebar a:hover { border-color: #00ff66; color: #00ff66; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: none; }
+    </style>
+</head>
+<body>
 
-        /* 🤖 مساعد الذكاء الاصطناعي التفاعلي */
-        .ai-chat-section {
-            background: #141420;
-            border: 1px solid #222235;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-            display: none;
-        }
-        .ai-chat-header { font-size: 13px; color: #00ff66; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid rgba(0,255,102,0.1); padding-bottom: 5px; }
-        .ai-bubble {
-            background: rgba(0, 255, 102, 0.04);
-            border-right: 3px solid #00ff66;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            line-height: 1.5;
-            color: #d0d0e2;
-        }
+<div class="overlay" id="menuOverlay" onclick="toggleSidebar()"></div>
 
-        /* ⚠️ قسم الانتهاكات المكتشفة التفاعلي */
-        .violations-section {
-            display: none;
-            margin-top: 20px;
-        }
-        .violations-title {
-            font-size: 14px;
-            color: #9090a5;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        .violation-card {
-            background: #141422;
-            border: 1px solid #222235;
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 12px;
-            position: relative;
-        }
-        .violation-card.purple-side { border-left: 4px solid #b333ff; }
-        .violation-card.red-side { border-left: 4px solid #ff3355; }
-        .violation-card.cyan-side { border-left: 4px solid #33ccff; }
-        .violation-card.green-side { border-left: 4px solid #00ff66; }
-        .violation-card.yellow-side { border-left: 4px solid #ffcc00; }
+<div class="sidebar" id="sidebarMenu">
+    <h4>🗂️ أقسام النظام</h4>
+    <a href="#" onclick="alert('أنت متواجد حالياً في واجهة المحلل الذكي')">🤖 محلل البلاغات الذكي</a>
+    <a href="index.html">📋 واجهة خطوات البلاغ (الخطوات الـ 5)</a>
+    <hr style="border-color: rgba(255,255,255,0.05); margin: 20px 0;">
+    <a href="https://wa.me/966548459464" target="_blank">💬 دعم المطور واتساب</a>
+</div>
 
-        .violation-icon-box {
-            text-align: left;
-            font-size: 24px;
-            margin-bottom: -10px;
-            opacity: 0.8;
-        }
-        .violation-main-name { font-size: 15px; color: #ffffff; font-weight: bold; margin-bottom: 4px; }
-        .violation-level { font-size: 12px; color: #85859e; margin-bottom: 8px; }
-        .violation-desc { font-size: 12px; color: #b0b0cc; line-height: 1.5; }
+<div class="menu-btn" onclick="toggleSidebar()">
+    <div class="line"></div><div class="line"></div><div class="line"></div>
+</div>
 
-        /* 📋 قسم خطوات البلاغ المقترحة واستهداف الحساب */
-        .report-steps-container { display: none; background: #141420; border: 1px solid #222232; border-radius: 12px; padding: 15px; margin-top: 15px; }
-        .steps-header-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .steps-main-title { font-size: 14px; color: #ffffff; font-weight: bold; }
-        .badge-row { display: flex; gap: 8px; }
-        .step-badge { font-size: 12px; padding: 5px 12px; border-radius: 20px; font-weight: bold; }
-        .step-badge.blue-badge { background: rgba(51, 102, 255, 0.1); border: 1px solid #3366ff; color: #3366ff; }
-        .step-badge.yellow-badge { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; }
+<div class="container">
+    
+    <div class="ai-badge-container">
+        <div class="ai-badge">🤖 نظام المطور أبو زايد المدعوم بـ AI</div>
+    </div>
 
-        .step-item-card { background: #161622; border: 1px solid #1f1f30; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-        .step-text-content { font-size: 13px; color: #b0b0cc; text-align: right; flex: 1; line-height: 1.4; }
-        .step-text-content strong { color: #3366ff; }
-        .step-text-content strong.purple-text { color: #b333ff; }
-        .step-text-content strong.blue-light-text { color: #33ccff; }
-        .step-text-content strong.pink-text { color: #ff33bb; }
-        .step-number-circle { width: 24px; height: 24px; background: #cc55aa; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: #fff; flex-shrink: 0; }
+    <div class="main-title">محلل البلاغات الذكي المتقدم</div>
+    <div class="sub-title">تحليل وفحص معمق للحسابات والمحتوى لاستخراج الانتهاكات وتوجيه بلاغات الإغلاق الفورية.</div>
 
-        /* 🇸🇦 بوابة الأرقام الوهمية والتفعيل */
-        .numbers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .country-card {
-            background: #161622;
-            border: 1px solid #1f1f30;
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .country-info { display: flex; align-items: center; gap: 10px; }
-        .flag-icon { font-size: 22px; }
-        .country-name { font-size:
+    <div class="input-group">
+        <select class="form-select">
+            <option>منصة الإنستقرام (Instagram)</option>
+            <option>منصة سناب شات (Snapchat)</option>
+            <option>منصة تيك توك (TikTok)</option>
+            <option>منصة إكس / تويتر (X)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <input type="text" class="form-input" value="Q5.mc" placeholder="أدخل معرف الحساب أو الرابط المباشر">
+    </div>
+
+    <div class="input-group">
+        <select class="form-select">
+            <option>سبام، إزعاج ونشاطات وهمية</option>
+            <option>محتوى غير لائق أو إباحي</option>
+            <option>عنف وتهديد (مستوى 4)</option>
+            <option>انتحال شخصية أو هوية مزيفة</option>
+        </select>
+    </div>
+
+    <button class="btn-submit" onclick="alert('جاري بدء تشغيل نظام الـ AI وفحص الحساب المذكور...')">تشغيل نظام الـ AI المطور</button>
+
+    <div class="result-card">
+        <div class="profile-avatar-wrapper">
+            <div class="profile-avatar">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="profile-username">@Q5.mc (إنستقرام)</div>
+        <div class="scan-details">تم فحص: الملف الشخصي • المحتوى المكتوب • القصص والوسائط النشطة</div>
+        
+        <div class="status-report-btn" onclick="alert('عرض تفاصيل تقرير الانتهاك المنسق والمجدول جاهز الآن للاستخدام.')">
+            📊 تم ترتيب تقرير الانتهاك بنجاح
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebarMenu');
+        var overlay = document.getElementById('menuOverlay');
+        sidebar.classList.toggle('open');
+        overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+    }
+</script>
+
+</body>
+</html>
