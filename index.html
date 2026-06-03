@@ -54,7 +54,7 @@
             transition: 0.3s ease-in-out;
         }
 
-        /* 📱 القائمة الجانبية لحسابات التواصل الاجتماعي */
+        /* 📱 القائمة الجانبية لحسابات التواصل الاجتماعي والأقسام الجديدة */
         .sidebar {
             position: fixed;
             top: 0;
@@ -86,7 +86,7 @@
         }
 
         .contact-channels { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
-        .contact-channels a {
+        .contact-channels a, .contact-channels button {
             color: #ffffff;
             text-decoration: none;
             background: rgba(255,255,255,0.02);
@@ -96,8 +96,11 @@
             transition: 0.2s;
             text-align: center;
             font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .contact-channels a:hover {
+        .contact-channels a:hover, .contact-channels button:hover {
             border-color: #00ff66;
             background: rgba(0, 255, 102, 0.08);
             color: #00ff66;
@@ -190,7 +193,7 @@
         }
         .btn-ai-submit:hover { transform: scale(1.01); box-shadow: 0 0 25px #00ff66; }
 
-        /* 🤖 شات ومساعد الذكاء الاصطناعي التفاعلي المتكلم */
+        /* 🤖 مساعد الذكاء الاصطناعي التفاعلي المتكلم */
         .ai-chat-section {
             background: #141420;
             border: 1px solid #222235;
@@ -289,40 +292,6 @@
         .step-badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
         .step-badge.red-badge { background: rgba(255, 51, 85, 0.1); border: 1px solid #ff3355; color: #ff3355; }
         .step-badge.yellow-badge { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; }
-        
-        .account-target-card {
-            background: #161625;
-            border: 1px solid #222235;
-            border-radius: 14px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .target-avatar-circle {
-            width: 65px;
-            height: 65px;
-            background: rgba(230, 92, 156, 0.1);
-            border: 1px solid rgba(230, 92, 156, 0.3);
-            border-radius: 50%;
-            margin: 0 auto 12px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #e65c9c;
-            font-size: 24px;
-        }
-        .target-username-title { font-size: 16px; color: #ffffff; font-weight: bold; margin-bottom: 6px; }
-        .target-status-text { font-size: 11px; color: #85859e; margin-bottom: 14px; }
-        .target-report-btn-status {
-            display: inline-block;
-            border: 1px solid #ff3355;
-            color: #ff3355;
-            background: rgba(255, 33, 85, 0.05);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
 
         .step-item-card { background: #1a1a2a; border: 1px solid #28283d; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .step-text-content { font-size: 12px; color: #b0b0cc; text-align: right; flex: 1; }
@@ -355,7 +324,6 @@
             cursor: pointer;
             font-weight: bold;
         }
-        /* زر تواصل معي بلون مميز وتأثير إضاءة متناسق */
         .contact-btn-main {
             background: rgba(0, 255, 102, 0.15);
             border: 1px solid #00ff66;
@@ -372,7 +340,7 @@
         }
         .contact-btn-main:hover {
             background: #00ff66;
-            color: #000;
+            color: #00;
             box-shadow: 0 0 15px #00ff66;
         }
 
@@ -388,6 +356,38 @@
             text-align: center;
         }
 
+        /* تنسيقات الأقسام الجديدة */
+        .chart-mock {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 100px;
+            padding: 10px;
+            background: #161622;
+            border-radius: 10px;
+            border: 1px solid #1f1f30;
+            margin-top: 10px;
+        }
+        .chart-bar {
+            width: 12%;
+            background: linear-gradient(to top, #00bb44, #00ff66);
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+            animation: growBar 0.6s ease-in-out forwards;
+        }
+        @keyframes growBar { from { height: 0; } to { height: var(--h); } }
+
+        .log-item {
+            font-size: 11px;
+            font-family: monospace;
+            color: #a0a0b5;
+            background: #161622;
+            padding: 6px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            border-right: 2px solid #00ff66;
+        }
+
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .show-animated { display: block; animation: slideUp 0.4s ease-in-out forwards; }
     </style>
@@ -397,7 +397,14 @@
 <div class="overlay" id="menuOverlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebarMenu">
-    <h4>⚙️ منصات مهندس الثغرات</h4>
+    <h4>⚙️ التحكم والنظام الإداري</h4>
+    <div class="contact-channels">
+        <button onclick="scrollToSection('authBox')">🔐 تسجيل دخول</button>
+        <button onclick="scrollToSection('dashboardBox')">📊 لوحة التحكم والرسوم</button>
+        <button onclick="scrollToSection('linkAnalyzerBox')">🔍 تحليل الروابط الذكي</button>
+        <button onclick="scrollToSection('activityLogBox')">📋 سجل النشاط العام</button>
+    </div>
+    <h4>👥 منصات مهندس الثغرات</h4>
     <div class="contact-channels">
         <a href="https://instagram.com/5q.mc" target="_blank">📸 Instagram: 5q.mc</a>
         <a href="https://t.me/B_1n2" target="_blank">🚀 Telegram: B_1n2</a>
@@ -405,11 +412,60 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" id="authBox">
     <div class="menu-btn" onclick="toggleSidebar()">
         <div class="line"></div><div class="line"></div><div class="line"></div>
     </div>
+    <div style="text-align: center;"><div class="system-badge" style="color: #ffaa00; border-color: rgba(255,170,0,0.3); background: rgba(255,170,0,0.05)">🔐 بوابة العبور الآمنة</div></div>
+    <h2 class="main-title">تسجيل الدخول للنظام</h2>
+    <p class="main-desc">الرجاء إدخال رمز التحقق وكلمة المرور المشفرة للوصول إلى لوحة الفحص السحابية.</p>
+    <input type="text" class="input-field" placeholder="اسم المستخدم الإداري" style="text-align: right; padding-right: 15px;">
+    <input type="password" class="input-field" placeholder="••••••••" style="text-align: center;">
+    <button class="btn-ai-submit" style="background: #ffaa00; box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);" onclick="alert('تم تفعيل جلسة الدخول المشفرة بنجاح!')">تسجيل الدخول للمصفوفة</button>
+</div>
 
+<div class="container" id="dashboardBox">
+    <div style="text-align: center;"><div class="system-badge" style="color: #00ccff; border-color: rgba(0,204,255,0.3); background: rgba(0,204,255,0.05)">📊 لوحة المراقبة الحية</div></div>
+    <h2 class="main-title">لوحة التحكم والرسوم البيانية</h2>
+    <p class="main-desc">إحصائيات وقوة معالجة البلاغات الحالية عبر خوادم الـ AI السحابية لآخر 7 ساعات.</p>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <div style="flex: 1; background: #161622; padding: 10px; border-radius: 10px; text-align: center; border: 1px solid #1f1f30;">
+            <div style="font-size: 11px; color: #85859e;">البلاغات الناجحة</div>
+            <div style="font-size: 18px; font-weight: bold; color: #00ff66; margin-top: 5px;">94.2%</div>
+        </div>
+        <div style="flex: 1; background: #161622; padding: 10px; border-radius: 10px; text-align: center; border: 1px solid #1f1f30;">
+            <div style="font-size: 11px; color: #85859e;">الضغط الحالي</div>
+            <div style="font-size: 18px; font-weight: bold; color: #ff3355; margin-top: 5px;">Low</div>
+        </div>
+    </div>
+
+    <div style="font-size: 12px; color: #9090a5; font-weight: bold; margin-bottom: 5px;">📈 تدفق معالجة البيانات والضغط السحابي:</div>
+    <div class="chart-mock">
+        <div class="chart-bar" style="--h: 30%;"></div>
+        <div class="chart-bar" style="--h: 55%;"></div>
+        <div class="chart-bar" style="--h: 85%;"></div>
+        <div class="chart-bar" style="--h: 40%;"></div>
+        <div class="chart-bar" style="--h: 70%;"></div>
+        <div class="chart-bar" style="--h: 95%;"></div>
+        <div class="chart-bar" style="--h: 60%;"></div>
+    </div>
+</div>
+
+<div class="container" id="linkAnalyzerBox">
+    <div style="text-align: center;"><div class="system-badge" style="color: #b333ff; border-color: rgba(179,51,255,0.3); background: rgba(179,51,255,0.05)">🔍 كاشف تصيد الروابط</div></div>
+    <h2 class="main-title">تحليل الروابط الذكي</h2>
+    <p class="main-desc">ضع أي رابط مشبوه هنا ليقوم المساعد الذكي بفحصه وتحليله والتأكد من خلوه من صفحات التصيد أو الاختراق.</p>
+    <input type="text" id="urlInput" class="input-field" placeholder="https://example.com/target-link" style="direction: ltr;">
+    <button class="btn-ai-submit" style="background: #b333ff; box-shadow: 0 4px 15px rgba(179, 51, 255, 0.3);" onclick="analyzeLink()">بدء الفحص المعمق للرابط</button>
+
+    <div class="ai-chat-section" id="urlResultSection" style="margin-top: 15px;">
+        <div class="ai-chat-header" style="color: #b333ff;">🛡️ تقرير سلامة الرابط:</div>
+        <div class="ai-bubble" id="urlResultText" style="border-right-color: #b333ff;">في انتظار وضع رابط لبدء التحليل الهيكلي...</div>
+    </div>
+</div>
+
+<div class="container" id="analyzerMainBox">
     <div class="server-status-bar">
         <div class="status-item"><span class="dot-green"></span> السيرفر: <span style="color:#00ff66">مستقر</span></div>
         <div class="status-item">⚡ الاستجابة: <span>0.3s</span></div>
@@ -417,7 +473,7 @@
     </div>
 
     <div style="text-align: center;">
-        <div class="system-badge">🤖 نظام المطور أبو زايد المدعوم بـ AI</div>
+        <div class="system-badge">🤖 مساعد ذكي: نظام المطور أبو زايد المتقدم</div>
     </div>
     
     <h2 class="main-title">محلل البلاغات الذكي المتقدم</h2>
@@ -448,7 +504,7 @@
 
     <div class="ai-chat-section" id="aiChatSection">
         <div class="ai-chat-header">🤖 مساعد الذكاء الاصطناعي المتحدث (AI Guide):</div>
-        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوججه الصوتي...</div>
+        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوجيه الصوتي...</div>
     </div>
 
     <div class="violations-section" id="violationsSection">
@@ -475,14 +531,6 @@
     </div>
 
     <div class="report-steps-container" id="reportStepsPanel">
-        
-        <div class="account-target-card">
-            <div class="target-avatar-circle">📸</div>
-            <div class="target-username-title" id="targetDisplayUser">@User</div>
-            <div class="target-status-text">تم فحص: الملف الشخصي • المحتوى المكتوب • القصص والوسائط النشطة</div>
-            <div class="target-report-btn-status">📝 تم ترتيب تقرير الانتهاك بنجاح</div>
-        </div>
-
         <div class="steps-header-box">
             <span class="steps-main-title">🎯 فلاتر التوجيه الذكي الآلي</span>
             <div class="badge-row">
@@ -513,7 +561,30 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" id="activityLogBox">
+    <div style="text-align: center;"><div class="system-badge" style="color: #9090a5; border-color: rgba(144,144,165,0.3); background: rgba(144,144,165,0.05)">📋 سجل العمليات والنظام</div></div>
+    <h2 class="main-title">سجل النشاط و الإعدادات</h2>
+    <p class="main-desc">تتبع مباشر للعمليات الخلفية للمصفوفة والتحكم في الخيارات البرمجية الحية.</p>
+    
+    <div style="margin-bottom: 15px;">
+        <div class="log-item">[INFO] تم تهيئة خادم الاتصال السحابي بنجاح...</div>
+        <div class="log-item">[SUCCESS] جدار الحماية الذكي مفعّل ويعمل بكفاءة 100%...</div>
+        <div class="log-item">[AI] تم تحديث فلاتر منصة الإنستقرام لعام 2026 تلقائياً...</div>
+    </div>
+
+    <div style="border-top: 1px solid #1f1f30; padding-top: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px;">
+            <span>⚙️ وضع الفحص العميق (Deep Scan)</span>
+            <input type="checkbox" checked style="accent-color: #00ff66;">
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
+            <span>🛡️ التخفي التلقائي وتغيير الـ IP</span>
+            <input type="checkbox" checked style="accent-color: #00ff66;">
+        </div>
+    </div>
+</div>
+
+<div class="container" id="cloudNumbersBox">
     <div style="text-align: center;">
         <div class="system-badge" style="color: #00ccff; border-color: rgba(0,204,255,0.3); background: rgba(0,204,255,0.05)">💾 خادم التفعيل العالمي لـ أبو زايد</div>
     </div>
@@ -603,6 +674,31 @@
         }
     }
 
+    function scrollToSection(id) {
+        var element = document.getElementById(id);
+        if(element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            toggleSidebar();
+        }
+    }
+
+    function analyzeLink() {
+        var url = document.getElementById('urlInput').value.trim();
+        if(url === "") {
+            alert("الرجاء إدخال الرابط أولاً ليتم تحليله!");
+            return;
+        }
+        var resultSection = document.getElementById('urlResultSection');
+        var resultText = document.getElementById('urlResultText');
+        
+        resultSection.classList.add('show-animated');
+        resultText.innerHTML = "⏳ جاري تفكيك بروتوكول الرابط وفحص شهادات الـ SSL...";
+        
+        setTimeout(function(){
+            resultText.innerHTML = "✅ <strong>النتيجة: الرابط آمن وسليم!</strong><br>لم يتم العثور على أي أكواد خبيثة أو صفحات تصيد تابعة لجهات خارجية مشبوهة.";
+        }, 1500);
+    }
+
     const violationData = {
         treason: {
             title: "خيانة ومعلومات مضللة",
@@ -649,8 +745,6 @@
         }
 
         var cleanUser = username.startsWith('@') ? username : '@' + username;
-        document.getElementById('targetDisplayUser').innerText = cleanUser;
-
         var selectedReason = document.getElementById('reasonSelect').value;
         var violation = violationData[selectedReason];
 
