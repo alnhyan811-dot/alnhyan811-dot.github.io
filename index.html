@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matrix Report & Security Analyzer</title>
+    <title>Matrix Report & AI Cloud System</title>
     <style>
-        /* الثيم السيبراني المشترك للموقع */
         body {
             background-color: #0b0b12;
             color: #ffffff;
@@ -13,7 +12,7 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
@@ -23,31 +22,31 @@
             width: 100%;
             max-width: 460px;
             background: #12121a;
-            border: 2px solid #00ff66;
-            border-radius: 15px;
+            border: 1px solid #1f1f2e;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
-            margin-top: 40px;
+            margin-bottom: 25px;
+            box-sizing: border-box;
         }
 
-        /* ☰ زر الثلاث خطوط المضيئة أعلى اليمين */
+        /* ☰ زر الثلاث خطوط المضيئة ثابت في الأعلى */
         .menu-btn {
             position: absolute;
-            top: -45px;
-            right: 10px;
+            top: 25px;
+            right: 25px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 30px;
-            height: 20px;
+            width: 25px;
+            height: 16px;
             z-index: 1001;
-            padding: 5px;
         }
 
         .menu-btn .line {
-            height: 3px;
+            height: 2px;
             width: 100%;
             background-color: #00ff66;
             border-radius: 2px;
@@ -74,9 +73,7 @@
             gap: 15px;
         }
 
-        .sidebar.open {
-            right: 0;
-        }
+        .sidebar.open { right: 0; }
 
         .sidebar h4 {
             color: #00ff66;
@@ -88,13 +85,7 @@
             text-align: center;
         }
 
-        .contact-channels {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 13px;
-        }
-
+        .contact-channels { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
         .contact-channels a {
             color: #ffffff;
             text-decoration: none;
@@ -106,302 +97,283 @@
             text-align: center;
             font-weight: bold;
         }
-
         .contact-channels a:hover {
             border-color: #00ff66;
             background: rgba(0, 255, 102, 0.08);
             color: #00ff66;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
         }
 
         .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999; display: none;
         }
 
-        .header {
-            text-align: center;
-            border-bottom: 1px solid rgba(0, 255, 102, 0.2);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            color: #00ff66;
-            font-size: 20px;
-            text-shadow: 0 0 10px #00ff66;
-            margin: 5px 0;
-        }
-
-        .dev-badge {
-            font-size: 11px;
-            color: #777;
-            letter-spacing: 1px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            background: #181824;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 15px;
-            box-sizing: border-box;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .input-field:focus {
-            border-color: #00ff66;
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
-        }
-
-        .btn-scan {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #00ff66, #009933);
-            border: none;
-            border-radius: 8px;
-            color: #000;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 0 12px rgba(0, 255, 102, 0.3);
-            transition: 0.3s;
-        }
-
-        .btn-scan:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 20px #00ff66;
-        }
-
-        .results-section {
-            display: none;
-            animation: slideUp 0.4s ease-in-out forwards;
-        }
-
-        /* بطاقة الحساب المستهدف */
-        .profile-card {
-            background: #161622;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 15px;
-            border: 1px solid #252535;
-        }
-
-        .avatar-circle {
-            width: 60px;
-            height: 60px;
-            background: #222235;
-            border: 2px solid #00ff66;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: #00ff66;
-            font-size: 18px;
-            box-shadow: 0 0 10px rgba(0,255,102,0.2);
-        }
-
-        .danger-bar-container {
-            margin: 15px 0 5px 0;
-            text-align: right;
-        }
-
-        .danger-text {
+        /* شريط حالة السيرفر العلوي */
+        .server-status-bar {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 5px;
+            background: #161622;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            color: #9090a5;
+            margin-bottom: 20px;
+            border: 1px solid #1f1f30;
+            width: calc(100% - 40px);
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #222;
-            border-radius: 6px;
-            overflow: hidden;
-        }
+        .status-item { display: flex; align-items: center; gap: 4px; }
+        .dot-green { width: 6px; height: 6px; background: #00ff66; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #00ff66; }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ffcc00, #ff3355);
-            width: 0%;
-            transition: width 1.2s ease-in-out;
-        }
-
-        .section-title {
-            font-size: 14px;
-            color: #8888a0;
-            margin: 20px 0 12px 0;
+        /* شارات النظام المطور */
+        .system-badge {
+            background: rgba(0, 255, 102, 0.07);
+            border: 1px solid rgba(0, 255, 102, 0.3);
+            color: #00ff66;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 10px auto 15px auto;
         }
 
-        /* 📋 قسم خطوات البلاغ المقترحة (مستوحى من 1000160139.jpg) */
-        .report-steps-container {
+        .main-title { font-size: 19px; color: #ffffff; font-weight: bold; margin: 5px 0; text-align: center; }
+        .main-desc { font-size: 12px; color: #68687e; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+
+        /* عناصر التحكم والإدخال الخيار الذكر والأنثى */
+        .gender-selector {
+            display: flex;
+            background: #161622;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 12px;
+            justify-content: space-around;
+            border: 1px solid #1f1f30;
+        }
+        .gender-option { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+        .gender-option input { accent-color: #00ff66; }
+
+        .select-field, .input-field {
+            width: 100%;
+            padding: 12px;
+            background: #161622;
+            border: 1px solid #1f1f30;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+            text-align: right;
+        }
+        .input-field { text-align: center; font-size: 14px; }
+        .input-field:focus, .select-field:focus { border-color: #00ff66; outline: none; }
+
+        /* الزر الأخضر المطور الكبير */
+        .btn-ai-submit {
+            width: 100%;
+            padding: 14px;
+            background: #00ff66;
+            border: none;
+            border-radius: 12px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 255, 102, 0.3);
+            transition: 0.3s;
+            margin-top: 5px;
+        }
+        .btn-ai-submit:hover { transform: scale(1.01); box-shadow: 0 0 25px #00ff66; }
+
+        /* 🤖 شات ومساعد الذكاء الاصطناعي التفاعلي المتكلم */
+        .ai-chat-section {
             background: #141420;
-            border: 1px solid #222232;
+            border: 1px solid #222235;
             border-radius: 12px;
             padding: 15px;
             margin-top: 15px;
+            display: none;
+        }
+        .ai-chat-header { font-size: 13px; color: #00ff66; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid rgba(0,255,102,0.1); padding-bottom: 5px; }
+        .ai-bubble {
+            background: rgba(0, 255, 102, 0.04);
+            border-right: 3px solid #00ff66;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #d0d0e2;
         }
 
-        .steps-header-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
+        /* ⚠️ قسم الانتهاكات المكتشفة التفاعلي */
+        .violations-section {
+            display: none;
+            margin-top: 20px;
         }
+        .violations-title {
+            font-size: 14px;
+            color: #9090a5;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .violation-card {
+            background: #141422;
+            border: 1px solid #222235;
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .violation-card.purple-side { border-left: 4px solid #b333ff; }
+        .violation-card.red-side { border-left: 4px solid #ff3355; }
+        .violation-card.cyan-side { border-left: 4px solid #33ccff; }
+        .violation-card.green-side { border-left: 4px solid #00ff66; }
+        .violation-card.yellow-side { border-left: 4px solid #ffcc00; }
+        .violation-card.orange-side { border-left: 4px solid #ff6600; }
 
-        .steps-main-title {
+        .violation-icon-box {
+            text-align: left;
+            font-size: 24px;
+            margin-bottom: -10px;
+            opacity: 0.8;
+        }
+        .violation-main-name {
             font-size: 15px;
             color: #ffffff;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-bottom: 4px;
         }
-
-        /* الأزرار العلوية الصغيرة للعدادات */
-        .badge-row {
-            display: flex;
-            gap: 8px;
-        }
-
-        .step-badge {
+        .violation-level {
             font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: bold;
+            color: #85859e;
+            margin-bottom: 8px;
         }
-
-        .step-badge.red-badge {
-            background: rgba(255, 51, 85, 0.1);
-            border: 1px solid #ff3355;
-            color: #ff3355;
-        }
-
-        .step-badge.yellow-badge {
-            background: rgba(255, 204, 0, 0.1);
-            border: 1px solid #ffcc00;
-            color: #ffcc00;
-        }
-
-        /* بطاقات الخطوات الفردية التفصيلية */
-        .step-item-card {
-            background: #1a1a2a;
-            border: 1px solid #28283d;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            transition: 0.3s;
-        }
-
-        .step-item-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .step-text-content {
-            font-size: 13px;
+        .violation-desc {
+            font-size: 12px;
             color: #b0b0cc;
             line-height: 1.5;
-            text-align: right;
+        }
+
+        /* ⏰ قسم أوقات استجابة الدعم الفني الجديد */
+        .support-time-section {
+            display: none;
+            background: #161625;
+            border: 1px solid #222238;
+            border-radius: 14px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .support-time-title { font-size: 13px; color: #ffcc00; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .time-row-grid { display: flex; justify-content: space-between; gap: 8px; }
+        .time-box {
             flex: 1;
+            background: #1f1f32;
+            border: 1px solid #2d2d48;
+            padding: 10px 5px;
+            border-radius: 8px;
+            text-align: center;
         }
+        .time-box-title { font-size: 12px; font-weight: bold; color: #ffffff; margin-bottom: 4px; }
+        .time-box-status { font-size: 10px; color: #00ff66; font-weight: bold; }
 
-        .step-text-content strong {
-            color: #00ff66;
+        /* 📋 قسم خطوات البلاغ المقترحة واستهداف الحساب */
+        .report-steps-container { display: none; background: #141420; border: 1px solid #222232; border-radius: 12px; padding: 15px; margin-top: 15px; }
+        .steps-header-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .steps-main-title { font-size: 14px; color: #ffffff; font-weight: bold; }
+        .badge-row { display: flex; gap: 8px; }
+        .step-badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: bold; }
+        .step-badge.red-badge { background: rgba(255, 51, 85, 0.1); border: 1px solid #ff3355; color: #ff3355; }
+        .step-badge.yellow-badge { background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; color: #ffcc00; }
+        
+        .account-target-card {
+            background: #161625;
+            border: 1px solid #222235;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
         }
-
-        .step-text-content .highlight-purple { color: #b050ff; font-weight: bold; }
-        .step-text-content .highlight-blue { color: #00ccff; font-weight: bold; }
-
-        /* الأرقام الدائرية الوردية */
-        .step-number-circle {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #e65c9c, #bd3fa3);
+        .target-avatar-circle {
+            width: 65px;
+            height: 65px;
+            background: rgba(230, 92, 156, 0.1);
+            border: 1px solid rgba(230, 92, 156, 0.3);
             border-radius: 50%;
+            margin: 0 auto 12px auto;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #e65c9c;
+            font-size: 24px;
+        }
+        .target-username-title { font-size: 16px; color: #ffffff; font-weight: bold; margin-bottom: 6px; }
+        .target-status-text { font-size: 11px; color: #85859e; margin-bottom: 14px; }
+        .target-report-btn-status {
+            display: inline-block;
+            border: 1px solid #ff3355;
+            color: #ff3355;
+            background: rgba(255, 33, 85, 0.05);
+            padding: 6px 18px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            color: #fff;
-            box-shadow: 0 0 6px rgba(230, 92, 156, 0.4);
-            flex-shrink: 0;
         }
 
-        /* بطاقات الانتهاكات المكتشفة الملونة (مستوحى من 1000160140.jpg) */
-        .violation-card {
+        .step-item-card { background: #1a1a2a; border: 1px solid #28283d; border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .step-text-content { font-size: 12px; color: #b0b0cc; text-align: right; flex: 1; }
+        .step-text-content strong { color: #00ff66; }
+        .step-number-circle { width: 22px; height: 22px; background: linear-gradient(135deg, #e65c9c, #bd3fa3); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; flex-shrink: 0; }
+
+        /* 🇸🇦 بوابة الأرقام الوهمية */
+        .numbers-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .country-card {
             background: #161622;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-right: 4px solid #333;
-        }
-
-        .violation-card.purple { border-right-color: #a020f0; }
-        .violation-card.red { border-right-color: #ff3355; }
-        .violation-card.blue { border-right-color: #00ccff; }
-        .violation-card.yellow { border-right-color: #ffcc00; }
-
-        .card-header-box {
+            border: 1px solid #1f1f30;
+            border-radius: 10px;
+            padding: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
-        .card-title-text {
-            color: #ffffff;
+        .country-info { display: flex; align-items: center; gap: 10px; }
+        .flag-icon { font-size: 22px; }
+        .country-name { font-size: 13px; font-weight: bold; color: #fff; }
+        .phone-num { font-size: 13px; color: #00ff66; font-family: monospace; direction: ltr; margin-top: 2px; }
+        .activation-btn {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+        }
+        .activation-box {
+            background: #1a1a2a;
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 6px;
+            font-size: 11px;
+            color: #a0a0b5;
+            display: none;
+            text-align: center;
         }
 
-        .card-subtitle-text {
-            color: #555570;
-            font-size: 12px;
-            margin: 4px 0;
-        }
-
-        .card-desc-text {
-            color: #9090a5;
-            font-size: 13px;
-            margin: 8px 0 0 0;
-            line-height: 1.4;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .show-animated { display: block; animation: slideUp 0.4s ease-in-out forwards; }
     </style>
 </head>
 <body>
 
 <div class="overlay" id="menuOverlay" onclick="toggleSidebar()"></div>
 
-<!-- القائمة الجانبية لحساباتك -->
 <div class="sidebar" id="sidebarMenu">
     <h4>⚙️ منصات مهندس الثغرات</h4>
     <div class="contact-channels">
@@ -412,141 +384,190 @@
 </div>
 
 <div class="container">
-    
-    <!-- زر الثلاث خطوط المضيئة أعلى اليمين -->
     <div class="menu-btn" onclick="toggleSidebar()">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div>
+        <div class="line"></div><div class="line"></div><div class="line"></div>
     </div>
 
-    <!-- هيدر النظام -->
-    <div class="header">
-        <h1>MATRIX REPORT ANALYZER</h1>
-        <div class="dev-badge">SECURITY CHECKER // ENG. ABO ZAYED</div>
+    <div class="server-status-bar">
+        <div class="status-item"><span class="dot-green"></span> السيرفر: <span style="color:#00ff66">مستقر</span></div>
+        <div class="status-item">⚡ الاستجابة: <span>0.3s</span></div>
+        <div class="status-item">🛡️ جدار الحماية: <span style="color:#00ff66">آمن</span></div>
     </div>
 
-    <!-- الإدخال والفحص -->
-    <div class="input-group">
-        <input type="text" id="userInput" class="input-field" placeholder="أدخل اسم المستخدم للتحليل الأمني...">
-        <button class="btn-scan" onclick="runIntegratedAnalysis()">⚡ ابدأ فحص الامتثال للسياسات</button>
+    <div style="text-align: center;">
+        <div class="system-badge">🤖 نظام المطور أبو زايد المدعوم بـ AI</div>
+    </div>
+    
+    <h2 class="main-title">محلل البلاغات الذكي المتقدم</h2>
+    <p class="main-desc">تحليل وفحص معمق للحسابات والمحتوى لاستخراج الانتهاكات وتوجيه بلاغات الإغلاق الفورية وفق سياسات المنصات.</p>
+
+    <div class="gender-selector">
+        <label class="gender-option"><input type="radio" name="gender" checked> ♂️ ذكر</label>
+        <label class="gender-option"><input type="radio" name="gender"> ♀️ أنثى</label>
     </div>
 
-    <!-- لوحة النتائج التفاعلية كاملة -->
-    <div class="results-section" id="resultsPanel">
+    <select class="select-field" id="platformSelect">
+        <option value="instagram">منصة الإنستقرام (Instagram)</option>
+        <option value="tiktok">منصة التيك توك (TikTok)</option>
+        <option value="snapchat">منصة السناب شات (Snapchat)</option>
+    </select>
+
+    <input type="text" id="userInput" class="input-field" placeholder="أدخل يوزر الحساب المستهدف...">
+
+    <select class="select-field" id="reasonSelect">
+        <option value="treason">خيانة ومعلومات مضللة (مستوى 3)</option>
+        <option value="drugs">مخدرات ومواد محظورة</option>
+        <option value="violence">عنف ومنظمات خطرة (مستوى 4)</option>
+        <option value="business">بيزنس مخالف / مسابقات يوزرات</option>
+        <option value="impersonate">انتحال شخصية / رابط مشبوه</option>
+    </select>
+
+    <button class="btn-ai-submit" onclick="runAISystem()">تشغيل نظام الـ AI المطور</button>
+
+    <div class="ai-chat-section" id="aiChatSection">
+        <div class="ai-chat-header">🤖 مساعد الذكاء الاصطناعي المتحدث (AI Guide):</div>
+        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوجيه الصوتي...</div>
+    </div>
+
+    <div class="violations-section" id="violationsSection">
+        <div class="violations-title">🔍 الانتهاكات المكتشفة بالحساب:</div>
+        <div id="violationsContainer"></div>
+    </div>
+
+    <div class="support-time-section" id="supportTimeSection">
+        <div class="support-time-title">⚡ نافذة المراقبة: أوقات ذروة ردود الدعم الفني</div>
+        <div class="time-row-grid">
+            <div class="time-box">
+                <div class="time-box-title">🌄 الفجر</div>
+                <div class="time-box-status" style="color: #00ff66;">نشط جداً ⚡</div>
+            </div>
+            <div class="time-box">
+                <div class="time-box-title">☀️ الظهر</div>
+                <div class="time-box-status" style="color: #ffcc00;">متوسط ⚠️</div>
+            </div>
+            <div class="time-box">
+                <div class="time-box-title">🌌 العشاء</div>
+                <div class="time-box-status" style="color: #00ff66;">قوة الفلاتر 🔥</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="report-steps-container" id="reportStepsPanel">
         
-        <!-- بطاقة الحساب المستهدف وشريط الخطورة -->
-        <div class="profile-card">
-            <div class="avatar-circle" id="userAvatar">U</div>
-            <div style="font-weight: bold; font-size: 16px;" id="profileUsername">@username</div>
-            <div style="font-size: 12px; color: #666; margin-top: 4px;">تم فحص: الصورة الشخصية • البايو • المحتوى العام</div>
-            
-            <div class="danger-bar-container">
-                <div class="danger-text">
-                    <span>درجة الخطورة العامة:</span>
-                    <span id="dangerPercentage" style="color: #ff3355; font-weight: bold;">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
+        <div class="account-target-card">
+            <div class="target-avatar-circle">📸</div>
+            <div class="target-username-title" id="targetDisplayUser">@User</div>
+            <div class="target-status-text">تم فحص: الملف الشخصي • المحتوى المكتوب • القصص والوسائط النشطة</div>
+            <div class="target-report-btn-status">📝 تم ترتيب تقرير الانتهاك بنجاح</div>
+        </div>
+
+        <div class="steps-header-box">
+            <span class="steps-main-title">🎯 فلاتر التوجيه الذكي الآلي</span>
+            <div class="badge-row">
+                <span class="step-badge red-badge" id="badgeReportsCount">🔴 3 بلاغ</span>
+                <span class="step-badge yellow-badge" id="badgeSpamCount">✉️ 5 سبام</span>
             </div>
         </div>
 
-        <!-- 📋 قسم خطوات البلاغ المقترحة (الجديد والمطابق للصور) -->
-        <div class="section-title">📋 خطوات البلاغ المقترحة:</div>
-        <div class="report-steps-container">
-            <div class="steps-header-box">
-                <span class="steps-main-title">🎯 فلاتر التوجيه الذكي</span>
-                <div class="badge-row">
-                    <span class="step-badge red-badge" id="badgeReportsCount">🔴 3 بلاغ</span>
-                    <span class="step-badge yellow-badge" id="badgeSpamCount">✉️ 5 سبام</span>
-                </div>
-            </div>
-
-            <!-- خطوة 1 -->
-            <div class="step-item-card">
-                <div class="step-text-content">
-                    أبلغ عن الحساب <strong id="step1CountText">3 مرة</strong> باستخدام الأسباب المذكورة أدناه.
-                </div>
-                <div class="step-number-circle">1</div>
-            </div>
-
-            <!-- خطوة 2 -->
-            <div class="step-item-card">
-                <div class="step-text-content">
-                    بلاغ <span class="highlight-purple" id="step2Level">عنف (مستوى 4)</span>: اختر "تهديد" أو "عنف" أو "نشاط منظمة خطرة".
-                </div>
-                <div class="step-number-circle">2</div>
-            </div>
-
-            <!-- خطوة 3 -->
-            <div class="step-item-card">
-                <div class="step-text-content">
-                    بلاغ <span class="highlight-blue">نشاط مخالف</span>: اختر "احتيال أو خداع".
-                </div>
-                <div class="step-number-circle">3</div>
-            </div>
-
-            <!-- خطوة 4 -->
-            <div class="step-item-card">
-                <div class="step-text-content">
-                    بلاغ <span class="highlight-blue">انتحال هوية</span>: اختر "ينتحل شخصية أخرى".
-                </div>
-                <div class="step-number-circle">4</div>
-            </div>
-
-            <!-- خطوة 5 -->
-            <div class="step-item-card">
-                <div class="step-text-content">
-                    أضف <strong id="step5SpamText">5 سبام</strong> من حسابك لتسريع استجابة الدعم وتقوية البلاغ.
-                </div>
-                <div class="step-number-circle">5</div>
-            </div>
+        <div class="step-item-card">
+            <div class="step-text-content">أبلغ عن الحساب المستهدف <strong id="step1Text">3 مرات</strong> متتالية باستخدام الخيارات المعتمدة بالأسفل.</div>
+            <div class="step-number-circle">1</div>
         </div>
 
-        <!-- قسم الانتهاكات المكتشفة الملونة -->
-        <div class="section-title">🔒 الانتهاكات المكتشفة بناءً على الفلاتر:</div>
-
-        <!-- عنف - مستوى 4 -->
-        <div class="violation-card red">
-            <div class="card-header-box">
-                <span class="card-title-text">عنف - مستوى 4 (منظمة)</span>
-                <span>💀</span>
-            </div>
-            <div class="card-subtitle-text" id="lvlViolence">المستوى 4</div>
-            <p class="card-desc-text">ذكر منظمة أو نائب أو تيم في الستوري أو البايو بشكل يخالف معايير المجتمع الرقمي.</p>
+        <div class="step-item-card">
+            <div class="step-text-content">بلاغ <strong id="step2TypeTitle">عنف ومنظمات خطرة</strong>: اختر السبب لضرب موثوقية البايو والصورة الشخصية فوراً.</div>
+            <div class="step-number-circle">2</div>
         </div>
 
-        <!-- بيزنس مخالف -->
-        <div class="violation-card blue">
-            <div class="card-header-box">
-                <span class="card-title-text">بيزنس مخالف</span>
-                <span>💰</span>
-            </div>
-            <div class="card-subtitle-text">المستوى 1</div>
-            <p class="card-desc-text">مسابقة يوزرات أو بيع حسابات قديمة أو إنشاءات غير مصرحة في دلالات الحساب.</p>
+        <div class="step-item-card">
+            <div class="step-text-content">بلاغ <strong id="step3TypeTitle">نشاط مخالف أو احتيال</strong>: لتوجيه خوارزمية الفحص التلقائي نحو الروابط والمنشن.</div>
+            <div class="step-number-circle">3</div>
         </div>
 
-        <!-- انتحال / رابط مشبوه -->
-        <div class="violation-card purple">
-            <div class="card-header-box">
-                <span class="card-title-text">انتحال / رابط مشبوه</span>
-                <span>🔗</span>
+        <div class="step-item-card">
+            <div class="step-text-content">أضف <strong id="step4Text">5 سبام</strong> لتسريع استجابة الدعم الفني للمنصة وتقوية الثقل البرمجي للبلاغ.</div>
+            <div class="step-number-circle">4</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div style="text-align: center;">
+        <div class="system-badge" style="color: #00ccff; border-color: rgba(0,204,255,0.3); background: rgba(0,204,255,0.05)">💾 خادم التفعيل العالمي لـ أبو زايد</div>
+    </div>
+    <h2 class="main-title">بوابة الأرقام السحابية والأكواد</h2>
+    <p class="main-desc">توليد أرقام حماية افتراضية مؤقتة لاستقبال رسائل الـ SMS وتفعيل الحسابات بشكل آمن وسحابي بالكامل.</p>
+
+    <div class="numbers-grid">
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇸🇦</span>
+                    <div>
+                        <div class="country-name">المملكة العربية السعودية</div>
+                        <div class="phone-num">+966 54 845 9464</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('sa')">طلب كود</button>
             </div>
-            <div class="card-subtitle-text">المستوى 1</div>
-            <p class="card-desc-text">منشن في الستوري أو البايو أو وجود رابط خارجي مشبوه يقلل الموثوقية التلقائية للحساب.</p>
+            <div class="activation-box" id="code-sa">جاري تهيئة خادم الاتصال...</div>
         </div>
 
-        <!-- سبام لتسريع الدعم -->
-        <div class="violation-card yellow">
-            <div class="card-header-box">
-                <span class="card-title-text">سبام (لتسريع الدعم)</span>
-                <span>✉️</span>
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇦🇪</span>
+                    <div>
+                        <div class="country-name">الإمارات العربية المتحدة</div>
+                        <div class="phone-num">+971 50 284 1942</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('ae')">طلب كود</button>
             </div>
-            <div class="card-subtitle-text">المستوى 1</div>
-            <p class="card-desc-text">إضافة سبام يسرّع استجابة الدعم ويقوي البلاغات المرفوعة ضد الحساب للحظر الفوري.</p>
+            <div class="activation-box" id="code-ae">جاري تهيئة خادم الاتصال...</div>
         </div>
 
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇸🇾</span>
+                    <div>
+                        <div class="country-name">الجمهورية العربية السورية</div>
+                        <div class="phone-num">+963 933 481 052</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('sy')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-sy">جاري تهيئة خادم الاتصال...</div>
+        </div>
+
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇷🇺</span>
+                    <div>
+                        <div class="country-name">روسيا الاتحادية</div>
+                        <div class="phone-num">+7 911 402-19-83</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('ru')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-ru">جاري تهيئة خادم الاتصال...</div>
+        </div>
+
+        <div>
+            <div class="country-card">
+                <div class="country-info">
+                    <span class="flag-icon">🇾🇪</span>
+                    <div>
+                        <div class="country-name">الجمهورية اليمنية</div>
+                        <div class="phone-num">+967 734 591 204</div>
+                    </div>
+                </div>
+                <button class="activation-btn" onclick="triggerCode('ye')">طلب كود</button>
+            </div>
+            <div class="activation-box" id="code-ye">جاري تهيئة خادم الاتصال...</div>
+        </div>
     </div>
 </div>
 
@@ -554,54 +575,111 @@
     function toggleSidebar() {
         var sidebar = document.getElementById('sidebarMenu');
         var overlay = document.getElementById('menuOverlay');
-        
         if (sidebar.classList.contains('open')) {
-            sidebar.classList.remove('open');
-            overlay.style.display = 'none';
+            sidebar.classList.remove('open'); overlay.style.display = 'none';
         } else {
-            sidebar.classList.add('open');
-            overlay.style.display = 'block';
+            sidebar.classList.add('open'); overlay.style.display = 'block';
         }
     }
 
-    function runIntegratedAnalysis() {
-        var userInp = document.getElementById('userInput').value;
-        if(userInp.trim() === "") {
-            alert("الرجاء إدخال اسم المستخدم لبدء عملية الفحص!");
+    // إضافة خيار الخيانة مستوى 3 للقاموس البرمجي
+    const violationData = {
+        treason: {
+            title: "خيانة ومعلومات مضللة",
+            level: "المستوى 3",
+            desc: "تم رصد منشورات أو وسائط تحتوي على بلاغات كاذبة أو تزييف ونشر معلومات تخالف المصلحة العامة والسياسات الخاصة بالمنصة.",
+            icon: "🚫",
+            style: "orange-side"
+        },
+        drugs: {
+            title: "مخدرات - مستوى 1",
+            level: "المستوى 1",
+            desc: "تم رصد دخان أو رمز تعبيري مرتبط بالمخدرات في الحساب (ستوري، بايو أو أفاتار).",
+            icon: "💨",
+            style: "purple-side"
+        },
+        violence: {
+            title: "عنب ومنظمات خطرة (مستوى 4)",
+            level: "المستوى 4",
+            desc: "ذكر منظمة أو نائب أو تيم محظور في الستوري أو البايو لضرب موثوقية الحساب.",
+            icon: "💀",
+            style: "red-side"
+        },
+        business: {
+            title: "بيزنس مخالف",
+            level: "المستوى 1",
+            desc: "ترويج مسابقة يوزرات أو بيع حسابات قديمة أو إنشاءات تخالف شروط المنصة.",
+            icon: "💰",
+            style: "cyan-side"
+        },
+        impersonate: {
+            title: "انتحال / رابط مشبوه",
+            level: "المستوى 1",
+            desc: "منشن في الستوري أو البايو أو وجود رابط خارجي مشبوه يوجه لصفحات تصيد.",
+            icon: "🔗",
+            style: "green-side"
+        }
+    };
+
+    function runAISystem() {
+        var username = document.getElementById('userInput').value.trim();
+        if (username === "") {
+            alert("الرجاء إدخال يوزر الحساب أولاً ليقوم الـ AI بتحليله!");
             return;
         }
 
-        document.getElementById('resultsPanel').style.display = "block";
+        var cleanUser = username.startsWith('@') ? username : '@' + username;
+        document.getElementById('targetDisplayUser').innerText = cleanUser;
+
+        var selectedReason = document.getElementById('reasonSelect').value;
+        var violation = violationData[selectedReason];
+
+        var container = document.getElementById('violationsContainer');
+        container.innerHTML = `
+            <div class="violation-card ${violation.style}">
+                <div class="violation-icon-box">${violation.icon}</div>
+                <div class="violation-main-name">${violation.title}</div>
+                <div class="violation-level">${violation.level}</div>
+                <div class="violation-desc">${violation.desc}</div>
+            </div>
+        `;
+
+        var reportsNeeded = Math.floor(Math.random() * (7 - 2 + 1)) + 2; 
+        var spamNeeded = Math.floor(Math.random() * (10 - 4 + 1)) + 4;   
+        var confidence = Math.floor(Math.random() * (98 - 65 + 1)) + 65;
+
+        // إظهار لوحة الأوقات وكافة اللوحات بحركات أنيميشن
+        document.getElementById('aiChatSection').classList.add('show-animated');
+        document.getElementById('violationsSection').classList.add('show-animated');
+        document.getElementById('supportTimeSection').classList.add('show-animated');
+        document.getElementById('reportStepsPanel').classList.add('show-animated');
+
+        document.getElementById('badgeReportsCount').innerText = "🔴 " + reportsNeeded + " بلاغ";
+        document.getElementById('badgeSpamCount').innerText = "✉️ " + spamNeeded + " سبام";
+        document.getElementById('step1Text').innerText = reportsCountText(reportsNeeded);
+        document.getElementById('step4Text').innerText = spamNeeded + " سبام مكثف";
         
-        var cleanUser = userInp.startsWith('@') ? userInp : '@' + userInp;
-        document.getElementById('profileUsername').innerText = cleanUser;
+        document.getElementById('step2TypeTitle').innerText = violation.title;
+
+        var aiResponseText = document.getElementById('aiResponseText');
+        aiResponseText.innerHTML = "أهلاً بك، تم فحص الثغرات الحية للحساب " + cleanUser + ". تم رصد مخالفة من نوع <strong>" + violation.title + "</strong> بنجاح. يتطلب قفل الثغرة إرسال <strong>" + reportsNeeded + " بلاغات نوعية</strong> متتالية متبوعة بـ <strong>" + spamNeeded + " بلاغات سبام</strong>. نوصي برفع التقارير في نوافذ الدعم النشطة الموضحة أدناه لسرعة الإغلاق الفوري.";
+    }
+
+    function reportsCountText(count) {
+        if (count === 2) return "مرتين (2)";
+        if (count >= 3 && count <= 10) return count + " مرات";
+        return count + " مرة";
+    }
+
+    function triggerCode(countryCode) {
+        var box = document.getElementById('code-' + countryCode);
+        box.style.display = "block";
+        box.innerText = "⏳ جاري الاتصال بالسيرفر السحابي واستقبال الرسالة...";
         
-        var rawName = userInp.startsWith('@') ? userInp.substring(1) : userInp;
-        document.getElementById('userAvatar').innerText = rawName.substring(0, 2).toUpperCase();
-
-        // حساب نسبة الخطورة وربطها بالبلاغات المقترحة تلقائياً وبشكل واقعي
-        var randomRisk = Math.floor(Math.random() * (95 - 35 + 1)) + 35; 
-        document.getElementById('dangerPercentage').innerText = randomRisk + "%";
-        document.getElementById('progressFill').style.width = randomRisk + "%";
-
-        // توليد عدد البلاغات والسبام المقترح بناءً على حالة الحساب
-        var reportsCount = Math.floor(Math.random() * (8 - 2 + 1)) + 2; // من 2 إلى 8 بلاغات أساسية
-        var spamCount = Math.floor(Math.random() * (12 - 4 + 1)) + 4;  // من 4 إلى 12 سبام دعم
-
-        // تحديث قسم الخطوات والأزرار العلوية ديناميكياً لتطابق أرقام الفحص الحالية
-        document.getElementById('badgeReportsCount').innerText = "🔴 " + reportsCount + " بلاغ";
-        document.getElementById('badgeSpamCount').innerText = "✉️ " + spamCount + " سبام";
-        document.getElementById('step1CountText').innerText = reportsCount + " مرة";
-        document.getElementById('step5SpamText').innerText = spamCount + " سبام";
-
-        // ضبط مستوى مراجعة العنف بناءً على قوة الحساب
-        if (randomRisk > 70) {
-            document.getElementById('step2Level').innerText = "عنف (مستوى 4)";
-            document.getElementById('lvlViolence').innerText = "المستوى 4";
-        } else {
-            document.getElementById('step2Level').innerText = "عنف (مستوى 2)";
-            document.getElementById('lvlViolence').innerText = "المستوى 2";
-        }
+        setTimeout(function() {
+            var randomCode = Math.floor(100000 + Math.random() * 900000);
+            box.innerHTML = "✅ تم استقبال كود التفعيل بنجاح: <strong style='color:#00ff66; font-size:14px; font-family:monospace;'>" + randomCode + "</strong>";
+        }, 1500);
     }
 </script>
 
