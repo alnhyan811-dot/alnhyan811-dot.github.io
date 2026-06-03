@@ -1,79 +1,81 @@
-<div class="container" id="activityLogBox">
-    <div style="text-align: center;"><div class="system-badge" style="color: #9090a5; border-color: rgba(144,144,165,0.3); background: rgba(144,144,165,0.05)">📋 سجل العمليات والنظام</div></div>
-    <h2 class="main-title">سجل النشاط و الإعدادات</h2>
-    <p class="main-desc">تتبع مباشر للعمليات الخلفية للمصفوفة والتحكم في الخيارات البرمجية الحية.</p>
-    
-    <div style="margin-bottom: 15px;">
-        <div class="log-item">[INFO] تم تهيئة خادم الاتصال السحابي بنجاح...</div>
-        <div class="log-item">[SUCCESS] جدار الحماية الذكي مفعّل ويعمل بكفاءة 100%...</div>
-        <div class="log-item">[AI] تم تحديث فلاتر منصة الإنستقرام لعام 2026 تلقائياً...</div>
+<div class="gender-selector">
+        <label class="gender-option"><input type="radio" name="gender" checked> ♂️ ذكر</label>
+        <label class="gender-option"><input type="radio" name="gender"> ♀️ أنثى</label>
     </div>
 
-    <div style="border-top: 1px solid #1f1f30; padding-top: 15px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px;">
-            <span>⚙️ وضع الفحص العميق (Deep Scan)</span>
-            <input type="checkbox" checked style="accent-color: #00ff66;">
+    <select class="select-field" id="platformSelect">
+        <option value="instagram">منصة الإنستقرام (Instagram)</option>
+        <option value="tiktok">منصة التيك توك (TikTok)</option>
+        <option value="snapchat">منصة السناب شات (Snapchat)</option>
+    </select>
+
+    <input type="text" id="userInput" class="input-field" placeholder="أدخل يوزر الحساب المستهدف...">
+
+    <select class="select-field" id="reasonSelect">
+        <option value="treason">خيانة ومعلومات مضللة (مستوى 3)</option>
+        <option value="drugs">مخدرات ومواد محظورة</option>
+        <option value="violence">عنف ومنظمات خطرة (مستوى 4)</option>
+        <option value="business">بيزنس مخالف / مسابقات يوزرات</option>
+        <option value="impersonate">انتحال شخصية / رابط مشبوه</option>
+    </select>
+
+    <button class="btn-ai-submit" onclick="runAISystem()">تشغيل نظام الـ AI المطور</button>
+
+    <div class="ai-chat-section" id="aiChatSection">
+        <div class="ai-chat-header">🤖 مساعد الذكاء الاصطناعي المتحدث (AI Guide):</div>
+        <div class="ai-bubble" id="aiResponseText">جاري فحص الخوارزميات وتجهيز التوجيه الصوتي...</div>
+    </div>
+
+    <div class="violations-section" id="violationsSection">
+        <div class="violations-title">🔍 الانتهاكات المكتشفة بالحساب:</div>
+        <div id="violationsContainer"></div>
+    </div>
+
+    <div class="support-time-section" id="supportTimeSection">
+        <div class="support-time-title">⚡ نافذة المراقبة: أوقات ذروة ردود الدعم الفني</div>
+        <div class="time-row-grid">
+            <div class="time-box">
+                <div class="time-box-title">🌄 الفجر</div>
+                <div class="time-box-status" style="color: #00ff66;">نشط جداً ⚡</div>
+            </div>
+            <div class="time-box">
+                <div class="time-box-title">☀️ الظهر</div>
+                <div class="time-box-status" style="color: #ffcc00;">متوسط ⚠️</div>
+            </div>
+            <div class="time-box">
+                <div class="time-box-title">🌌 العشاء</div>
+                <div class="time-box-status" style="color: #00ff66;">قوة الفلاتر 🔥</div>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-            <span>🛡️ التخفي التلقائي وتغيير الـ IP</span>
-            <input type="checkbox" checked style="accent-color: #00ff66;">
+    </div>
+
+    <div class="report-steps-container" id="reportStepsPanel">
+        <div class="steps-header-box">
+            <span class="steps-main-title">🎯 فلاتر التوجيه الذكي الآلي</span>
+            <div class="badge-row">
+                <span class="step-badge red-badge" id="badgeReportsCount">🔴 3 بلاغ</span>
+                <span class="step-badge yellow-badge" id="badgeSpamCount">✉️ 5 سبام</span>
+            </div>
+        </div>
+
+        <div class="step-item-card">
+            <div class="step-text-content">أبلغ عن الحساب المستهدف <strong id="step1Text">3 مرات</strong> متتالية باستخدام الخيارات المعتمدة بالأسفل.</div>
+            <div class="step-number-circle">1</div>
+        </div>
+
+        <div class="step-item-card">
+            <div class="step-text-content">بلاغ <strong id="step2TypeTitle">عنف ومنظمات خطرة</strong>: اختر السبب لضرب موثوقية البايو والصورة الشخصية فوراً.</div>
+            <div class="step-number-circle">2</div>
+        </div>
+
+        <div class="step-item-card">
+            <div class="step-text-content">بلاغ <strong id="step3TypeTitle">نشاط مخالف أو احتيال</strong>: لتوجيه خوارزمية الفحص التلقائي نحو الروابط والمنشن.</div>
+            <div class="step-number-circle">3</div>
+        </div>
+
+        <div class="step-item-card">
+            <div class="step-text-content">أضف <strong id="step4Text">5 سبام</strong> لتسريع استجابة الدعم الفني للمنصة وتقوية الثقل البرمجي للبلاغ.</div>
+            <div class="step-number-circle">4</div>
         </div>
     </div>
 </div>
-
-<div class="container" id="cloudNumbersBox">
-    <div style="text-align: center;">
-        <div class="system-badge" style="color: #00ccff; border-color: rgba(0,204,255,0.3); background: rgba(0,204,255,0.05)">💾 خادم التفعيل العالمي لـ أبو زايد</div>
-    </div>
-    <h2 class="main-title">بوابة الأرقام السحابية والأكواد</h2>
-    <p class="main-desc">توليد أرقام حماية افتراضية مؤقتة لاستقبال رسائل الـ SMS وتفعيل الحسابات بشكل آمن وسحابي بالكامل.</p>
-
-    <div class="numbers-grid">
-        <div>
-            <div class="country-card">
-                <div class="country-info">
-                    <span class="flag-icon">🇸🇦</span>
-                    <div>
-                        <div class="country-name">المطور الرئيسي (أبو زايد)</div>
-                        <div class="phone-num">+966 54 845 9464</div>
-                    </div>
-                </div>
-                <a href="https://wa.me/966548459464" target="_blank" class="contact-btn-main">تواصل معي</a>
-            </div>
-        </div>
-
-        <div>
-            <div class="country-card">
-                <div class="country-info">
-                    <span class="flag-icon">🇦🇪</span>
-                    <div>
-                        <div class="country-name">الإمارات العربية المتحدة</div>
-                        <div class="phone-num">+971 50 284 1942</div>
-                    </div>
-                </div>
-                <button class="activation-btn" onclick="triggerCode('ae')">طلب كود</button>
-            </div>
-            <div class="activation-box" id="code-ae">جاري تهيئة خادم الاتصال...</div>
-        </div>
-
-        <div>
-            <div class="country-card">
-                <div class="country-info">
-                    <span class="flag-icon">🇸🇾</span>
-                    <div>
-                        <div class="country-name">الجمهورية العربية السورية</div>
-                        <div class="phone-num">+963 933 481 052</div>
-                    </div>
-                </div>
-                <button class="activation-btn" onclick="triggerCode('sy')">طلب كود</button>
-            </div>
-            <div class="activation-box" id="code-sy">جاري تهيئة خادم الاتصال...</div>
-        </div>
-
-        <div>
-            <div class="country-card">
-                <div class="country-info">
-                    <span class="flag-icon">🇷🇺</span>
-                    <div>
-                        <div class="country-name">روسيا الاتحادية</div>
-                        <div class="phone-num">+7 911 402-19-83</div>
